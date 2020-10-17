@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Material(
       child: Center(
         child: Text(
-          "Welcome to grocery store.",
+          "Welcome to grocery store",
           style: TextStyle(color: Colors.green, fontSize: 20.0),
           textAlign: TextAlign.center,
         ),
