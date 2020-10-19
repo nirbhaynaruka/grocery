@@ -86,7 +86,7 @@ class _RegisterState extends State<Register> {
                       isObsecure: true,
                     ),
                   ],
-                )),
+                ),),
             RaisedButton(
               onPressed: () => ("clicked"),
               color: Colors.pink,
