@@ -72,9 +72,10 @@ class _LoginState extends State<Login> {
                     : showDialog(
                         context: context,
                         builder: (c) {
-                          return ErrorAlertDialog(message: "Please write Email and Password",)
-                        }
-                      );
+                          return ErrorAlertDialog(
+                            message: "Please write Email and Password",
+                          );
+                        });
               },
               color: Colors.pink,
               child: Text(
@@ -90,9 +91,18 @@ class _LoginState extends State<Login> {
             ),
             SizedBox(height: 10.0),
             FlatButton.icon(
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AdminSignInPage())), 
-              icon: (Icon(Icons.nature_people, color: Colors.pink,)), 
-              label: Text("I'm Admin", style: TextStyle(color: Colors.pink, fontWeight: FontWeight.bold),),),
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AdminSignInPage())),
+              icon: (Icon(
+                Icons.nature_people,
+                color: Colors.pink,
+              )),
+              label: Text(
+                "I'm Admin",
+                style:
+                    TextStyle(color: Colors.pink, fontWeight: FontWeight.bold),
+              ),
+            ),
           ],
         ),
       ),
@@ -100,9 +110,12 @@ class _LoginState extends State<Login> {
   }
 
   void loginUser() async {
-    showDialog(context: context,
-    builder: (c) {
-      return LoadingAlertDialog(message: "Authenticating, Please wait...",);
-    })
+    showDialog(
+        context: context,
+        builder: (c) {
+          return LoadingAlertDialog(
+            message: "Authenticating, Please wait...",
+          );
+        });
   }
 }
