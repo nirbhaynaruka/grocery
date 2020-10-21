@@ -70,6 +70,7 @@ class _StoreHomeState extends State<StoreHome> {
                       Positioned(
                         top: 3.0,
                         bottom: 4.0,
+                        left: 6.0,
                         child: Consumer<CartItemCounter>(
                           builder: (context, counter, _) {
                             return Text(
@@ -91,6 +92,38 @@ class _StoreHomeState extends State<StoreHome> {
           ],
         ),
         drawer: MyDrawer(),
+        body: CustomScrollView(
+          slivers: [
+            SliverPersistentHeader(
+              delegate: SearchBoxDelegate(),
+              pinned: true,
+            ),
+            StreamBuilder<QuerySnapshot>(
+              stream: Firestore.instance
+                  .collection("items")
+                  .orderBy("publishedDate", descending: true)
+                  .snapshots(),
+              builder: (context, dataSnapshot) {
+                return !dataSnapshot.hasData
+                    ? SliverToBoxAdapter(
+                        child: Center(
+                          child: circularProgress(),
+                        ),
+                      )
+                    : SliverStaggeredGrid.countBuilder(
+                        crossAxisCount: 1,
+                        staggeredTileBuilder: (c) => StaggeredTile.fit(1),
+                        itemBuilder: (context, index) {
+                          ItemModel model = ItemModel.fromJson(
+                              dataSnapshot.data.documents[index].data);
+                          return sourceInfo(model, context);
+                        },
+                        itemCount: dataSnapshot.data.documents.length
+                        );
+              },
+            )
+          ],
+        ),
       ),
     );
   }
@@ -98,7 +131,42 @@ class _StoreHomeState extends State<StoreHome> {
 
 Widget sourceInfo(ItemModel model, BuildContext context,
     {Color background, removeCartFunction}) {
-  return InkWell();
+  return InkWell(
+    splashColor: Colors.pink,
+    child: Padding(padding: EdgeInsets.all(6.0),
+    child: Container(height: 190.0,
+    width: width,
+    child: Row(children: [
+      Image.network(model.thumbnailUrl,width: 140.0,height: 140.0,),
+      SizedBox(width: 4.0,),
+      Expanded(child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 15.0,),
+          Container(
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(child: Text(model.title, style: TextStyle(color: Colors.black),)),
+              ],
+            ),
+          ),
+          SizedBox(height: 5.0),
+           Container(
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(child: Text(model.shortInfo, style: TextStyle(color: Colors.black54),)),
+              ],
+            ),
+          ),
+
+        ],
+      ),)
+    ],),
+    ),
+    ),
+  );
 }
 
 Widget card({Color primaryColor = Colors.redAccent, String imgPath}) {

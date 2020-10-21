@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:grocery/Counters/BookQuantity.dart';
+import 'package:grocery/Counters/ItemQuantity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,20 +18,28 @@ Future<void> main() async {
   EcommerceApp.sharedPreferences = await SharedPreferences.getInstance();
   EcommerceApp.firestore = Firestore.instance;
 
-
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiProvider(providers: [
+      ChangeNotifierProvider(create: (c)=> CartItemCounter()),
+      ChangeNotifierProvider(create: (c)=> CartItemCounter()),
+      ChangeNotifierProvider(create: (c)=> AddressChanger()),
+      ChangeNotifierProvider(create: (c)=> TotalAmount()),
+
+    ],
+    child: MaterialApp(
         title: 'Grocery App',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: Colors.green,
         ),
-        home: SplashScreen());
+        home: SplashScreen()
+        ),
+    );
   }
 }
 

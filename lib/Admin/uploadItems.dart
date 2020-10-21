@@ -154,7 +154,7 @@ class _UploadPageState extends State<UploadPage>
           title: Text("New product", style: TextStyle(color: Colors.white)),
           actions: [
             FlatButton(
-                onPressed: uploading ? null : () => uploadImageandSave(),
+                onPressed: uploading ? null : () => uploadImageandSaveItemInfo(),
                 child: Text("add",
                     style: TextStyle(
                       color: Colors.green,
@@ -282,13 +282,13 @@ class _UploadPageState extends State<UploadPage>
     });
   }
 
-  uploadImageandSave() async {
+  uploadImageandSaveItemInfo() async {
     setState(() {
       uploading = true;
     });
-    String imagedownloadurl = await uploadItemImage(file);
+    String imageDownloadUrl = await uploadItemImage(file);
 
-    saveiteminfo(imagedownloadurl);
+    saveiteminfo(imageDownloadUrl);
   }
 
   Future<String> uploadItemImage(mfileImage) async {
@@ -301,7 +301,7 @@ class _UploadPageState extends State<UploadPage>
     return downloadUrl;
   }
 
-  saveiteminfo(String downloadurl) {
+  saveiteminfo(String downloadUrl) {
     final itemsRef = Firestore.instance.collection("items");
     itemsRef.document(productId).setData({
       "shortInfo": _shorttextEditingController.text.trim(),
@@ -309,7 +309,7 @@ class _UploadPageState extends State<UploadPage>
       "price": _pricetextEditingController.text.trim(),
       "publishedDate": DateTime.now(),
       "status": "available",
-      "thumbnailUrl": downloadurl,
+      "thumbnailUrl": downloadUrl,
       "title": _titletextEditingController.text.trim(),
     });
     setState(() {
