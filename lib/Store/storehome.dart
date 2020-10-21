@@ -131,6 +131,10 @@ class _StoreHomeState extends State<StoreHome> {
 Widget sourceInfo(ItemModel model, BuildContext context,
     {Color background, removeCartFunction}) {
   return InkWell(
+    onTap: () {
+      Route route = MaterialPageRoute(builder: (c) => ProductPage(itemModel: model));
+      Navigator.pushReplacement(context, route);
+    },
     splashColor: Colors.pink,
     child: Padding(
       padding: EdgeInsets.all(6.0),

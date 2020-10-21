@@ -89,7 +89,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(
-                    Icons.home,
+                    Icons.shopping_cart,
                     color: Colors.white,
                   ),
                   title: Text(
@@ -108,7 +108,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(
-                    Icons.home,
+                    Icons.shopping_cart,
                     color: Colors.white,
                   ),
                   title: Text(
@@ -127,7 +127,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(
-                    Icons.home,
+                    Icons.search,
                     color: Colors.white,
                   ),
                   title: Text(
@@ -147,7 +147,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(
-                    Icons.home,
+                    Icons.add_location,
                     color: Colors.white,
                   ),
                   title: Text(
@@ -167,7 +167,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(
-                    Icons.home,
+                    Icons.all_out,
                     color: Colors.white,
                   ),
                   title: Text(
