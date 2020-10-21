@@ -28,8 +28,8 @@ class _RegisterState extends State<Register> {
       TextEditingController();
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
-  String userImageUrl = "";
-  File _imageFile;
+  // String userImageUrl = "";
+  // File _imageFile;
   @override
   Widget build(BuildContext context) {
     double _screenWidth = MediaQuery.of(context).size.width,
@@ -41,22 +41,22 @@ class _RegisterState extends State<Register> {
             SizedBox(
               height: 10.0,
             ),
-            InkWell(
-              onTap: () => _selectAndPickImage,
-              child: CircleAvatar(
-                radius: _screenWidth * 0.15,
-                backgroundColor: Colors.white,
-                backgroundImage:
-                    _imageFile == null ? null : FileImage(_imageFile),
-                child: _imageFile == null
-                    ? Icon(
-                        Icons.add_photo_alternate,
-                        size: _screenWidth * 0.15,
-                        color: Colors.grey,
-                      )
-                    : null,
-              ),
-            ),
+            // InkWell(
+            //   onTap: () => _selectAndPickImage,
+            //   child: CircleAvatar(
+            //     radius: _screenWidth * 0.15,
+            //     backgroundColor: Colors.white,
+            //     backgroundImage:
+            //         _imageFile == null ? null : FileImage(_imageFile),
+            //     child: _imageFile == null
+            //         ? Icon(
+            //             Icons.add_photo_alternate,
+            //             size: _screenWidth * 0.15,
+            //             color: Colors.grey,
+            //           )
+            //         : null,
+            //   ),
+            // ),
             SizedBox(
               height: 8.0,
             ),
@@ -114,20 +114,20 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  Future<void> _selectAndPickImage() async {
-    _imageFile = await ImagePicker.pickImage(source: ImageSource.camera);
-  }
+  // Future<void> _selectAndPickImage() async {
+  //   _imageFile = await ImagePicker.pickImage(source: ImageSource.camera);
+  // }
 
   Future<void> uploadandsaveimage() async {
-    if (_imageFile == null) {
-      showDialog(
-          context: context,
-          builder: (c) {
-            return ErrorAlertDialog(
-              message: "please select an image",
-            );
-          });
-    } else {
+    // if (_imageFile == null) {
+    //   showDialog(
+    //       context: context,
+    //       builder: (c) {
+    //         return ErrorAlertDialog(
+    //           message: "please select an image",
+    //         );
+    //       });
+    // } else {
       _passwordTextEditingController.text ==
               _cPasswordTextEditingController.text
           ? _emailTextEditingController.text.isNotEmpty &&
@@ -135,9 +135,10 @@ class _RegisterState extends State<Register> {
                   _cPasswordTextEditingController.text.isNotEmpty &&
                   _nameTextEditingController.text.isEmpty
               ? uploadtostorage()
-              : displayDialog("please fill up the complete form...")
+              :uploadtostorage()
+              // : displayDialog("please fill up the complete form...")
           : displayDialog("password do not match");
-    }
+    // }
   }
 
   displayDialog(String msg) {
@@ -159,18 +160,17 @@ class _RegisterState extends State<Register> {
           );
         });
 
-    String imageFileName = DateTime.now().millisecondsSinceEpoch.toString();
+    // String imageFileName = DateTime.now().millisecondsSinceEpoch.toString();
 
-    StorageReference storageReference =
-        FirebaseStorage.instance.ref().child(imageFileName);
-    StorageUploadTask storageUploadTask = storageReference.putFile(_imageFile);
+    // StorageReference storageReference =
+    //     FirebaseStorage.instance.ref().child(imageFileName);
+    // StorageUploadTask storageUploadTask = storageReference.putFile(_imageFile);
 
-    StorageTaskSnapshot taskSnapshot = await storageUploadTask.onComplete;
-    await taskSnapshot.ref
-      ..getDownloadURL().then((urlImage) {
-        userImageUrl = urlImage;
+    // StorageTaskSnapshot taskSnapshot = await storageUploadTask.onComplete;
+    // await taskSnapshot.ref.getDownloadURL().then((urlImage) {
+    //     userImageUrl = urlImage;
+    //   });
         _registerUser();
-      });
   }
 
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -207,14 +207,14 @@ class _RegisterState extends State<Register> {
       "uid": fUser.uid,
       "email": fUser.email,
       "name": _nameTextEditingController.text.trim(),
-      "url": userImageUrl,
+      // "url": userImageUrl,
     });
 
     await EcommerceApp.sharedPreferences.setString("uid", fUser.uid);
     await EcommerceApp.sharedPreferences.setString("email", fUser.email);
     await EcommerceApp.sharedPreferences
         .setString("name", _nameTextEditingController.text.trim());
-    await EcommerceApp.sharedPreferences.setString("url", userImageUrl);
+    // await EcommerceApp.sharedPreferences.setString("url", userImageUrl);
     await EcommerceApp.sharedPreferences
         .setStringList(EcommerceApp.userCartList, ["garbageValue"]);
   }
