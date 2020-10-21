@@ -17,9 +17,121 @@ class UploadPage extends StatefulWidget {
 class _UploadPageState extends State<UploadPage>
     with AutomaticKeepAliveClientMixin<UploadPage> {
   bool get wantKeepAlive => true;
-
+  File file;
   @override
   Widget build(BuildContext context) {
-    return Text("");
+    return displayAdminHomeScreen();
+  }
+
+  displayAdminHomeScreen() {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.amber,
+        leading: IconButton(
+            icon: Icon(
+              Icons.border_color,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Route route =
+                  MaterialPageRoute(builder: (c) => AdminShiftOrders());
+              Navigator.pushReplacement(context, route);
+            }),
+        actions: [
+          FlatButton(
+              onPressed: () {
+                Route route = MaterialPageRoute(builder: (c) => SplashScreen());
+                Navigator.pushReplacement(context, route);
+              },
+              child: Text(
+                "Logout",
+                style: TextStyle(color: Colors.pink),
+              )),
+        ],
+      ),
+      body: getAdminHomeScreen(),
+    );
+  }
+
+  getAdminHomeScreen() {
+    return Container(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.shop_two,
+              color: Colors.white,
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 20.0),
+              child: RaisedButton(
+                onPressed: () => takeImage(context),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(9.0)),
+                child:
+                    Text("Add New item", style: TextStyle(color: Colors.white)),
+                color: Colors.green,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  takeImage(mContext) {
+    return showDialog(
+        context: mContext,
+        builder: (con) {
+          return SimpleDialog(
+            title: Text(
+              "item image",
+              style: TextStyle(color: Colors.green),
+            ),
+            children: [
+              SimpleDialogOption(
+                child: Text(
+                  "capture with camera",
+                  style: TextStyle(color: Colors.green),
+                ),
+                onPressed: capturPhotoWithCamera,
+              ),
+              SimpleDialogOption(
+                child: Text(
+                  "capture with gallery",
+                  style: TextStyle(color: Colors.green),
+                ),
+                onPressed: capturPhotoWithGallery,
+              ),
+              SimpleDialogOption(
+                  child: Text(
+                    "Cancel",
+                    style: TextStyle(color: Colors.green),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  })
+            ],
+          );
+        });
+  }
+
+  capturPhotoWithCamera() async {
+    Navigator.pop(context);
+
+    File imageFile = await ImagePicker.pickImage(
+        source: ImageSource.camera, maxHeight: 680.0);
+    setState(() {
+      file = imageFile;
+    });
+  }
+
+  capturPhotoWithGallery() async {
+    Navigator.pop(context);
+    File imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      file = imageFile;
+    });
   }
 }
