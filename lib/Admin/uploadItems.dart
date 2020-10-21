@@ -61,7 +61,8 @@ class _UploadPageState extends State<UploadPage>
           children: [
             Icon(
               Icons.shop_two,
-              color: Colors.white,
+              color: Colors.amber,
+              size: 200.0,
             ),
             Padding(
               padding: EdgeInsets.only(top: 20.0),

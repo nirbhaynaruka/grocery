@@ -41,7 +41,7 @@ class MyDrawer extends StatelessWidget {
                 //     ),
                 //   ),
                 // ),
-                // SizedBox(height: 10.0),
+                SizedBox(height: 30.0),
                 Text(
                   EcommerceApp.sharedPreferences
                       .getString(EcommerceApp.userName),
