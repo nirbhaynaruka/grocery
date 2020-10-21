@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:grocery/Admin/adminLogin.dart';
 import 'package:grocery/Widgets/customTextField.dart';
 import 'package:grocery/DialogBox/errorDialog.dart';
@@ -109,6 +110,7 @@ class _LoginState extends State<Login> {
     );
   }
 
+  FirebaseAuth _auth = FirebaseAuth.instance;
   void loginUser() async {
     showDialog(
         context: context,
@@ -117,5 +119,52 @@ class _LoginState extends State<Login> {
             message: "Authenticating, Please wait...",
           );
         });
+
+    FirebaseUser firebaseUser;
+    await _auth
+        .signInWithEmailAndPassword(
+      email: _emailTextEditingController.text.trim(),
+      password: _passwordTextEditingController.text.trim(),
+    )
+        .then((authUser) {
+      firebaseUser = authUser.user;
+    }).catchError((error) {
+      Navigator.pop(context);
+      showDialog(
+          context: context,
+          builder: (c) {
+            return ErrorAlertDialog(
+              message: error.message.toString(),
+            );
+          });
+    });
+
+    if (firebaseUser != null) {
+      readData(firebaseUser).then((s) {
+        Navigator.pop(context);
+        Route route = MaterialPageRoute(builder: (c) => StoreHome());
+        Navigator.pushReplacement(context, route);
+      });
+    }
+  }
+
+  Future readData(FirebaseUser fUser) async {
+    Firestore.instance
+        .collection("users")
+        .document(fUser.uid)
+        .get()
+        .then((dataSnapshot) async {
+      await EcommerceApp.sharedPreferences
+          .setString("uid", dataSnapshot.data[EcommerceApp.userUID]);
+      await EcommerceApp.sharedPreferences
+          .setString("email", dataSnapshot.data[EcommerceApp.userEmail]);
+      await EcommerceApp.sharedPreferences
+          .setString("name", dataSnapshot.data[EcommerceApp.userName]);
+      // await EcommerceApp.sharedPreferences.setString("url", userImageUrl);
+      List<String> cartList =
+          dataSnapshot.data[EcommerceApp.userCartList].cast<String>();
+      await EcommerceApp.sharedPreferences
+          .setStringList(EcommerceApp.userCartList, cartList);
+    });
   }
 }

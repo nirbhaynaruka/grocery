@@ -118,8 +118,7 @@ class _StoreHomeState extends State<StoreHome> {
                               dataSnapshot.data.documents[index].data);
                           return sourceInfo(model, context);
                         },
-                        itemCount: dataSnapshot.data.documents.length
-                        );
+                        itemCount: dataSnapshot.data.documents.length);
               },
             )
           ],
@@ -133,38 +132,161 @@ Widget sourceInfo(ItemModel model, BuildContext context,
     {Color background, removeCartFunction}) {
   return InkWell(
     splashColor: Colors.pink,
-    child: Padding(padding: EdgeInsets.all(6.0),
-    child: Container(height: 190.0,
-    width: width,
-    child: Row(children: [
-      Image.network(model.thumbnailUrl,width: 140.0,height: 140.0,),
-      SizedBox(width: 4.0,),
-      Expanded(child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 15.0,),
-          Container(
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(child: Text(model.title, style: TextStyle(color: Colors.black),)),
-              ],
+    child: Padding(
+      padding: EdgeInsets.all(6.0),
+      child: Container(
+        height: 190.0,
+        width: width,
+        child: Row(
+          children: [
+            Image.network(
+              model.thumbnailUrl,
+              width: 140.0,
+              height: 140.0,
             ),
-          ),
-          SizedBox(height: 5.0),
-           Container(
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(child: Text(model.shortInfo, style: TextStyle(color: Colors.black54),)),
-              ],
+            SizedBox(
+              width: 4.0,
             ),
-          ),
-
-        ],
-      ),)
-    ],),
-    ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  Container(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            model.title,
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 5.0),
+                  Container(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            model.shortInfo,
+                            style: TextStyle(
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20.0),
+                  Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          color: Colors.pink,
+                        ),
+                        alignment: Alignment.topLeft,
+                        width: 40.0,
+                        height: 43.0,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "50%",
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                              Text(
+                                "OFF",
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10.0),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 0.0),
+                            child: Row(
+                              children: [
+                                Text(
+                                  r"Original Price: $",
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.grey,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                ),
+                                Text(
+                                  (model.price + model.price).toString(),
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                    color: Colors.grey,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 5.0),
+                            child: Row(
+                              children: [
+                                Text(
+                                  r"New Price: ",
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                Text(
+                                  r"$",
+                                  style: TextStyle(
+                                    color: Colors.red, fontSize: 16.0,
+                                  ),
+                                ),
+                                Text(
+                                  (model.price + model.price).toString(),
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Flexible(
+                    child: Container(),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     ),
   );
 }
