@@ -15,17 +15,7 @@ class _AuthenticScreenState extends State<AuthenticScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          flexibleSpace: Container(
-            decoration: new BoxDecoration(
-              gradient: new LinearGradient(
-                colors: [Colors.pink, Colors.lightGreenAccent],
-                begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(1.0, 0.0),
-                stops: [0.0, 1.0],
-                tileMode: TileMode.clamp,
-              ),
-            ),
-          ),
+         
           title: Text(
             "Grocery Shop",
             style: TextStyle(
