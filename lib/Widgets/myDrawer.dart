@@ -27,21 +27,21 @@ class MyDrawer extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Material(
-                  borderRadius: BorderRadius.all(Radius.circular(80.0)),
-                  elevation: 8.0,
-                  child: Container(
-                    height: 160.0,
-                    width: 160.0,
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        EcommerceApp.sharedPreferences
-                            .getString(EcommerceApp.userAvatarUrl),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10.0),
+                // Material(
+                //   borderRadius: BorderRadius.all(Radius.circular(80.0)),
+                //   elevation: 8.0,
+                //   child: Container(
+                //     height: 160.0,
+                //     width: 160.0,
+                //     child: CircleAvatar(
+                //       backgroundImage: NetworkImage(
+                //         EcommerceApp.sharedPreferences
+                //             .getString(EcommerceApp.userAvatarUrl),
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // SizedBox(height: 10.0),
                 Text(
                   EcommerceApp.sharedPreferences
                       .getString(EcommerceApp.userName),
