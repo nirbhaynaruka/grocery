@@ -12,6 +12,12 @@ String getOrderId = "";
 
 class OrderDetails extends StatelessWidget {
   @override
+  final String orderId;
+  OrderDetails({
+    Key key,
+    this.orderId,
+  }) : super(key: key);
+  
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(),
