@@ -18,10 +18,31 @@ class AdminOrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell();
+    return 
+       InkWell(
+      onTap: () {
+        Route route;
+        if (counter == 0) {
+          counter = counter + 1;
+          route =
+              MaterialPageRoute(builder: (c) => AdminOrderDetails(orderID: orderID, orderBy: orderBy, addressId: addressID));
+        }
+        Navigator.push(context, route);
+      },
+      child: Container(
+        padding: EdgeInsets.all(10.0),
+        margin: EdgeInsets.all(10.0),
+        height: itemCount * 190.0,
+        child: ListView.builder(
+          itemBuilder: (c, index) {
+            ItemModel model = ItemModel.fromJson(data[index].data);
+            return sourceInfo(model, context);
+          },
+          itemCount: itemCount,
+          physics: NeverScrollableScrollPhysics(),
+        ),
+      ),
+    );
   }
 }
 
-Widget sourceInfo(ItemModel model, BuildContext context, {Color background}) {
-  return Container();
-}
