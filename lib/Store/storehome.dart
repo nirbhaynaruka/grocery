@@ -38,7 +38,7 @@ class _StoreHomeState extends State<StoreHome> {
             ),
           ),
           title: Text(
-            "Grocery Shop",
+            "Nature Coop",
             style: TextStyle(
               fontSize: 55.0,
               color: Colors.white,
@@ -56,7 +56,7 @@ class _StoreHomeState extends State<StoreHome> {
                   ),
                   onPressed: () {
                     Route route = MaterialPageRoute(builder: (c) => CartPage());
-                    Navigator.pushReplacement(context, route);
+                    Navigator.push(context, route);
                   },
                 ),
                 Positioned(
@@ -139,7 +139,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
     onTap: () {
       Route route =
           MaterialPageRoute(builder: (c) => ProductPage(itemModel: model));
-      Navigator.pushReplacement(context, route);
+      Navigator.push(context, route);
     },
     splashColor: Colors.pink,
     child: Padding(

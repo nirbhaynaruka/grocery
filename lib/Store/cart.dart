@@ -40,15 +40,71 @@ class _CartPageState extends State<CartPage> {
           } else {
             Route route = MaterialPageRoute(
                 builder: (c) => Address(totalAmount: totalAmmount));
-            Navigator.pushReplacement(context, route);
+            Navigator.push(context, route);
           }
         },
         label: Text("Check Out"),
         backgroundColor: Colors.green,
         icon: Icon(Icons.navigate_next),
       ),
-      appBar: MyAppBar(),
-      drawer: MyDrawer(),
+      appBar: AppBar(
+      automaticallyImplyLeading: true,
+      iconTheme: IconThemeData(
+        color: Colors.white,
+      ),
+      centerTitle: true,
+      title: Text(
+        "Nature_Coop",
+        style: TextStyle(color: Colors.white),
+      ),
+      actions: [
+        Stack(
+          children: [
+            IconButton(
+              icon: Icon(
+                Icons.shopping_cart,
+                color: Colors.pink,
+              ),
+              onPressed: null,
+            ),
+            Positioned(
+              child: Stack(
+                children: [
+                  Icon(
+                    Icons.brightness_1,
+                    size: 20.0,
+                    color: Colors.green,
+                  ),
+                  Positioned(
+                    top: 3.0,
+                    bottom: 4.0,
+                    left: 6.0,
+                    child: Consumer<CartItemCounter>(
+                      builder: (context, counter, _) {
+                        return Text(
+                          (EcommerceApp.sharedPreferences
+                                      .getStringList(EcommerceApp.userCartList)
+                                      .length -
+                                  1)
+                              .toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+      
+      // drawer: MyDrawer(),
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(

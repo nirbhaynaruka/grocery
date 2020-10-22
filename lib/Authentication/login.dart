@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:grocery/Admin/adminLogin.dart';
+import 'package:grocery/Admin/uploadItems.dart';
 import 'package:grocery/Widgets/customTextField.dart';
 import 'package:grocery/DialogBox/errorDialog.dart';
 import 'package:grocery/DialogBox/loadingDialog.dart';
@@ -142,7 +143,10 @@ class _LoginState extends State<Login> {
     if (firebaseUser != null) {
       readData(firebaseUser).then((s) {
         Navigator.pop(context);
-        Route route = MaterialPageRoute(builder: (c) => StoreHome());
+        Route route = MaterialPageRoute(builder: (c) => 
+        // EcommerceApp.sharedPreferences
+        //               .getString(EcommerceApp.userName) == "Sudhanshu" ? UploadPage() : 
+                      StoreHome());
         Navigator.pushReplacement(context, route);
       });
     }

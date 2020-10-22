@@ -84,7 +84,7 @@ class _AddressState extends State<Address> {
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             Route route = MaterialPageRoute(builder: (c) => AddAddress());
-            Navigator.pushReplacement(context, route);
+            Navigator.push(context, route);
           },
           label: Text("Add New Address"),
           backgroundColor: Colors.green,

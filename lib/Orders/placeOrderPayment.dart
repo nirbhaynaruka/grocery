@@ -92,7 +92,7 @@ class _PaymentPageState extends State<PaymentPage> {
           .setStringList(EcommerceApp.userCartList, tempList);
     });
     Fluttertoast.showToast(
-        msg: "congrats, your order has bee placed succesfully");
+        msg: "congrats, your order has been placed succesfully");
     Route route = MaterialPageRoute(builder: (c) => SplashScreen());
     Navigator.push(context, route);
   }

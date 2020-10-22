@@ -63,7 +63,8 @@ class _MyOrdersState extends State<AdminShiftOrders> {
                       );
                     },
                   )
-                : Center(
+                : 
+                Center(
                     child: circularProgress(),
                   );
           },

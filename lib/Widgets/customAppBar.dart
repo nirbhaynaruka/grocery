@@ -11,12 +11,13 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      // automaticallyImplyLeading: true,
       iconTheme: IconThemeData(
         color: Colors.white,
       ),
       centerTitle: true,
       title: Text(
-        "grocery_shop",
+        "Nature_Coop",
         style: TextStyle(color: Colors.white),
       ),
       bottom: bottom,
@@ -30,7 +31,7 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
               ),
               onPressed: () {
                 Route route = MaterialPageRoute(builder: (c) => CartPage());
-                Navigator.pushReplacement(context, route);
+                Navigator.push(context, route);
               },
             ),
             Positioned(

@@ -21,7 +21,7 @@ class _ProductPageState extends State<ProductPage> {
     return SafeArea(
       child: Scaffold(
         appBar: MyAppBar(),
-        drawer: MyDrawer(),
+        // drawer: MyDrawer(),
         body: ListView(
           children: [
             Container(

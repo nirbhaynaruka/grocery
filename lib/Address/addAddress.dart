@@ -20,6 +20,7 @@ class AddAddress extends StatelessWidget {
       child: Scaffold(
         key: scafflodKey,
         appBar: MyAppBar(),
+        
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             if (formKey.currentState.validate()) {
