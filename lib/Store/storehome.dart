@@ -276,7 +276,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                   ),
                                 ),
                                 Text(
-                                  (model.price + model.price).toString(),
+                                  (model.price).toString(),
                                   style: TextStyle(
                                     fontSize: 15.0,
                                     color: Colors.grey,

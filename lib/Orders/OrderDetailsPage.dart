@@ -17,7 +17,7 @@ class OrderDetails extends StatelessWidget {
     Key key,
     this.orderId,
   }) : super(key: key);
-  
+
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(),
@@ -26,6 +26,8 @@ class OrderDetails extends StatelessWidget {
 }
 
 class StatusBanner extends StatelessWidget {
+  final bool status;
+  StatusBanner({Key key, this.status}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container();
