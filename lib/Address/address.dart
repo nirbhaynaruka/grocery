@@ -12,6 +12,8 @@ import 'package:provider/provider.dart';
 import 'addAddress.dart';
 
 class Address extends StatefulWidget {
+  final double totalAmount;
+  const Address({Key key, this.totalAmount}) : super(key: key);
   @override
   _AddressState createState() => _AddressState();
 }

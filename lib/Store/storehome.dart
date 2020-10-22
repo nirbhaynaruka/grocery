@@ -132,7 +132,8 @@ Widget sourceInfo(ItemModel model, BuildContext context,
     {Color background, removeCartFunction}) {
   return InkWell(
     onTap: () {
-      Route route = MaterialPageRoute(builder: (c) => ProductPage(itemModel: model));
+      Route route =
+          MaterialPageRoute(builder: (c) => ProductPage(itemModel: model));
       Navigator.pushReplacement(context, route);
     },
     splashColor: Colors.pink,
@@ -265,7 +266,8 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                 Text(
                                   r"$",
                                   style: TextStyle(
-                                    color: Colors.red, fontSize: 16.0,
+                                    color: Colors.red,
+                                    fontSize: 16.0,
                                   ),
                                 ),
                                 Text(
@@ -285,6 +287,25 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                   Flexible(
                     child: Container(),
                   ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: removeCartFunction == null
+                        ? IconButton(
+                            icon: Icon(
+                              Icons.add_shopping_cart,
+                              color: Colors.pinkAccent,
+                            ),
+                            onPressed: () {
+                              checkItemInCart(model.shortInfo, context);
+                            })
+                        : IconButton(
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.pinkAccent,
+                            ),
+                            onPressed: null),
+                  ),
+                  Divider(height: 5.0, color: Colors.black),
                 ],
               ),
             )
@@ -299,4 +320,28 @@ Widget card({Color primaryColor = Colors.redAccent, String imgPath}) {
   return Container();
 }
 
-void checkItemInCart(String productID, BuildContext context) {}
+void checkItemInCart(String productID, BuildContext context) {
+  EcommerceApp.sharedPreferences
+          .getStringList(EcommerceApp.userCartList)
+          .contains(productID)
+      ? Fluttertoast.showToast(msg: "Item is Already in the Cart!")
+      : addItemToCart(productID, context);
+}
+
+addItemToCart(String productID, BuildContext context) {
+  List tempCartList =
+      EcommerceApp.sharedPreferences.getStringList(EcommerceApp.userCartList);
+  tempCartList.add(productID);
+
+  EcommerceApp.firestore
+      .collection(EcommerceApp.collectionUser)
+      .document(EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID))
+      .updateData({
+    EcommerceApp.userCartList: tempCartList,
+  }).then((v) {
+    Fluttertoast.showToast(msg: "Item Added to Cart Successfully.");
+    EcommerceApp.sharedPreferences
+        .setStringList(EcommerceApp.userCartList, tempCartList);
+    Provider.of<CartItemCounter>(context, listen: false).displayResult();
+  });
+}

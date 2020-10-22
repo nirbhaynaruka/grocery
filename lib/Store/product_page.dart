@@ -79,7 +79,7 @@ class _ProductPageState extends State<ProductPage> {
                     padding: EdgeInsets.only(top: 8.0),
                     child: Center(
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () => checkItemInCart(widget.itemModel.shortInfo, context),
                         child: Container(
             decoration: new BoxDecoration(
               gradient: new LinearGradient(
@@ -92,9 +92,10 @@ class _ProductPageState extends State<ProductPage> {
             ),
           ),
                           width: MediaQuery.of(context).size.width - 40.0,
+                          height: 50.0,
                           child: Center(
                             child: Text(
-                              "add to cart",
+                              "Add to Cart",
                               style: TextStyle(color: Colors.white),
                             ),
                           ),

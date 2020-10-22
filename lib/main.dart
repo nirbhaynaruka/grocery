@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
       ChangeNotifierProvider(create: (c)=> CartItemCounter()),
-      ChangeNotifierProvider(create: (c)=> CartItemCounter()),
+      ChangeNotifierProvider(create: (c)=> ItemQuantity()),
       ChangeNotifierProvider(create: (c)=> AddressChanger()),
       ChangeNotifierProvider(create: (c)=> TotalAmount()),
 
