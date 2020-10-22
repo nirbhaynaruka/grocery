@@ -1,4 +1,5 @@
 import 'package:grocery/Config/config.dart';
+import 'package:grocery/Store/storehome.dart';
 import 'package:grocery/Widgets/customAppBar.dart';
 import 'package:grocery/Models/address.dart';
 import 'package:flutter/material.dart';
@@ -45,10 +46,13 @@ class AddAddress extends StatelessWidget {
                 FocusScope.of(context).requestFocus(FocusNode());
                 formKey.currentState.reset();
               });
+
+              Route route = MaterialPageRoute(builder: (c) => StoreHome());
+              Navigator.push(context, route);
             }
           },
           label: Text("Done"),
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.green,
           icon: Icon(Icons.check),
         ),
         body: SingleChildScrollView(
