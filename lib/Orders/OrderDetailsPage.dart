@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:grocery/Address/address.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:grocery/Store/storehome.dart';
 import 'package:grocery/Widgets/loadingWidget.dart';
@@ -6,6 +8,7 @@ import 'package:grocery/Widgets/orderCard.dart';
 import 'package:grocery/Models/address.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:grocery/main.dart';
 import 'package:intl/intl.dart';
 
 String getOrderId = "";
@@ -30,7 +33,52 @@ class StatusBanner extends StatelessWidget {
   StatusBanner({Key key, this.status}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container();
+    String msg;
+    IconData iconData;
+
+    status ? iconData = Icons.done : iconData = Icons.cancel;
+    status ? msg = "Successful" : msg = "unSuccesffull";
+
+    return Container(
+      height: 40.0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          GestureDetector(
+            onTap: () {
+              SystemNavigator.pop();
+            },
+            child: Container(
+              child: Icon(
+                Icons.arrow_drop_down_circle,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 20.0,
+          ),
+          Text(
+            "order placed" + msg,
+            style: TextStyle(color: Colors.green),
+          ),
+          SizedBox(
+            width: 5.0,
+          ),
+          CircleAvatar(
+            radius: 8.0,
+            backgroundColor: Colors.grey,
+            child: Center(
+              child: Icon(
+                iconData,
+                color: Colors.white,
+                size: 14.0,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
 
@@ -42,15 +90,103 @@ class PaymentDetailsCard extends StatelessWidget {
 }
 
 class ShippingDetails extends StatelessWidget {
+  final AddressModel model;
+  ShippingDetails({Key key, this.model}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Column();
-  }
-}
+    double screenWidth = MediaQuery.of(context).size.width;
 
-class KeyText extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Text("");
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 20.0,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.0),
+          child: Text(
+            "Shipment Details:",
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 90.0, vertical: 5.0),
+          width: screenWidth,
+          child: Table(
+            children: [
+              TableRow(
+                children: [
+                  KeyText(msg: "Name"),
+                  Text(model.name),
+                ],
+              ),
+              TableRow(
+                children: [
+                  KeyText(msg: "Phone Number"),
+                  Text(model.phoneNumber),
+                ],
+              ),
+              TableRow(
+                children: [
+                  KeyText(msg: "Flat Number / House Number"),
+                  Text(model.flatNumber),
+                ],
+              ),
+              TableRow(
+                children: [
+                  KeyText(msg: "City"),
+                  Text(model.city),
+                ],
+              ),
+              TableRow(
+                children: [
+                  KeyText(msg: "State"),
+                  Text(model.state),
+                ],
+              ),
+              TableRow(
+                children: [
+                  KeyText(msg: "Pincode"),
+                  Text(model.pincode),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(10.0),
+          child: InkWell(
+            onTap: () {
+              confirmedOrderRec(context, getOrderId);
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width - 40.0,
+              child: Center(
+                child: Text(
+                  "confirmed || Item REceived",
+                  style: TextStyle(color: Colors.white, fontSize: 15.0),
+                ),
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  confirmedOrderRec(BuildContext context, String mOrderId) {
+    EcommerceApp.firestore
+        .collection(EcommerceApp.collectionUser)
+        .document(
+            EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID))
+        .collection(EcommerceApp.collectionOrders)
+        .document(mOrderId)
+        .delete();
+
+    getOrderId = "";
+    Route route = MaterialPageRoute(builder: (c) => SplashScreen());
+    Navigator.push(context, route);
+
+    Fluttertoast.showToast(msg: "Order has been Received. Confirmed.");
   }
 }
