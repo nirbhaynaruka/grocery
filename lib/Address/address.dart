@@ -94,7 +94,7 @@ class _AddressState extends State<Address> {
         ),
       ),
     );
-  }
+  }      
 
   noAddressCard() {
     return Card(
