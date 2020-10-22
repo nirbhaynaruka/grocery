@@ -21,7 +21,22 @@ class Address extends StatefulWidget {
 class _AddressState extends State<Address> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea();
+    return SafeArea(
+      child: Scaffold(
+        appBar: MyAppBar(),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            Route route = MaterialPageRoute(builder: (c) => AddAddress());
+            Navigator.pushReplacement(context, route);
+          },
+          label: Text("Add New Address"),
+          backgroundColor: Colors.white,
+          icon: Icon(
+            Icons.add_location,
+          ),
+        ),
+      ),
+    );
   }
 
   noAddressCard() {

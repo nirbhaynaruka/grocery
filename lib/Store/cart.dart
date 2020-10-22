@@ -87,29 +87,32 @@ class _CartPageState extends State<CartPage> {
                   : snapshot.data.documents.length == 0
                       ? beginbuildingCart()
                       : SliverList(
-                          delegate:
-                              SliverChildBuilderDelegate((context, index) {
-                            ItemModel model = ItemModel.fromJson(
-                                snapshot.data.documents[index].data);
-                            if (index == 0) {
-                              totalAmmount = 0;
-                              totalAmmount = model.price + totalAmmount;
-                            } else {
-                              totalAmmount = model.price + totalAmmount;
-                            }
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              ItemModel model = ItemModel.fromJson(
+                                  snapshot.data.documents[index].data);
+                              if (index == 0) {
+                                totalAmmount = 0;
+                                totalAmmount = model.price + totalAmmount;
+                              } else {
+                                totalAmmount = model.price + totalAmmount;
+                              }
 
-                            if (snapshot.data.documents.length - 1 == index) {
-                              WidgetsBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Provider.of<TotalAmount>(context, listen: false)
-                                    .displayResult(totalAmmount);
-                              });
-                            }
-                            return sourceInfo(model, context,
-                                removeCartFunction: () =>
-                                    removeItemFromUserCart(model.shortInfo));
-                          },
-                          childCount: snapshot.hasData ? snapshot.data.documents.length  : 0,
+                              if (snapshot.data.documents.length - 1 == index) {
+                                WidgetsBinding.instance
+                                    .addPostFrameCallback((timeStamp) {
+                                  Provider.of<TotalAmount>(context,
+                                          listen: false)
+                                      .displayResult(totalAmmount);
+                                });
+                              }
+                              return sourceInfo(model, context,
+                                  removeCartFunction: () =>
+                                      removeItemFromUserCart(model.shortInfo));
+                            },
+                            childCount: snapshot.hasData
+                                ? snapshot.data.documents.length
+                                : 0,
                           ),
                         );
             },
@@ -119,9 +122,43 @@ class _CartPageState extends State<CartPage> {
     );
   }
 
-  beginbuildingCart() {}
+  beginbuildingCart() {
+    return SliverToBoxAdapter(
+      child: Card(
+        color: Theme.of(context).primaryColor.withOpacity(0.5),
+        child: Container(
+          height: 100.0,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.insert_emoticon, color: Colors.black,),
+              Text("Cart is Empty!!"),
+              Text("Starting Shopping..."),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
-  removeItemFromUserCart(String shortInfoAsID){
+  removeItemFromUserCart(String shortInfoAsID) {
+    List tempCartList =
+        EcommerceApp.sharedPreferences.getStringList(EcommerceApp.userCartList);
+    tempCartList.remove(shortInfoAsID);
 
+    EcommerceApp.firestore
+        .collection(EcommerceApp.collectionUser)
+        .document(
+            EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID))
+        .updateData({
+      EcommerceApp.userCartList: tempCartList,
+    }).then((v) {
+      Fluttertoast.showToast(msg: "Item Removed Successfully.");
+      EcommerceApp.sharedPreferences
+          .setStringList(EcommerceApp.userCartList, tempCartList);
+      Provider.of<CartItemCounter>(context, listen: false).displayResult();
+
+      totalAmmount = 0;
+    });
   }
 }
