@@ -22,8 +22,108 @@ class OrderDetails extends StatelessWidget {
   }) : super(key: key);
 
   Widget build(BuildContext context) {
+    getOrderId = orderId;
     return SafeArea(
-      child: Scaffold(),
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: FutureBuilder<DocumentSnapshot>(
+            builder: (c, snapshot) {
+              Map dataMap;
+              if (snapshot.hasData) {
+                dataMap = snapshot.data.data;
+              }
+              return snapshot.hasData
+                  ? Container(
+                      child: Column(
+                        children: [
+                          StatusBanner(
+                            status: dataMap[EcommerceApp.isSuccess],
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(4.0),
+                            child: Text(
+                              "rs." +
+                                  dataMap[EcommerceApp.totalAmount].toString(),
+                              style: TextStyle(
+                                  fontSize: 20.0, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(4.0),
+                            child: Text("OrderId: " + getOrderId),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(4.0),
+                            child: Text(
+                              "order at: " +
+                                  DateFormat("dd MMMM, yyyy - hh:mm aa")
+                                      .format(
+                                          DateTime.fromMillisecondsSinceEpoch(
+                                              int.parse( dataMap["orderTime"]))),
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 16.0),
+                            ),
+                          ),
+                          Divider(
+                            height: 2.0,
+                          ),
+                          FutureBuilder<QuerySnapshot>(
+                            builder: (c, dataSnapshot) {
+                              return dataSnapshot.hasData
+                                  ? OrderCard(
+                                      itemCount:
+                                          dataSnapshot.data.documents.length,
+                                      data: dataSnapshot.data.documents,
+                                    )
+                                  : Center(
+                                      child: circularProgress(),
+                                    );
+                            },
+                            future: EcommerceApp.firestore
+                                .collection("items")
+                                .where("shortInfo",
+                                    whereIn: dataMap[EcommerceApp.productID])
+                                .getDocuments(),
+                          ),
+                          Divider(
+                            height: 2.0,
+                          ),
+                          FutureBuilder<DocumentSnapshot>(
+                            builder: (c, snap) {
+                              return snap.hasData
+                                  ? ShippingDetails(model: AddressModel.fromJson(snap.data.data),)
+                                  : Center(
+                                      child: circularProgress(),
+                                    );
+                            },
+                            future: EcommerceApp.firestore
+                                .collection(EcommerceApp.collectionUser)
+                                .document(EcommerceApp.sharedPreferences
+                                    .getString(EcommerceApp.userUID))
+                                .collection(EcommerceApp.subCollectionAddress)
+                                .document(dataMap[EcommerceApp.addressID])
+                                .get(),
+                          )
+                        ],
+                      ),
+                    )
+                  : Center(
+                      child: circularProgress(),
+                    );
+            },
+            future: EcommerceApp.firestore
+                .collection(EcommerceApp.collectionUser)
+                .document(EcommerceApp.sharedPreferences
+                    .getString(EcommerceApp.userUID))
+                .collection(EcommerceApp.collectionOrders)
+                .document(orderId)
+                .get(),
+          ),
+        ),
+      ),
     );
   }
 }
