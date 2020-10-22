@@ -17,10 +17,35 @@ class AddAddress extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        key: scafflodKey,
         appBar: MyAppBar(),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            
+            if (formKey.currentState.validate()) {
+              final model = AddressModel(
+                name: cName.text.trim(),
+                state: cState.text.trim(),
+                pincode: cPinCode.text,
+                phoneNumber: cPhoneNumber.text,
+                flatNumber: cFlatHomeNumber.text,
+                city: cCity.text.trim(),
+              ).toJson();
+
+              EcommerceApp.firestore
+                  .collection(EcommerceApp.collectionUser)
+                  .document(EcommerceApp.sharedPreferences
+                      .getString(EcommerceApp.userUID))
+                  .collection(EcommerceApp.subCollectionAddress)
+                  .document(DateTime.now().millisecondsSinceEpoch.toString())
+                  .setData(model)
+                  .then((value) {
+                final snack =
+                    SnackBar(content: Text("New Address added Successfully."));
+                scafflodKey.currentState.showSnackBar(snack);
+                FocusScope.of(context).requestFocus(FocusNode());
+                formKey.currentState.reset();
+              });
+            }
           },
           label: Text("Done"),
           backgroundColor: Colors.white,
@@ -51,23 +76,23 @@ class AddAddress extends StatelessWidget {
                       hint: "Name",
                       controller: cName,
                     ),
-                     MyTextField(
+                    MyTextField(
                       hint: "Phone Number",
                       controller: cPhoneNumber,
                     ),
-                     MyTextField(
+                    MyTextField(
                       hint: "Flat Number / House Number",
                       controller: cFlatHomeNumber,
                     ),
-                     MyTextField(
+                    MyTextField(
                       hint: "City",
                       controller: cCity,
                     ),
-                     MyTextField(
+                    MyTextField(
                       hint: "State",
                       controller: cState,
                     ),
-                     MyTextField(
+                    MyTextField(
                       hint: "Pincode",
                       controller: cPinCode,
                     ),
@@ -87,7 +112,7 @@ class MyTextField extends StatelessWidget {
   final TextEditingController controller;
 
   const MyTextField({Key key, this.hint, this.controller}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -96,7 +121,6 @@ class MyTextField extends StatelessWidget {
         controller: controller,
         decoration: InputDecoration.collapsed(hintText: hint),
         validator: (val) => val.isEmpty ? "Field can not be empty." : null,
-
       ),
     );
   }
