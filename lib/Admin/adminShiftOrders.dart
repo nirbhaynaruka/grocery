@@ -64,7 +64,8 @@ class _MyOrdersState extends State<AdminShiftOrders> {
                                   addressID: snapshot
                                       .data.documents[index].data["addressID"],
                                 )
-                              : Center(
+                              : 
+                              Center(
                                   child: circularProgress(),
                                 );
                         },
