@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:grocery/Authentication/authenication.dart';
 import 'package:grocery/Store/cart.dart';
 import 'package:grocery/Store/product_page.dart';
 import 'package:grocery/Counters/cartitemcounter.dart';
@@ -50,15 +51,21 @@ class _StoreHomeState extends State<StoreHome> {
             Stack(
               children: [
                 IconButton(
-                  icon: Icon(
-                    Icons.shopping_cart,
-                    color: Colors.pink,
-                  ),
-                  onPressed: () {
-                    Route route = MaterialPageRoute(builder: (c) => CartPage());
-                    Navigator.push(context, route);
-                  },
-                ),
+                    icon: Icon(
+                      Icons.shopping_cart,
+                      color: Colors.pink,
+                    ),
+                    onPressed: () async {
+                      if (await EcommerceApp.auth.currentUser() != null) {
+                        Route route =
+                            MaterialPageRoute(builder: (c) => CartPage());
+                        Navigator.push(context, route);
+                      } else {
+                        Route route = MaterialPageRoute(
+                            builder: (_) => AuthenticScreen());
+                        Navigator.push(context, route);
+                      }
+                    }),
                 Positioned(
                   child: Stack(
                     children: [
@@ -300,8 +307,16 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                               Icons.add_shopping_cart,
                               color: Colors.pinkAccent,
                             ),
-                            onPressed: () {
-                              checkItemInCart(model.shortInfo, context);
+                            onPressed: () async {
+                              if (await EcommerceApp.auth.currentUser() !=
+                                  null) {
+                                checkItemInCart(model.shortInfo, context);
+                              } else {
+                                Route route = MaterialPageRoute(
+                                    builder: (_) => AuthenticScreen());
+                                Navigator.push(context, route);
+                              }
+                              // checkItemInCart(model.shortInfo, context);
                             })
                         : IconButton(
                             icon: Icon(
@@ -330,23 +345,22 @@ Widget card({Color primaryColor = Colors.redAccent, String imgPath}) {
   return Container(
     height: 150.0,
     width: width * 0.34,
-    margin: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     decoration: BoxDecoration(
-      color: primaryColor,
-      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-      boxShadow: <BoxShadow>[
-        BoxShadow(offset: Offset(0, 5), blurRadius: 10.0, color: Colors.grey[200]),
-      ]
-    ),
+        color: primaryColor,
+        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+              offset: Offset(0, 5), blurRadius: 10.0, color: Colors.grey[200]),
+        ]),
     child: ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-      child: Image.network(
-        imgPath,
-        height: 150.0,
-        width: width * 0.34,
-        fit: BoxFit.fill,
-      )
-    ),
+        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        child: Image.network(
+          imgPath,
+          height: 150.0,
+          width: width * 0.34,
+          fit: BoxFit.fill,
+        )),
   );
 }
 

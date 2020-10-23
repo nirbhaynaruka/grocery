@@ -1,3 +1,5 @@
+import 'package:grocery/Authentication/authenication.dart';
+import 'package:grocery/Config/config.dart';
 import 'package:grocery/Widgets/customAppBar.dart';
 import 'package:grocery/Widgets/myDrawer.dart';
 import 'package:grocery/Models/item.dart';
@@ -34,8 +36,8 @@ class _ProductPageState extends State<ProductPage> {
                   Stack(
                     children: [
                       Center(
-                        child: Image.network(widget.itemModel.thumbnailUrl,height: MediaQuery.of(context).size.height*0.5),
-                        
+                        child: Image.network(widget.itemModel.thumbnailUrl,
+                            height: MediaQuery.of(context).size.height * 0.5),
                       ),
                       Container(
                         color: Colors.grey[300],
@@ -79,18 +81,28 @@ class _ProductPageState extends State<ProductPage> {
                     padding: EdgeInsets.only(top: 8.0),
                     child: Center(
                       child: InkWell(
-                        onTap: () => checkItemInCart(widget.itemModel.shortInfo, context),
+                        onTap: () async {
+                          if (await EcommerceApp.auth.currentUser() != null) {
+                            checkItemInCart(
+                                widget.itemModel.shortInfo, context);
+                          } else {
+                            Route route = MaterialPageRoute(
+                                builder: (_) => AuthenticScreen());
+                            Navigator.push(context, route);
+                          }
+                        },
+
+                        // => checkItemInCart(widget.itemModel.shortInfo, context),
                         child: Container(
-            decoration: new BoxDecoration(
-              gradient: new LinearGradient(
-                colors: [Colors.pink, Colors.lightGreenAccent],
-                begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(1.0, 0.0),
-                stops: [0.0, 1.0],
-                tileMode: TileMode.clamp,
-              
-            ),
-          ),
+                          decoration: new BoxDecoration(
+                            gradient: new LinearGradient(
+                              colors: [Colors.pink, Colors.lightGreenAccent],
+                              begin: const FractionalOffset(0.0, 0.0),
+                              end: const FractionalOffset(1.0, 0.0),
+                              stops: [0.0, 1.0],
+                              tileMode: TileMode.clamp,
+                            ),
+                          ),
                           width: MediaQuery.of(context).size.width - 40.0,
                           height: 50.0,
                           child: Center(
