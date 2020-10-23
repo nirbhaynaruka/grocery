@@ -1,11 +1,24 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grocery/Authentication/authenication.dart';
 import 'package:grocery/Config/config.dart';
+import 'package:grocery/Counters/cartitemcounter.dart';
+import 'package:grocery/Store/cart.dart';
 import 'package:grocery/Widgets/customAppBar.dart';
 import 'package:grocery/Widgets/myDrawer.dart';
 import 'package:grocery/Models/item.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery/Store/storehome.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  EcommerceApp.auth = FirebaseAuth.instance;
+  EcommerceApp.sharedPreferences = await SharedPreferences.getInstance();
+  EcommerceApp.firestore = Firestore.instance;
 
+  runApp(ProductPage());
+}
 class ProductPage extends StatefulWidget {
   final ItemModel itemModel;
   ProductPage({this.itemModel});
@@ -18,11 +31,113 @@ class _ProductPageState extends State<ProductPage> {
   int quantityOfItems = 1;
 
   @override
+  bool logincheck = false;
+  @override
+  void initState() {
+    checklogin();
+    super.initState();
+  }
+
+  checklogin() async {
+    if (await EcommerceApp.auth.currentUser() != null) {
+      setState(() {
+        
+      logincheck = true;
+      });
+    } else {
+      setState(() {
+        
+      logincheck = false;
+      });
+    }
+  }
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        appBar: MyAppBar(),
+        appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: new BoxDecoration(
+              gradient: new LinearGradient(
+                colors: [Colors.pink, Colors.lightGreenAccent],
+                begin: const FractionalOffset(0.0, 0.0),
+                end: const FractionalOffset(1.0, 0.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp,
+              ),
+            ),
+          ),
+          title: Text(
+            "Nature Coop",
+            style: TextStyle(
+              fontSize: 55.0,
+              color: Colors.white,
+              fontFamily: "Signatra",
+            ),
+          ),
+          centerTitle: true,
+          actions: [
+            Stack(
+              children: [
+                IconButton(
+                    icon: Icon(
+                      Icons.shopping_cart,
+                      color: Colors.pink,
+                    ),
+                    onPressed: () {
+                      // checklogin();
+                      if (logincheck) {
+                      
+                       Route route =
+                            MaterialPageRoute(builder: (c) => CartPage());
+                        Navigator.push(context, route);
+                      } else {
+                        Route route = MaterialPageRoute(
+                            builder: (_) => AuthenticScreen());
+                        Navigator.push(context, route);
+                      }
+
+                     
+                    }),
+                Positioned(
+                  child: Stack(
+                    children: [
+                      Icon(
+                        Icons.brightness_1,
+                        size: 20.0,
+                        color: Colors.green,
+                      ),
+                      Positioned(
+                        top: 3.0,
+                        bottom: 4.0,
+                        left: 6.0,
+                        child: Consumer<CartItemCounter>(
+                          builder: (context, counter, _) {
+                            return Text(
+                              logincheck
+                                  ? (EcommerceApp.sharedPreferences
+                                              .getStringList(
+                                                  EcommerceApp.userCartList)
+                                              .length -
+                                          1)
+                                      .toString()
+                                  : "0",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
         // drawer: MyDrawer(),
         body: ListView(
           children: [
@@ -81,8 +196,8 @@ class _ProductPageState extends State<ProductPage> {
                     padding: EdgeInsets.only(top: 8.0),
                     child: Center(
                       child: InkWell(
-                        onTap: () async {
-                          if (await EcommerceApp.auth.currentUser() != null) {
+                        onTap: () {
+                          if (logincheck) {
                             checkItemInCart(
                                 widget.itemModel.shortInfo, context);
                           } else {

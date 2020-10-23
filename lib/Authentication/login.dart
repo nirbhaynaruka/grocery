@@ -134,13 +134,13 @@ class _LoginState extends State<Login> {
     if (firebaseUser != null) {
       readData(firebaseUser).then((s) {
         Navigator.pop(context);
-        Navigator.pop(context);
+        // Navigator.pop(context);
 
-        // Route route = MaterialPageRoute(builder: (c) => 
+        Route route = MaterialPageRoute(builder: (c) => 
         // EcommerceApp.sharedPreferences
         //               .getString(EcommerceApp.userName) == "Sudhanshu" ? UploadPage() : 
-                      // StoreHome());
-        // Navigator.pushReplacement(context, route);
+                      StoreHome());
+        Navigator.pushReplacement(context, route);
       });
     }
   }

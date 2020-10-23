@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grocery/Authentication/authenication.dart';
 import 'package:grocery/Store/cart.dart';
 import 'package:grocery/Store/product_page.dart';
@@ -8,20 +9,60 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:grocery/Config/config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Widgets/loadingWidget.dart';
 import '../Widgets/myDrawer.dart';
 import '../Widgets/searchBox.dart';
 import '../Models/item.dart';
 
 double width;
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  EcommerceApp.auth = FirebaseAuth.instance;
+  EcommerceApp.sharedPreferences = await SharedPreferences.getInstance();
+  EcommerceApp.firestore = Firestore.instance;
+
+  runApp(StoreHome());
+}
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: StoreHome(),
+//     );
+//   }
+// }
 
 class StoreHome extends StatefulWidget {
   @override
+  
   _StoreHomeState createState() => _StoreHomeState();
 }
 
 class _StoreHomeState extends State<StoreHome> {
+bool logincheck = false;
   @override
+  void initState() {
+    checklogin();
+    super.initState();
+  }
+
+  checklogin() async {
+    if (await EcommerceApp.auth.currentUser() != null) {
+      setState(() {
+        
+      logincheck = true;
+      });
+    } else {
+      setState(() {
+        
+      logincheck = false;
+      });
+    }
+  }
+
+
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     return SafeArea(
@@ -55,9 +96,11 @@ class _StoreHomeState extends State<StoreHome> {
                       Icons.shopping_cart,
                       color: Colors.pink,
                     ),
-                    onPressed: () async {
-                      if (await EcommerceApp.auth.currentUser() != null) {
-                        Route route =
+                    onPressed: () {
+                      // checklogin();
+                      if (logincheck) {
+                      
+                       Route route =
                             MaterialPageRoute(builder: (c) => CartPage());
                         Navigator.push(context, route);
                       } else {
@@ -65,6 +108,8 @@ class _StoreHomeState extends State<StoreHome> {
                             builder: (_) => AuthenticScreen());
                         Navigator.push(context, route);
                       }
+
+                     
                     }),
                 Positioned(
                   child: Stack(
@@ -80,22 +125,15 @@ class _StoreHomeState extends State<StoreHome> {
                         left: 6.0,
                         child: Consumer<CartItemCounter>(
                           builder: (context, counter, _) {
-                            return Text( 
-                             
-                      
-                               EcommerceApp.sharedPreferences
-                      .getString(EcommerceApp.userName
-                      ) != null 
-                               ? 
-                              ( 
-                                EcommerceApp.sharedPreferences
-                                          .getStringList(
-                                              EcommerceApp.userCartList)
-                                          .length -
-                                      1)
-                                  .toString() 
-                                  :
-                                   "0",
+                            return Text(
+                              logincheck
+                                  ? (EcommerceApp.sharedPreferences
+                                              .getStringList(
+                                                  EcommerceApp.userCartList)
+                                              .length -
+                                          1)
+                                      .toString()
+                                  : "0",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12.0,
@@ -150,6 +188,8 @@ class _StoreHomeState extends State<StoreHome> {
 }
 
 Widget sourceInfo(ItemModel model, BuildContext context,
+
+    
     {Color background, removeCartFunction}) {
   return InkWell(
     onTap: () {
@@ -316,17 +356,17 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                               Icons.add_shopping_cart,
                               color: Colors.pinkAccent,
                             ),
-                            onPressed: () async {
+                            onPressed: () {
+                                  //  if (logincheck) {
+                      checkItemInCart(model.shortInfo, context);
+                      // } else {
+                      //   Route route = MaterialPageRoute(
+                      //       builder: (_) => AuthenticScreen());
+                      //   Navigator.push(context, route);
+                      // }
+
+                      
                               
-                              if (await EcommerceApp.auth.currentUser() !=
-                                  null) {
-                                checkItemInCart(model.shortInfo, context);
-                              } else {
-                                Route route = MaterialPageRoute(
-                                    builder: (_) => AuthenticScreen());
-                                Navigator.push(context, route);
-                              }
-                              // checkItemInCart(model.shortInfo, context);
                             })
                         : IconButton(
                             icon: Icon(
@@ -335,9 +375,10 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                             ),
                             onPressed: () {
                               removeCartFunction();
-                              Route route = MaterialPageRoute(
-                                  builder: (c) => StoreHome());
-                              Navigator.pushReplacement(context, route);
+                              
+                              // Route route = MaterialPageRoute(
+                              //     builder: (c) => StoreHome());
+                              // Navigator.pushReplacement(context, route);
                             }),
                   ),
                   Divider(height: 5.0, color: Colors.black),
@@ -349,6 +390,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
       ),
     ),
   );
+
 }
 
 Widget card({Color primaryColor = Colors.redAccent, String imgPath}) {

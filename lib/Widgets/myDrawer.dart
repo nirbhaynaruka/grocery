@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grocery/Authentication/authenication.dart';
+import 'package:grocery/Authentication/login.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:grocery/Address/addAddress.dart';
 import 'package:grocery/Store/Search.dart';
@@ -7,9 +10,55 @@ import 'package:grocery/Orders/myOrders.dart';
 import 'package:grocery/Store/storehome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class MyDrawer extends StatelessWidget {
+import '../main.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  EcommerceApp.auth = FirebaseAuth.instance;
+  EcommerceApp.sharedPreferences = await SharedPreferences.getInstance();
+  EcommerceApp.firestore = Firestore.instance;
+
+  runApp(MyDrawer());
+}
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: MyDrawer(),
+//     );
+//   }
+// }
+
+class MyDrawer extends StatefulWidget {
   @override
+  _MyDrawerState createState() => _MyDrawerState();
+}
+
+class _MyDrawerState extends State<MyDrawer> {
+  bool logincheck = false;
+  @override
+  void initState() {
+    checklogin();
+    super.initState();
+  }
+
+  checklogin() async {
+    if (await EcommerceApp.auth.currentUser() != null) {
+      setState(() {
+        
+      logincheck = true;
+      });
+    } else {
+      setState(() {
+        
+      logincheck = false;
+      });
+    }
+  }
+
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
@@ -43,12 +92,9 @@ class MyDrawer extends StatelessWidget {
                 // ),
                 SizedBox(height: 30.0),
                 Text(
-                  EcommerceApp.sharedPreferences
+                  logincheck ? EcommerceApp.sharedPreferences
                       .getString(EcommerceApp.userName
-                      ) != null ? EcommerceApp.sharedPreferences
-                      .getString(EcommerceApp.userName
-                      ) :
-                      "Hello User",
+                      ) : "Hello User",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 35.0,
@@ -101,8 +147,16 @@ class MyDrawer extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
+                    if(logincheck){
+
                     Route route = MaterialPageRoute(builder: (c) => MyOrders());
                     Navigator.push(context, route);
+                    }
+                    else{
+                      Route route =
+                          MaterialPageRoute(builder: (_) => AuthenticScreen());
+                      Navigator.push(context, route);
+                    }
                   },
                 ),
                 Divider(
@@ -120,8 +174,16 @@ class MyDrawer extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
+                    if(logincheck){
+
                     Route route = MaterialPageRoute(builder: (c) => CartPage());
                     Navigator.push(context, route);
+                    }
+                    else{
+                      Route route =
+                          MaterialPageRoute(builder: (_) => AuthenticScreen());
+                      Navigator.push(context, route);
+                    }
                   },
                 ),
                 Divider(
@@ -159,9 +221,16 @@ class MyDrawer extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
-                    Route route =
-                        MaterialPageRoute(builder: (c) => AddAddress());
+                    if(logincheck){
+
+                    Route route = MaterialPageRoute(builder: (c) => AddAddress());
                     Navigator.push(context, route);
+                    }
+                    else{
+                      Route route =
+                          MaterialPageRoute(builder: (_) => AuthenticScreen());
+                      Navigator.push(context, route);
+                    }
                   },
                 ),
                 Divider(
@@ -175,27 +244,24 @@ class MyDrawer extends StatelessWidget {
                     color: Colors.white,
                   ),
                   title: Text(
-                     EcommerceApp.sharedPreferences
-                      .getString(EcommerceApp.userName
-                      ) != null ? "LogOut":
-                    "LogIn/SignUp",
+                    logincheck
+                        ? "LogOut"
+                        : "LogIn/SignUp",
                     style: TextStyle(color: Colors.white),
                   ),
-                  onTap: () async{
-                       if (await EcommerceApp.auth.currentUser() != null) {
-                       EcommerceApp.auth.signOut().then((c) {
+                  onTap: () {
+                    // checklogin();
+                    if (logincheck) {
+                      EcommerceApp.auth.signOut().then((c) {
+                        Route route =
+                            MaterialPageRoute(builder: (c) => SplashScreen());
+                        Navigator.pushReplacement(context, route);
+                      });
+                    } else {
                       Route route =
-                        MaterialPageRoute(builder: (c) => StoreHome());
-                    Navigator.pushReplacement(context, route);
-                    });
-                      } else {
-                        Route route = MaterialPageRoute(
-                            builder: (_) => AuthenticScreen());
-                        Navigator.push(context, route);
-                      }
-
-
-                    
+                          MaterialPageRoute(builder: (_) => AuthenticScreen());
+                      Navigator.push(context, route);
+                    }
                   },
                 ),
                 Divider(

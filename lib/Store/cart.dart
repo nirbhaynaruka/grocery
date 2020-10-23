@@ -22,9 +22,11 @@ class _CartPageState extends State<CartPage> {
   double totalAmmount;
   @override
   void initState() {
+    
     super.initState();
     totalAmmount = 0;
     Provider.of<TotalAmount>(context, listen: false).displayResult(0);
+    
   }
 
   @override
@@ -213,8 +215,12 @@ class _CartPageState extends State<CartPage> {
       EcommerceApp.sharedPreferences
           .setStringList(EcommerceApp.userCartList, tempCartList);
       Provider.of<CartItemCounter>(context, listen: false).displayResult();
-
+  // setState(() {
+    setState(() {
+      
+    });
       totalAmmount = 0;
+  // });
     });
   }
 }
