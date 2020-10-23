@@ -27,6 +27,7 @@ class _LoginState extends State<Login> {
         _screenHeight = MediaQuery.of(context).size.height;
     return SingleChildScrollView(
       child: Container(
+        // padding: EdgeInsets.all(15.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -34,14 +35,16 @@ class _LoginState extends State<Login> {
               alignment: Alignment.bottomCenter,
               child: Image.asset(
                 "images/login.png",
-                height: 240.0,
-                width: 240.0,
+                height: 220.0,
+                width: 220.0,
               ),
             ),
             SizedBox(height: 20.0),
             Form(
               key: _formkey,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CustomTextField(
                     controller: _emailTextEditingController,

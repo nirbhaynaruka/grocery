@@ -26,7 +26,7 @@ class CustomTextField extends StatelessWidget {
         ],
       ),
       padding: EdgeInsets.all(5.0),
-      margin: EdgeInsets.all(10.0),
+      margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
       child: TextFormField(
         style: TextStyle(
           fontFamily: "Arial Bold",

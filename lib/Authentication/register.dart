@@ -38,8 +38,13 @@ class _RegisterState extends State<Register> {
       child: Container(
         child: Column(
           children: [
-            SizedBox(
-              height: 10.0,
+            Container(
+              alignment: Alignment.bottomCenter,
+              child: Image.asset(
+                "images/login.png",
+                height: 220.0,
+                width: 220.0,
+              ),
             ),
             // InkWell(
             //   onTap: () => _selectAndPickImage,
@@ -57,17 +62,23 @@ class _RegisterState extends State<Register> {
             //         : null,
             //   ),
             // ),
-            SizedBox(
-              height: 8.0,
-            ),
+            SizedBox(height: 8.0),
             Form(
               key: _formkey,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CustomTextField(
                     controller: _nameTextEditingController,
                     data: Icons.person,
                     hintText: "Name",
+                    isObsecure: false,
+                  ),
+                  CustomTextField(
+                    controller: _nameTextEditingController,
+                    data: Icons.person,
+                    hintText: "Mobile Number",
                     isObsecure: false,
                   ),
                   CustomTextField(
@@ -91,23 +102,31 @@ class _RegisterState extends State<Register> {
                 ],
               ),
             ),
-            RaisedButton(
-              onPressed: () {
-                uploadandsaveimage();
-              },
-              color: Colors.pink,
-              child: Text(
-                "Sign Up",
-                style: TextStyle(color: Colors.white),
+            SizedBox(height: 20),
+            Container(
+              width: 100.0,
+              height: 40.0,
+              child: RaisedButton(
+                onPressed: () {
+                  uploadandsaveimage();
+                },
+                elevation: 5.0,
+                color: Color(0xff94b941),
+                child: Text(
+                  "Sign Up",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
+                  ),
+                ),
               ),
             ),
             SizedBox(height: 30.0),
             Container(
               height: 4.0,
-              width: _screenWidth * 0.8,
-              color: Colors.pink,
+              width: _screenWidth * 0.5,
+              color: Colors.grey.withOpacity(0.5),
             ),
-            SizedBox(height: 15.0),
           ],
         ),
       ),
@@ -128,16 +147,15 @@ class _RegisterState extends State<Register> {
     //         );
     //       });
     // } else {
-      _passwordTextEditingController.text ==
-              _cPasswordTextEditingController.text
-          ? _emailTextEditingController.text.isNotEmpty &&
-                  _passwordTextEditingController.text.isNotEmpty &&
-                  _cPasswordTextEditingController.text.isNotEmpty &&
-                  _nameTextEditingController.text.isEmpty
-              ? uploadtostorage()
-              :uploadtostorage()
-              // : displayDialog("please fill up the complete form...")
-          : displayDialog("password do not match");
+    _passwordTextEditingController.text == _cPasswordTextEditingController.text
+        ? _emailTextEditingController.text.isNotEmpty &&
+                _passwordTextEditingController.text.isNotEmpty &&
+                _cPasswordTextEditingController.text.isNotEmpty &&
+                _nameTextEditingController.text.isEmpty
+            ? uploadtostorage()
+            : uploadtostorage()
+        // : displayDialog("please fill up the complete form...")
+        : displayDialog("password do not match");
     // }
   }
 
@@ -170,7 +188,7 @@ class _RegisterState extends State<Register> {
     // await taskSnapshot.ref.getDownloadURL().then((urlImage) {
     //     userImageUrl = urlImage;
     //   });
-        _registerUser();
+    _registerUser();
   }
 
   FirebaseAuth _auth = FirebaseAuth.instance;
