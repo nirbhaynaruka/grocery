@@ -68,23 +68,14 @@ bool logincheck = false;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          flexibleSpace: Container(
-            decoration: new BoxDecoration(
-              gradient: new LinearGradient(
-                colors: [Colors.pink, Colors.lightGreenAccent],
-                begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(1.0, 0.0),
-                stops: [0.0, 1.0],
-                tileMode: TileMode.clamp,
-              ),
-            ),
-          ),
+          backgroundColor: Color(0xff94b941),
           title: Text(
-            "Nature Coop",
+            "Nature Coop Fresh",
             style: TextStyle(
-              fontSize: 55.0,
+              fontSize: 25.0,
+              fontWeight: FontWeight.bold,
               color: Colors.white,
-              fontFamily: "Signatra",
+              fontFamily: "Folks-Heavy",
             ),
           ),
           centerTitle: true,
@@ -93,8 +84,8 @@ bool logincheck = false;
               children: [
                 IconButton(
                     icon: Icon(
-                      Icons.shopping_cart,
-                      color: Colors.pink,
+                      Icons.shopping_basket,
+                      color: Colors.white
                     ),
                     onPressed: () {
                       // checklogin();
@@ -117,7 +108,7 @@ bool logincheck = false;
                       Icon(
                         Icons.brightness_1,
                         size: 20.0,
-                        color: Colors.green,
+                        color: Colors.white,
                       ),
                       Positioned(
                         top: 3.0,
@@ -135,7 +126,7 @@ bool logincheck = false;
                                       .toString()
                                   : "0",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Color(0xff94b941),
                                 fontSize: 12.0,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -150,6 +141,7 @@ bool logincheck = false;
             )
           ],
         ),
+        
         drawer: MyDrawer(),
         body: CustomScrollView(
           slivers: [
