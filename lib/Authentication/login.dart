@@ -38,15 +38,6 @@ class _LoginState extends State<Login> {
                 width: 240.0,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                "Login to your account",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
             Form(
               key: _formkey,
               child: Column(
@@ -59,7 +50,7 @@ class _LoginState extends State<Login> {
                   ),
                   CustomTextField(
                     controller: _passwordTextEditingController,
-                    data: Icons.person,
+                    data: Icons.person_pin,
                     hintText: "Password",
                     isObsecure: true,
                   ),

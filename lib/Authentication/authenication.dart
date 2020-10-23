@@ -15,34 +15,29 @@ class _AuthenticScreenState extends State<AuthenticScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-         flexibleSpace: Container(
-           decoration: new BoxDecoration(
-              gradient: new LinearGradient(
-                colors: [Colors.pink, Colors.lightGreenAccent],
-                begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(1.0, 0.0),
-                stops: [0.0, 1.0],
-                tileMode: TileMode.clamp,
-              ),
-            ),
-         ),
+          backgroundColor: Color(0xff94b941),
           title: Text(
-            "Grocery Shop",
+            "Nature Coop Fresh",
             style: TextStyle(
-              fontSize: 55.0,
+              fontSize: 25.0,
+              fontWeight: FontWeight.bold,
               color: Colors.white,
-              fontFamily: "Signatra",
+              fontFamily: "Folks-Heavy",
             ),
           ),
           centerTitle: true,
           bottom: TabBar(
+            // unselectedLabelColor: Color(0xffb9d17f),
+            labelStyle: TextStyle(
+              fontFamily: "Arial Bold",
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
             tabs: [
               Tab(
-                icon: Icon(Icons.lock, color: Colors.white),
                 text: "Login",
               ),
               Tab(
-                icon: Icon(Icons.perm_contact_calendar, color: Colors.white),
                 text: "Register",
               ),
             ],
@@ -52,11 +47,7 @@ class _AuthenticScreenState extends State<AuthenticScreen> {
         ),
         body: Container(
           decoration: BoxDecoration(
-            gradient: new LinearGradient(
-                colors: [Colors.pink, Colors.lightGreenAccent],
-                begin: Alignment.topRight,
-                end: Alignment.topLeft,
-              ),
+            color: Color(0xfffffff8),
           ),
           child: TabBarView(
             children: [
