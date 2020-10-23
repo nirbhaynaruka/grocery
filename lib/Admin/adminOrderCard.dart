@@ -14,20 +14,27 @@ class AdminOrderCard extends StatelessWidget {
   final String addressID;
   final String orderBy;
 
-  const AdminOrderCard({Key key, this.itemCount, this.data, this.orderID, this.addressID, this.orderBy}) : super(key: key);
+  const AdminOrderCard(
+      {Key key,
+      this.itemCount,
+      this.data,
+      this.orderID,
+      this.addressID,
+      this.orderBy})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return 
-       InkWell(
+    return InkWell(
       onTap: () {
         Route route;
         if (counter == 0) {
           counter = counter + 1;
-          route =
-              MaterialPageRoute(builder: (c) => AdminOrderDetails(orderID: orderID, orderBy: orderBy, addressId: addressID));
+          route = MaterialPageRoute(
+              builder: (c) => AdminOrderDetails(
+                  orderID: orderID, orderBy: orderBy, addressId: addressID));
+          Navigator.push(context, route);
         }
-        Navigator.push(context, route);
       },
       child: Container(
         padding: EdgeInsets.all(10.0),
@@ -45,4 +52,3 @@ class AdminOrderCard extends StatelessWidget {
     );
   }
 }
-

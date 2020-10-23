@@ -17,14 +17,13 @@ class _MyOrdersState extends State<AdminShiftOrders> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.green,
-          iconTheme: IconThemeData(color: Colors.white),
+          backgroundColor: Color(0xff94b941),
           centerTitle: true,
           title: Text(
             "All Orders",
             style: TextStyle(
               fontSize: 25.0,
-              fontWeight: FontWeight.bold,
+              // fontWeight: FontWeight.bold,
               color: Colors.white,
               fontFamily: "Folks-Heavy",
             ),

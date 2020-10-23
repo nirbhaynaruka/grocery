@@ -132,7 +132,8 @@ class AdminOrderDetails extends StatelessWidget {
   }
 }
 
-class AdminStatusBanner extends StatelessWidget {
+class 
+AdminStatusBanner extends StatelessWidget {
   final bool status;
   AdminStatusBanner({Key key, this.status}) : super(key: key);
   @override
@@ -141,7 +142,7 @@ class AdminStatusBanner extends StatelessWidget {
     IconData iconData;
 
     status ? iconData = Icons.done : iconData = Icons.cancel;
-    status ? msg = "Successful" : msg = "unSuccesffull";
+    status ? msg = "Successfully" : msg = "unSuccesful";
 
     return Container(
       height: 40.0,
@@ -163,7 +164,7 @@ class AdminStatusBanner extends StatelessWidget {
             width: 20.0,
           ),
           Text(
-            "order shiped" + msg,
+            "Order Shipped" + msg,
             style: TextStyle(color: Colors.green),
           ),
           SizedBox(
