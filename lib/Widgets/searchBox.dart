@@ -6,7 +6,6 @@ import '../Store/Search.dart';
 class SearchBoxDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
-
           BuildContext context, double shrinkOffset, bool overlapsContent) =>
       InkWell(
         onTap: () {
@@ -14,24 +13,41 @@ class SearchBoxDelegate extends SliverPersistentHeaderDelegate {
           Navigator.push(context, route);
         },
         child: Container(
-                  color: Color(0xff94b941),
+          // height: 40,
+          // color: Color(0xff94b941),
           alignment: Alignment.center,
           width: MediaQuery.of(context).size.width,
           child: InkWell(
             child: Container(
-               decoration: new BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-              color: Colors.white,
-              margin: EdgeInsets.only(left: 10.0,right: 10.0),
+              decoration: new BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(5.0),
+                border: Border.all(width: 2.0, color: Color(0xff94b941)),
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, 4),
+                    blurRadius: 15,
+                    color: Color(0xFFB7B7B7).withOpacity(.5),
+                  ),
+                ],
+              ),
+              // color: Colors.white,
+              height: 50,
+              margin: EdgeInsets.only(left: 10.0, right: 10.0),
               width: MediaQuery.of(context).size.width,
               child: Row(children: [
                 Padding(
                     padding: EdgeInsets.only(left: 8.0),
                     child: Icon(Icons.search, color: Colors.black)),
                 Padding(
-                    padding: EdgeInsets.only(left: 8.0), child: Text("search", style: TextStyle(color: Colors.black),)),
+                    padding: EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      "Search Item...",
+                      style: TextStyle(
+                        fontFamily: "Arial Bold",
+                        fontSize: 16,
+                      ),
+                    )),
               ]),
             ),
           ),

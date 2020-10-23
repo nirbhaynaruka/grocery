@@ -36,12 +36,11 @@ Future<void> main() async {
 
 class StoreHome extends StatefulWidget {
   @override
-  
   _StoreHomeState createState() => _StoreHomeState();
 }
 
 class _StoreHomeState extends State<StoreHome> {
-bool logincheck = false;
+  bool logincheck = false;
   @override
   void initState() {
     checklogin();
@@ -51,17 +50,14 @@ bool logincheck = false;
   checklogin() async {
     if (await EcommerceApp.auth.currentUser() != null) {
       setState(() {
-        
-      logincheck = true;
+        logincheck = true;
       });
     } else {
       setState(() {
-        
-      logincheck = false;
+        logincheck = false;
       });
     }
   }
-
 
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
@@ -83,15 +79,11 @@ bool logincheck = false;
             Stack(
               children: [
                 IconButton(
-                    icon: Icon(
-                      Icons.shopping_basket,
-                      color: Colors.white
-                    ),
+                    icon: Icon(Icons.shopping_basket, color: Colors.white),
                     onPressed: () {
                       // checklogin();
                       if (logincheck) {
-                      
-                       Route route =
+                        Route route =
                             MaterialPageRoute(builder: (c) => CartPage());
                         Navigator.push(context, route);
                       } else {
@@ -99,8 +91,6 @@ bool logincheck = false;
                             builder: (_) => AuthenticScreen());
                         Navigator.push(context, route);
                       }
-
-                     
                     }),
                 Positioned(
                   child: Stack(
@@ -141,7 +131,6 @@ bool logincheck = false;
             )
           ],
         ),
-        
         drawer: MyDrawer(),
         body: CustomScrollView(
           slivers: [
@@ -180,8 +169,6 @@ bool logincheck = false;
 }
 
 Widget sourceInfo(ItemModel model, BuildContext context,
-
-    
     {Color background, removeCartFunction}) {
   return InkWell(
     onTap: () {
@@ -349,16 +336,13 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                               color: Colors.pinkAccent,
                             ),
                             onPressed: () {
-                                  //  if (logincheck) {
-                      checkItemInCart(model.shortInfo, context);
-                      // } else {
-                      //   Route route = MaterialPageRoute(
-                      //       builder: (_) => AuthenticScreen());
-                      //   Navigator.push(context, route);
-                      // }
-
-                      
-                              
+                              //  if (logincheck) {
+                              checkItemInCart(model.shortInfo, context);
+                              // } else {
+                              //   Route route = MaterialPageRoute(
+                              //       builder: (_) => AuthenticScreen());
+                              //   Navigator.push(context, route);
+                              // }
                             })
                         : IconButton(
                             icon: Icon(
@@ -367,7 +351,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                             ),
                             onPressed: () {
                               removeCartFunction();
-                              
+
                               // Route route = MaterialPageRoute(
                               //     builder: (c) => StoreHome());
                               // Navigator.pushReplacement(context, route);
@@ -382,7 +366,6 @@ Widget sourceInfo(ItemModel model, BuildContext context,
       ),
     ),
   );
-
 }
 
 Widget card({Color primaryColor = Colors.redAccent, String imgPath}) {

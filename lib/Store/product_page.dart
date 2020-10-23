@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:grocery/Store/storehome.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   EcommerceApp.auth = FirebaseAuth.instance;
@@ -19,6 +20,7 @@ Future<void> main() async {
 
   runApp(ProductPage());
 }
+
 class ProductPage extends StatefulWidget {
   final ItemModel itemModel;
   ProductPage({this.itemModel});
@@ -41,38 +43,28 @@ class _ProductPageState extends State<ProductPage> {
   checklogin() async {
     if (await EcommerceApp.auth.currentUser() != null) {
       setState(() {
-        
-      logincheck = true;
+        logincheck = true;
       });
     } else {
       setState(() {
-        
-      logincheck = false;
+        logincheck = false;
       });
     }
   }
+
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          flexibleSpace: Container(
-            decoration: new BoxDecoration(
-              gradient: new LinearGradient(
-                colors: [Colors.pink, Colors.lightGreenAccent],
-                begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(1.0, 0.0),
-                stops: [0.0, 1.0],
-                tileMode: TileMode.clamp,
-              ),
-            ),
-          ),
+          backgroundColor: Color(0xff94b941),
           title: Text(
-            "Nature Coop",
+            "Nature Coop Fresh",
             style: TextStyle(
-              fontSize: 55.0,
+              fontSize: 25.0,
+              fontWeight: FontWeight.bold,
               color: Colors.white,
-              fontFamily: "Signatra",
+              fontFamily: "Folks-Heavy",
             ),
           ),
           centerTitle: true,
@@ -80,15 +72,11 @@ class _ProductPageState extends State<ProductPage> {
             Stack(
               children: [
                 IconButton(
-                    icon: Icon(
-                      Icons.shopping_cart,
-                      color: Colors.pink,
-                    ),
+                    icon: Icon(Icons.shopping_basket, color: Colors.white),
                     onPressed: () {
                       // checklogin();
                       if (logincheck) {
-                      
-                       Route route =
+                        Route route =
                             MaterialPageRoute(builder: (c) => CartPage());
                         Navigator.push(context, route);
                       } else {
@@ -96,8 +84,6 @@ class _ProductPageState extends State<ProductPage> {
                             builder: (_) => AuthenticScreen());
                         Navigator.push(context, route);
                       }
-
-                     
                     }),
                 Positioned(
                   child: Stack(
@@ -105,7 +91,7 @@ class _ProductPageState extends State<ProductPage> {
                       Icon(
                         Icons.brightness_1,
                         size: 20.0,
-                        color: Colors.green,
+                        color: Colors.white,
                       ),
                       Positioned(
                         top: 3.0,
@@ -123,7 +109,7 @@ class _ProductPageState extends State<ProductPage> {
                                       .toString()
                                   : "0",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Color(0xff94b941),
                                 fontSize: 12.0,
                                 fontWeight: FontWeight.w500,
                               ),
