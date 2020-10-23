@@ -13,23 +13,36 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(0, 4),
+            blurRadius: 30,
+            color: Color(0xFFB7B7B7).withOpacity(.3),
+          ),
+        ],
       ),
-      padding: EdgeInsets.all(8.0),
-      margin:  EdgeInsets.all(10.0),
+      padding: EdgeInsets.all(5.0),
+      margin: EdgeInsets.all(10.0),
       child: TextFormField(
+        style: TextStyle(
+          fontFamily: "Arial Bold",
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
         controller: controller,
         obscureText: isObsecure,
-        cursorColor: Theme.of(context).primaryColor,
+        cursorColor: Color(0xff535c3f),
         decoration: InputDecoration(
           border: InputBorder.none,
           prefixIcon: Icon(
             data,
-            color: Theme.of(context).primaryColor,
+            color: Color(0xff535c3f),
           ),
-          focusColor:  Theme.of(context).primaryColor,
+          focusColor: Color(0xff535c3f),
           hintText: hintText,
         ),
       ),

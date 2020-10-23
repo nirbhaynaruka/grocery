@@ -36,6 +36,13 @@ flutter:
     - family: Signatra
       fonts:
         - asset: assets/fonts/Signatra.ttf
+    - family: Arial Bold
+      fonts:
+        - asset: assets/fonts/Arial Bold.ttf
+    - family: Folks-Heavy
+      fonts:
+        - asset: assets/fonts/Folks-Heavy.ttf
+    
 
   assets:
     - images/welcome.png

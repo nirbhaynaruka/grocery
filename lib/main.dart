@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (c) => TotalAmount()),
       ],
       child: MaterialApp(
-          title: 'Grocery App',
+          title: 'Nature Coop Fresh',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primaryColor: Colors.green,
