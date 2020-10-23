@@ -38,6 +38,7 @@ class _LoginState extends State<Login> {
                 width: 240.0,
               ),
             ),
+            SizedBox(height: 20.0),
             Form(
               key: _formkey,
               child: Column(
@@ -88,7 +89,7 @@ class _LoginState extends State<Login> {
             SizedBox(height: 50.0),
             Container(
               height: 4.0,
-              width: _screenWidth * 0.8,
+              width: _screenWidth * 0.5,
               color: Colors.grey.withOpacity(0.5),
             ),
             SizedBox(height: 10.0),
@@ -97,13 +98,13 @@ class _LoginState extends State<Login> {
                   MaterialPageRoute(builder: (context) => AdminSignInPage())),
               icon: (Icon(
                 Icons.nature_people,
-                size: 30,
+                size: 25,
                 color: Color(0xff94b941),
               )),
               label: Text(
                 "I'm Admin",
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: 18.0,
                   color: Color(0xff94b941),
                   fontWeight: FontWeight.bold,
                 ),
