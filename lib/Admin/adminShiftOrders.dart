@@ -21,8 +21,13 @@ class _MyOrdersState extends State<AdminShiftOrders> {
           iconTheme: IconThemeData(color: Colors.white),
           centerTitle: true,
           title: Text(
-            "my orders",
-            style: TextStyle(color: Colors.white),
+            "All Orders",
+            style: TextStyle(
+              fontSize: 25.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontFamily: "Folks-Heavy",
+            ),
           ),
           actions: [
             IconButton(
@@ -49,12 +54,15 @@ class _MyOrdersState extends State<AdminShiftOrders> {
                             .getDocuments(),
                         builder: (c, snap) {
                           return snap.hasData
-                              ? AdminOrderCard( 
+                              ? AdminOrderCard(
                                   itemCount: snap.data.documents.length,
                                   data: snap.data.documents,
-                                  orderID: snapshot.data.documents[index].documentID,
-                                  orderBy: snapshot.data.documents[index].data["orderBy"],
-                                  addressID: snapshot.data.documents[index].data["addressID"],
+                                  orderID:
+                                      snapshot.data.documents[index].documentID,
+                                  orderBy: snapshot
+                                      .data.documents[index].data["orderBy"],
+                                  addressID: snapshot
+                                      .data.documents[index].data["addressID"],
                                 )
                               : Center(
                                   child: circularProgress(),
@@ -63,8 +71,7 @@ class _MyOrdersState extends State<AdminShiftOrders> {
                       );
                     },
                   )
-                : 
-                Center(
+                : Center(
                     child: circularProgress(),
                   );
           },
