@@ -10,23 +10,14 @@ class AdminSignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: new BoxDecoration(
-            gradient: new LinearGradient(
-              colors: [Colors.pink, Colors.lightGreenAccent],
-              begin: const FractionalOffset(0.0, 0.0),
-              end: const FractionalOffset(1.0, 0.0),
-              stops: [0.0, 1.0],
-              tileMode: TileMode.clamp,
-            ),
-          ),
-        ),
+        backgroundColor: Color(0xff94b941),
         title: Text(
-          "Grocery Shop",
+          "Nature Coop Fresh",
           style: TextStyle(
-            fontSize: 55.0,
+            fontSize: 25.0,
+            fontWeight: FontWeight.bold,
             color: Colors.white,
-            fontFamily: "Signatra",
+            fontFamily: "Folks-Heavy",
           ),
         ),
         centerTitle: true,
@@ -70,12 +61,14 @@ class _AdminSignInScreenState extends State<AdminSignInScreen> {
               child: Text(
                 "Only Admins",
                 style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 28.0,
+                  color: Color(0xff94b941),
+                  fontSize: 25.0,
                   fontWeight: FontWeight.bold,
+                  fontFamily: "Arial Bold",
                 ),
               ),
             ),
+            SizedBox(height: 20),
             Form(
               key: _formkey,
               child: Column(
@@ -96,30 +89,38 @@ class _AdminSignInScreenState extends State<AdminSignInScreen> {
               ),
             ),
             SizedBox(height: 25.0),
-            RaisedButton(
-              onPressed: () {
-                _adminIDTextEditingController.text.isNotEmpty &&
-                        _passwordTextEditingController.text.isNotEmpty
-                    ? loginAdmin()
-                    : showDialog(
-                        context: context,
-                        builder: (c) {
-                          return ErrorAlertDialog(
-                            message: "Please write Email and Password",
-                          );
-                        });
-              },
-              color: Colors.pink,
-              child: Text(
-                "Login Admin",
-                style: TextStyle(color: Colors.white),
+            Container(
+              width: 120.0,
+              height: 40.0,
+              child: RaisedButton(
+                onPressed: () {
+                  _adminIDTextEditingController.text.isNotEmpty &&
+                          _passwordTextEditingController.text.isNotEmpty
+                      ? loginAdmin()
+                      : showDialog(
+                          context: context,
+                          builder: (c) {
+                            return ErrorAlertDialog(
+                              message: "Please write Email and Password",
+                            );
+                          });
+                },
+                elevation: 5.0,
+                color: Color(0xff94b941),
+                child: Text(
+                  "Login Admin",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
+                  ),
+                ),
               ),
             ),
-            SizedBox(height: 50.0),
+            SizedBox(height: 30.0),
             Container(
               height: 4.0,
-              width: _screenWidth * 0.8,
-              color: Colors.pink,
+              width: _screenWidth * 0.5,
+              color: Colors.grey.withOpacity(0.5),
             ),
             SizedBox(height: 20.0),
             FlatButton.icon(
@@ -127,12 +128,16 @@ class _AdminSignInScreenState extends State<AdminSignInScreen> {
                   MaterialPageRoute(builder: (context) => AuthenticScreen())),
               icon: (Icon(
                 Icons.nature_people,
-                color: Colors.pink,
+                color: Color(0xff94b941),
+                size: 25,
               )),
               label: Text(
                 "I'm not Admin",
-                style:
-                    TextStyle(color: Colors.pink, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 18.0,
+                  color: Color(0xff94b941),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             SizedBox(height: 50.0),
@@ -165,7 +170,7 @@ class _AdminSignInScreenState extends State<AdminSignInScreen> {
           });
 
           Route route = MaterialPageRoute(builder: (c) => UploadPage());
-        Navigator.pushReplacement(context, route);
+          Navigator.pushReplacement(context, route);
         }
       });
     });

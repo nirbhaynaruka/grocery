@@ -35,7 +35,17 @@ class _UploadPageState extends State<UploadPage>
   displayAdminHomeScreen() {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.amber,
+        backgroundColor: Color(0xff94b941),
+        title: Text(
+          "Nature Coop Fresh",
+          style: TextStyle(
+            fontSize: 25.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            fontFamily: "Folks-Heavy",
+          ),
+        ),
+        centerTitle: true,
         leading: IconButton(
             icon: Icon(
               Icons.border_color,
