@@ -80,13 +80,22 @@ class _StoreHomeState extends State<StoreHome> {
                         left: 6.0,
                         child: Consumer<CartItemCounter>(
                           builder: (context, counter, _) {
-                            return Text(
-                              (EcommerceApp.sharedPreferences
+                            return Text( 
+                             
+                      
+                               EcommerceApp.sharedPreferences
+                      .getString(EcommerceApp.userName
+                      ) != null 
+                               ? 
+                              ( 
+                                EcommerceApp.sharedPreferences
                                           .getStringList(
                                               EcommerceApp.userCartList)
                                           .length -
                                       1)
-                                  .toString(),
+                                  .toString() 
+                                  :
+                                   "0",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12.0,
@@ -308,6 +317,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                               color: Colors.pinkAccent,
                             ),
                             onPressed: () async {
+                              
                               if (await EcommerceApp.auth.currentUser() !=
                                   null) {
                                 checkItemInCart(model.shortInfo, context);

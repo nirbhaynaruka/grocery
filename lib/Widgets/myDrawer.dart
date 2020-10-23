@@ -44,7 +44,11 @@ class MyDrawer extends StatelessWidget {
                 SizedBox(height: 30.0),
                 Text(
                   EcommerceApp.sharedPreferences
-                      .getString(EcommerceApp.userName),
+                      .getString(EcommerceApp.userName
+                      ) != null ? EcommerceApp.sharedPreferences
+                      .getString(EcommerceApp.userName
+                      ) :
+                      "Hello User",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 35.0,
@@ -171,15 +175,27 @@ class MyDrawer extends StatelessWidget {
                     color: Colors.white,
                   ),
                   title: Text(
-                    "Logout",
+                     EcommerceApp.sharedPreferences
+                      .getString(EcommerceApp.userName
+                      ) != null ? "LogOut":
+                    "LogIn/SignUp",
                     style: TextStyle(color: Colors.white),
                   ),
-                  onTap: () {
-                    EcommerceApp.auth.signOut().then((c) {
+                  onTap: () async{
+                       if (await EcommerceApp.auth.currentUser() != null) {
+                       EcommerceApp.auth.signOut().then((c) {
                       Route route =
-                        MaterialPageRoute(builder: (c) => AuthenticScreen());
+                        MaterialPageRoute(builder: (c) => StoreHome());
                     Navigator.pushReplacement(context, route);
                     });
+                      } else {
+                        Route route = MaterialPageRoute(
+                            builder: (_) => AuthenticScreen());
+                        Navigator.push(context, route);
+                      }
+
+
+                    
                   },
                 ),
                 Divider(
