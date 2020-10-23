@@ -57,30 +57,39 @@ class _LoginState extends State<Login> {
                 ],
               ),
             ),
-            RaisedButton(
-              onPressed: () {
-                _emailTextEditingController.text.isNotEmpty &&
-                        _passwordTextEditingController.text.isNotEmpty
-                    ? loginUser()
-                    : showDialog(
-                        context: context,
-                        builder: (c) {
-                          return ErrorAlertDialog(
-                            message: "Please write Email and Password",
-                          );
-                        });
-              },
-              color: Colors.pink,
-              child: Text(
-                "Login",
-                style: TextStyle(color: Colors.white),
+            SizedBox(height: 40.0),
+            Container(
+              width: 100.0,
+              height: 40.0,
+              child: RaisedButton(
+                onPressed: () {
+                  _emailTextEditingController.text.isNotEmpty &&
+                          _passwordTextEditingController.text.isNotEmpty
+                      ? loginUser()
+                      : showDialog(
+                          context: context,
+                          builder: (c) {
+                            return ErrorAlertDialog(
+                              message: "Please write Email and Password",
+                            );
+                          });
+                },
+                elevation: 5.0,
+                color: Color(0xff94b941),
+                child: Text(
+                  "Login",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
+                  ),
+                ),
               ),
             ),
             SizedBox(height: 50.0),
             Container(
               height: 4.0,
               width: _screenWidth * 0.8,
-              color: Colors.pink,
+              color: Colors.grey.withOpacity(0.5),
             ),
             SizedBox(height: 10.0),
             FlatButton.icon(
@@ -88,12 +97,16 @@ class _LoginState extends State<Login> {
                   MaterialPageRoute(builder: (context) => AdminSignInPage())),
               icon: (Icon(
                 Icons.nature_people,
-                color: Colors.pink,
+                size: 30,
+                color: Color(0xff94b941),
               )),
               label: Text(
                 "I'm Admin",
-                style:
-                    TextStyle(color: Colors.pink, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Color(0xff94b941),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
@@ -136,10 +149,11 @@ class _LoginState extends State<Login> {
         Navigator.pop(context);
         // Navigator.pop(context);
 
-        Route route = MaterialPageRoute(builder: (c) => 
-        // EcommerceApp.sharedPreferences
-        //               .getString(EcommerceApp.userName) == "Sudhanshu" ? UploadPage() : 
-                      StoreHome());
+        Route route = MaterialPageRoute(
+            builder: (c) =>
+                // EcommerceApp.sharedPreferences
+                //               .getString(EcommerceApp.userName) == "Sudhanshu" ? UploadPage() :
+                StoreHome());
         Navigator.pushReplacement(context, route);
       });
     }
