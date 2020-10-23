@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:grocery/Counters/ItemQuantity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -24,21 +25,20 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      ChangeNotifierProvider(create: (c)=> CartItemCounter()),
-      ChangeNotifierProvider(create: (c)=> ItemQuantity()),
-      ChangeNotifierProvider(create: (c)=> AddressChanger()),
-      ChangeNotifierProvider(create: (c)=> TotalAmount()),
-
-    ],
-    child: MaterialApp(
-        title: 'Grocery App',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primaryColor: Colors.green,
-        ),
-        home: SplashScreen()
-        ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (c) => CartItemCounter()),
+        ChangeNotifierProvider(create: (c) => ItemQuantity()),
+        ChangeNotifierProvider(create: (c) => AddressChanger()),
+        ChangeNotifierProvider(create: (c) => TotalAmount()),
+      ],
+      child: MaterialApp(
+          title: 'Grocery App',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primaryColor: Colors.green,
+          ),
+          home: SplashScreen()),
     );
   }
 }
@@ -56,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   displaySplash() {
-    Timer(Duration(seconds: 1), () async {
+    Timer(Duration(seconds: 3), () async {
       if (await EcommerceApp.auth.currentUser() != null) {
         Route route = MaterialPageRoute(builder: (_) => StoreHome());
         Navigator.pushReplacement(context, route);
@@ -71,27 +71,23 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
-        decoration: new BoxDecoration(
-            gradient: new LinearGradient(
-          colors: [Colors.pink, Colors.lightGreenAccent],
-          begin: const FractionalOffset(0.0, 0.0),
-          end: const FractionalOffset(1.0, 0.0),
-          stops: [0.0, 1.0],
-          tileMode: TileMode.clamp,
-        )),
+        color: Color(0xfffffff8),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset("images/welcome.png"),
+              Container(
+                margin: const EdgeInsets.all(15.0),
+                child: Image.asset("images/welcome.png"),
+              ),
               SizedBox(height: 20.0),
-              Text(
-                "Grocery Store",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+              Center(
+                child: SpinKitFadingCube(
+                  color: Color(0xff6d882f),
+                  size: 60.0,
+                  duration: Duration(seconds: 1),
                 ),
-              )
+              ),
             ],
           ),
         ),
