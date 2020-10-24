@@ -353,8 +353,19 @@ class _UploadPageState extends State<UploadPage>
     return downloadUrl;
   }
 
-  saveiteminfo(String downloadUrl) {
-    final itemsRef = Firestore.instance.collection("$_selectedcategory");
+ Future saveiteminfo(String downloadUrl) async {
+    final itemStore = await Firestore.instance.collection("items");
+    itemStore.document(productId).setData({
+      "shortInfo": _shorttextEditingController.text.trim(),
+      "longDescription": _descriptiontextEditingController.text.trim(),
+      "price": int.parse(_pricetextEditingController.text),
+      "publishedDate": DateTime.now(),
+      "status": "available",
+      "thumbnailUrl": downloadUrl,
+      "title": _titletextEditingController.text.trim(),
+      "catname": _selectedcategory,
+    });
+    final itemsRef = await Firestore.instance.collection("$_selectedcategory");
     itemsRef.document(productId).setData({
       "shortInfo": _shorttextEditingController.text.trim(),
       "longDescription": _descriptiontextEditingController.text.trim(),
