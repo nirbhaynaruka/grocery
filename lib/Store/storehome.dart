@@ -3,17 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grocery/Authentication/authenication.dart';
 import 'package:grocery/Store/cart.dart';
 import 'package:grocery/Store/category.dart';
-
-// import 'package:grocery/Store/product_page.dart';
 import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery/Widgets/customSlider.dart';
 import 'package:provider/provider.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../Widgets/loadingWidget.dart';
 import '../Widgets/myDrawer.dart';
 import '../Widgets/searchBox.dart';
 import '../Models/item.dart';
