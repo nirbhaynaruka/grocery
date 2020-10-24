@@ -132,7 +132,12 @@ class _StoreHomeState extends State<StoreHome> {
         body: Container(
           child: Column(
             children: [
+              SizedBox(height: 20),
               CarouselPage(),
+              SizedBox(height: 20),
+              Container(
+                child: Text("SHOP BY CATEGORY"),
+              )
             ],
           ),
         ),
