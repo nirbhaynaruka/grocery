@@ -8,7 +8,9 @@ import 'package:grocery/Widgets/customAppBar.dart';
 import 'package:grocery/Widgets/myDrawer.dart';
 import 'package:grocery/Models/item.dart';
 import 'package:flutter/material.dart';
-import 'package:grocery/Store/storehome.dart';
+// import 'package:grocery/Store/storehome.dart';
+import '../Store/category.dart';
+
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -195,15 +197,15 @@ class _ProductPageState extends State<ProductPage> {
 
                         // => checkItemInCart(widget.itemModel.shortInfo, context),
                         child: Container(
-                          decoration: new BoxDecoration(
-                            gradient: new LinearGradient(
-                              colors: [Colors.pink, Colors.lightGreenAccent],
-                              begin: const FractionalOffset(0.0, 0.0),
-                              end: const FractionalOffset(1.0, 0.0),
-                              stops: [0.0, 1.0],
-                              tileMode: TileMode.clamp,
-                            ),
-                          ),
+                          // decoration: new BoxDecoration(
+                          //   gradient: new LinearGradient(
+                          //     colors: [Colors.pink, Colors.lightGreenAccent],
+                          //     begin: const FractionalOffset(0.0, 0.0),
+                          //     end: const FractionalOffset(1.0, 0.0),
+                          //     stops: [0.0, 1.0],
+                          //     tileMode: TileMode.clamp,
+                          //   ),
+                          // ),
                           width: MediaQuery.of(context).size.width - 40.0,
                           height: 50.0,
                           child: Center(

@@ -8,7 +8,9 @@ import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:grocery/Counters/totalMoney.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:grocery/Store/storehome.dart';
+// import 'package:grocery/Store/storehome.dart';
+import '../Store/category.dart';
+
 import 'package:grocery/Widgets/myDrawer.dart';
 import 'package:provider/provider.dart';
 import '../main.dart';

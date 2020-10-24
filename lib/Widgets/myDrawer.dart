@@ -65,15 +65,15 @@ class _MyDrawerState extends State<MyDrawer> {
         children: [
           Container(
             padding: EdgeInsets.only(top: 25.0, bottom: 10.0),
-            decoration: new BoxDecoration(
-              gradient: new LinearGradient(
-                colors: [Colors.pink, Colors.lightGreenAccent],
-                begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(1.0, 0.0),
-                stops: [0.0, 1.0],
-                tileMode: TileMode.clamp,
-              ),
-            ),
+            // decoration: new BoxDecoration(
+            //   gradient: new LinearGradient(
+            //     colors: [Colors.pink, Colors.lightGreenAccent],
+            //     begin: const FractionalOffset(0.0, 0.0),
+            //     end: const FractionalOffset(1.0, 0.0),
+            //     stops: [0.0, 1.0],
+            //     tileMode: TileMode.clamp,
+            //   ),
+            // ),
             child: Column(
               children: [
                 // Material(
@@ -106,15 +106,15 @@ class _MyDrawerState extends State<MyDrawer> {
           SizedBox(height: 12.0),
           Container(
             padding: EdgeInsets.only(top: 1.0),
-            decoration: new BoxDecoration(
-              gradient: new LinearGradient(
-                colors: [Colors.pink, Colors.lightGreenAccent],
-                begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(1.0, 0.0),
-                stops: [0.0, 1.0],
-                tileMode: TileMode.clamp,
-              ),
-            ),
+            // decoration: new BoxDecoration(
+            //   gradient: new LinearGradient(
+            //     colors: [Colors.pink, Colors.lightGreenAccent],
+            //     begin: const FractionalOffset(0.0, 0.0),
+            //     end: const FractionalOffset(1.0, 0.0),
+            //     stops: [0.0, 1.0],
+            //     tileMode: TileMode.clamp,
+            //   ),
+            // ),
             child: Column(
               children: [
                 ListTile(

@@ -27,14 +27,14 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
-         decoration: new BoxDecoration(
-            gradient: new LinearGradient(
-          colors: [Colors.pink, Colors.lightGreenAccent],
-          begin: const FractionalOffset(0.0, 0.0),
-          end: const FractionalOffset(1.0, 0.0),
-          stops: [0.0, 1.0],
-          tileMode: TileMode.clamp,
-        )),
+        //  decoration: new BoxDecoration(
+        //     gradient: new LinearGradient(
+        //   colors: [Colors.pink, Colors.lightGreenAccent],
+        //   begin: const FractionalOffset(0.0, 0.0),
+        //   end: const FractionalOffset(1.0, 0.0),
+        //   stops: [0.0, 1.0],
+        //   tileMode: TileMode.clamp,
+        // )),
         child: Center(child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
