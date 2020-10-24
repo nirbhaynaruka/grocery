@@ -9,6 +9,7 @@ import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:grocery/Widgets/customSlider.dart';
 import 'package:provider/provider.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -127,43 +128,59 @@ class _StoreHomeState extends State<StoreHome> {
             )
           ],
         ),
-        drawer: MyDrawer(),
+
         body: Container(
-          child: CustomScrollView(
-            slivers: [
-              SliverPersistentHeader(
-                delegate: SearchBoxDelegate(),
-                pinned: true,
-              ),
-              // Divider(width:20.0,),
-              // Text("data")
-              StreamBuilder<QuerySnapshot>(
-                stream: Firestore.instance.collection("category").snapshots(),
-                builder: (context, dataSnapshot) {
-                  return !dataSnapshot.hasData
-                      ? SliverToBoxAdapter(
-                          child: Center(
-                            child: circularProgress(),
-                          ),
-                        )
-                      : SliverStaggeredGrid.countBuilder(
-                          crossAxisCount: 4,
-                          staggeredTileBuilder: (c) => StaggeredTile.count(2, 2),
-                          mainAxisSpacing: 4.0,
-                          crossAxisSpacing: 4.0,
-                          itemBuilder: (context, index) {
-                            ItemModel model = ItemModel.fromJson(
-                                dataSnapshot.data.documents[index].data);
-                            return categoryinfo(model, context);
-                          },
-                          itemCount: dataSnapshot.data.documents.length);
-                },
-              ),
+          child: Column(
+            children: [
+              CarouselPage(),
             ],
           ),
         ),
-
-        ///[.]
+        drawer: MyDrawer(),
+        floatingActionButton: Transform.scale(
+          scale: 1.2,
+          child: FloatingActionButton(
+            onPressed: () => SearchBoxDelegate(),
+            elevation: 5,
+            backgroundColor: Color(0xff94b941),
+            splashColor: Color(0xffdde8bd),
+            child: Icon(Icons.search, size: 30),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        // body: Container(
+        //   child: CustomScrollView(
+        //     slivers: [
+        //       SliverPersistentHeader(
+        //         delegate: SearchBoxDelegate(),
+        //         pinned: true,
+        //       ),
+        //       StreamBuilder<QuerySnapshot>(
+        //         stream: Firestore.instance.collection("category").snapshots(),
+        //         builder: (context, dataSnapshot) {
+        //           return !dataSnapshot.hasData
+        //               ? SliverToBoxAdapter(
+        //                   child: Center(
+        //                     child: circularProgress(),
+        //                   ),
+        //                 )
+        //               : SliverStaggeredGrid.countBuilder(
+        //                   crossAxisCount: 4,
+        //                   staggeredTileBuilder: (c) =>
+        //                       StaggeredTile.count(2, 2),
+        //                   mainAxisSpacing: 4.0,
+        //                   crossAxisSpacing: 4.0,
+        //                   itemBuilder: (context, index) {
+        //                     ItemModel model = ItemModel.fromJson(
+        //                         dataSnapshot.data.documents[index].data);
+        //                     return categoryinfo(model, context);
+        //                   },
+        //                   itemCount: dataSnapshot.data.documents.length);
+        //         },
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }
@@ -172,51 +189,50 @@ class _StoreHomeState extends State<StoreHome> {
 Widget categoryinfo(ItemModel model, BuildContext context,
     {Color: Colors.white}) {
   return GestureDetector(
-      
-       onTap: () {
-          Route route =
-              MaterialPageRoute(builder: (c) => Category(itemModel: model));
-          Navigator.push(context, route);
-        },
-      child: Container(
+    onTap: () {
+      Route route =
+          MaterialPageRoute(builder: (c) => Category(itemModel: model));
+      Navigator.push(context, route);
+    },
+    child: Container(
         margin: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
-    color: Colors.white,
-    borderRadius: BorderRadius.all(Radius.circular(5)),
-    // BorderRadius.only(
-    //   topLeft: Radius.circular(8),
-    //     topRight: Radius.circular(8),
-    //     bottomLeft: Radius.circular(8),
-    //     bottomRight: Radius.circular(8)
-    // ),
-    boxShadow: [
-      BoxShadow(
-        color: Colors.grey.withOpacity(0.2),
-        spreadRadius: 2,
-        blurRadius: 5,
-        offset: Offset(0, 3), // changes position of shadow
-      ),
-    ]),
-        child:Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.network(model.catthumbnail,
-                                    fit: BoxFit.cover,
-                                    height: 80.0,
-                                    ),
-                SizedBox(height: 10.0,),
-              
-              Text(model.catname),
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            // BorderRadius.only(
+            //   topLeft: Radius.circular(8),
+            //     topRight: Radius.circular(8),
+            //     bottomLeft: Radius.circular(8),
+            //     bottomRight: Radius.circular(8)
+            // ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.2),
+                spreadRadius: 2,
+                blurRadius: 5,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ]),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.network(
+              model.catthumbnail,
+              fit: BoxFit.cover,
+              height: 80.0,
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Text(model.catname),
+          ],
+        )
+        //     InkWell(
 
-            ],
-          )
-    //     InkWell(
-          
-    //     child: Text(model.catname),
-    // ),
+        //     child: Text(model.catname),
+        // ),
         ),
-      
   );
 }
 // Widget categoryinfo(ItemModel model, BuildContext context){
