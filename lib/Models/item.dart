@@ -45,6 +45,8 @@ class ItemModel {
     data['thumbnailUrl'] = this.thumbnailUrl;
     data['longDescription'] = this.longDescription;
     data['status'] = this.status;
+    data['catname'] = this.catname;
+    
     return data;
   }
 }

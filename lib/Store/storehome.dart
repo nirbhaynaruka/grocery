@@ -107,8 +107,8 @@ class _StoreHomeState extends State<StoreHome> {
                                   ? (EcommerceApp.sharedPreferences
                                               .getStringList(
                                                   EcommerceApp.userCartList)
-                                              .length -
-                                          1)
+                                              .length - 1
+                                          )
                                       .toString()
                                   : "0",
                               style: TextStyle(

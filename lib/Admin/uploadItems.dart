@@ -26,6 +26,17 @@ class _UploadPageState extends State<UploadPage>
   TextEditingController _shorttextEditingController = TextEditingController();
   String productId = DateTime.now().millisecondsSinceEpoch.toString();
   bool uploading = false;
+  List<String> categories = [
+    'Beauty & Hygeine',
+    'Beverages and Snacks',
+    'Cleaning & Household',
+    'Cooking Essentials',
+    'Dairy Products',
+    'Fruits & Vegetables',
+    'Packaged Foods',
+    'Miscellaneous'
+  ]; // Option 2
+  String _selectedcategory = "Select a Category";
 
   @override
   Widget build(BuildContext context) {
@@ -164,7 +175,8 @@ class _UploadPageState extends State<UploadPage>
           title: Text("New product", style: TextStyle(color: Colors.white)),
           actions: [
             FlatButton(
-                onPressed: uploading ? null : () => uploadImageandSaveItemInfo(),
+                onPressed:
+                    uploading ? null : () => uploadImageandSaveItemInfo(),
                 child: Text("add",
                     style: TextStyle(
                       color: Colors.green,
@@ -237,6 +249,31 @@ class _UploadPageState extends State<UploadPage>
               Icons.perm_device_information,
               color: Colors.pink,
             ),
+            title: DropdownButton(
+              // value: _selectedcategory,
+              items: categories.map((val) {
+                return DropdownMenuItem(
+                  child: Text(val),
+                  value: val,
+                );
+              }).toList(),
+              hint: Text("$_selectedcategory"), // Not necessary for Option 1
+              onChanged: (val) {
+                // setState(() {
+                _selectedcategory = val;
+                // });
+                this.setState(() {});
+              },
+            ),
+          ),
+          Divider(
+            color: Colors.pink,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.perm_device_information,
+              color: Colors.pink,
+            ),
             title: Container(
                 width: 250.0,
                 child: TextField(
@@ -285,6 +322,7 @@ class _UploadPageState extends State<UploadPage>
   clearFormInfo() {
     setState(() {
       file = null;
+      _selectedcategory = "Select a Category";
       _descriptiontextEditingController.clear();
       _pricetextEditingController.clear();
       _shorttextEditingController.clear();
@@ -312,7 +350,7 @@ class _UploadPageState extends State<UploadPage>
   }
 
   saveiteminfo(String downloadUrl) {
-    final itemsRef = Firestore.instance.collection("items");
+    final itemsRef = Firestore.instance.collection("$_selectedcategory");
     itemsRef.document(productId).setData({
       "shortInfo": _shorttextEditingController.text.trim(),
       "longDescription": _descriptiontextEditingController.text.trim(),
@@ -321,9 +359,11 @@ class _UploadPageState extends State<UploadPage>
       "status": "available",
       "thumbnailUrl": downloadUrl,
       "title": _titletextEditingController.text.trim(),
+      "catname": _selectedcategory,
     });
     setState(() {
       file = null;
+      _selectedcategory = "Select a Category";
       uploading = false;
       productId = DateTime.now().millisecondsSinceEpoch.toString();
       _descriptiontextEditingController.clear();
