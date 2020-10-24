@@ -15,7 +15,6 @@ import '../Widgets/myDrawer.dart';
 import '../Widgets/searchBox.dart';
 import '../Models/item.dart';
 
-
 double width;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,32 +26,31 @@ Future<void> main() async {
 }
 
 class Category extends StatefulWidget {
-final ItemModel itemModel;
+  final ItemModel itemModel;
   Category({this.itemModel});
   @override
   _CategoryState createState() => _CategoryState();
 }
 
 class _CategoryState extends State<Category> {
-
-
- @override
+  bool logincheck = false;
+  @override
   void initState() {
-    // checklogin();
+    checklogin();
     super.initState();
   }
 
-  // checklogin() async {
-  //   if (await EcommerceApp.auth.currentUser() != null) {
-  //     setState(() {
-  //       logincheck = true;
-  //     });
-  //   } else {
-  //     setState(() {
-  //       logincheck = false;
-  //     });
-  //   }
-  // }
+  checklogin() async {
+    if (await EcommerceApp.auth.currentUser() != null) {
+      setState(() {
+        logincheck = true;
+      });
+    } else {
+      setState(() {
+        logincheck = false;
+      });
+    }
+  }
 
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
@@ -76,16 +74,16 @@ class _CategoryState extends State<Category> {
                 IconButton(
                     icon: Icon(Icons.shopping_basket, color: Colors.white),
                     onPressed: () {
-                      // checklogin();
-                      // if (logincheck) {
-                      //   Route route =
-                      //       MaterialPageRoute(builder: (c) => CartPage());
-                      //   Navigator.push(context, route);
-                      // } else {
-                      //   Route route = MaterialPageRoute(
-                      //       builder: (_) => AuthenticScreen());
-                      //   Navigator.push(context, route);
-                      // }
+                      checklogin();
+                      if (logincheck) {
+                        Route route =
+                            MaterialPageRoute(builder: (c) => CartPage());
+                        Navigator.push(context, route);
+                      } else {
+                        Route route = MaterialPageRoute(
+                            builder: (_) => AuthenticScreen());
+                        Navigator.push(context, route);
+                      }
                     }),
                 Positioned(
                   child: Stack(
@@ -102,15 +100,14 @@ class _CategoryState extends State<Category> {
                         child: Consumer<CartItemCounter>(
                           builder: (context, counter, _) {
                             return Text(
-                              // logincheck
-                              //     ? (EcommerceApp.sharedPreferences
-                              //                 .getStringList(
-                              //                     EcommerceApp.userCartList)
-                              //                 .length -
-                              //             1)
-                              //         .toString()
-                              //     :
-                                   "0",
+                              logincheck
+                                  ? (EcommerceApp.sharedPreferences
+                                              .getStringList(
+                                                  EcommerceApp.userCartList)
+                                              .length -
+                                          1)
+                                      .toString()
+                                  : "0",
                               style: TextStyle(
                                 color: Color(0xff94b941),
                                 fontSize: 12.0,
@@ -136,7 +133,7 @@ class _CategoryState extends State<Category> {
             ),
             StreamBuilder<QuerySnapshot>(
               stream: Firestore.instance
-                  .collection("items")
+                  .collection(widget.itemModel.catname)
                   .orderBy("publishedDate", descending: true)
                   .snapshots(),
               builder: (context, dataSnapshot) {
@@ -152,6 +149,7 @@ class _CategoryState extends State<Category> {
                         itemBuilder: (context, index) {
                           ItemModel model = ItemModel.fromJson(
                               dataSnapshot.data.documents[index].data);
+
                           return sourceInfo(model, context);
                         },
                         itemCount: dataSnapshot.data.documents.length);
