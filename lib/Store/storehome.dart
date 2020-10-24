@@ -131,6 +131,8 @@ class _StoreHomeState extends State<StoreHome> {
 
         body: Container(
           child: Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 20),
               CarouselPage(),
