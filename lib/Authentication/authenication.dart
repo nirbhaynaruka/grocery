@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery/Authentication/loginWithPhone.dart';
 import 'login.dart';
 import 'register.dart';
 import 'package:grocery/Config/config.dart';
@@ -12,7 +13,7 @@ class _AuthenticScreenState extends State<AuthenticScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xff94b941),
@@ -35,7 +36,10 @@ class _AuthenticScreenState extends State<AuthenticScreen> {
             ),
             tabs: [
               Tab(
-                text: "Login",
+                text: "Phone Login",
+              ),
+              Tab(
+                text: "Email Login",
               ),
               Tab(
                 text: "Register",
@@ -51,6 +55,7 @@ class _AuthenticScreenState extends State<AuthenticScreen> {
           ),
           child: TabBarView(
             children: [
+              LoginScreen(),
               Login(),
               Register(),
             ],
