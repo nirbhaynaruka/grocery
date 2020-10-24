@@ -138,7 +138,20 @@ class _StoreHomeState extends State<StoreHome> {
                 Container(
                   child: Text("SHOP BY CATEGORY"),
                 ),
-
+                // Container(
+                //   child: new GridView.count(
+                //     crossAxisCount: 4,
+                //     children: new List<Widget>.generate(16, (index) {
+                //       return new GridTile(
+                //         child: new Card(
+                //             color: Colors.blue.shade200,
+                //             child: new Center(
+                //               child: new Text('tile $index'),
+                //             )),
+                //       );
+                //     }),
+                //   ),
+                // ),
                 // Expanded(
                 //   child: CustomScrollView(
                 //     slivers: [
