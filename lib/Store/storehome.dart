@@ -7,6 +7,7 @@ import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:grocery/Widgets/customSlider.dart';
+import 'package:grocery/Widgets/loadingWidget.dart';
 import 'package:provider/provider.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -104,8 +105,8 @@ class _StoreHomeState extends State<StoreHome> {
                                   ? (EcommerceApp.sharedPreferences
                                               .getStringList(
                                                   EcommerceApp.userCartList)
-                                              .length - 1
-                                          )
+                                              .length -
+                                          1)
                                       .toString()
                                   : "0",
                               style: TextStyle(
@@ -125,18 +126,87 @@ class _StoreHomeState extends State<StoreHome> {
           ],
         ),
 
-        body: Container(
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 20),
-              CarouselPage(),
-              SizedBox(height: 20),
-              Container(
-                child: Text("SHOP BY CATEGORY"),
-              )
-            ],
+        body: SingleChildScrollView(
+          child: Container(
+            // width: MediaQuery.of(context).size.width,
+            // height: MediaQuery.of(context).size.height,
+            child: Stack(
+              children: [
+                SizedBox(height: 20),
+                CarouselPage(),
+                SizedBox(height: 20),
+                Container(
+                  child: Text("SHOP BY CATEGORY"),
+                ),
+
+                // Expanded(
+                //   child: CustomScrollView(
+                //     slivers: [
+                //       StreamBuilder<QuerySnapshot>(
+                //         stream: Firestore.instance
+                //             .collection("category")
+                //             .snapshots(),
+                //         builder: (context, dataSnapshot) {
+                //           return !dataSnapshot.hasData
+                //               ? SliverToBoxAdapter(
+                //                   child: Center(
+                //                     child: circularProgress(),
+                //                   ),
+                //                 )
+                //               : SliverStaggeredGrid.countBuilder(
+                //                   crossAxisCount: 4,
+                //                   staggeredTileBuilder: (c) =>
+                //                       StaggeredTile.count(2, 2),
+                //                   mainAxisSpacing: 4.0,
+                //                   crossAxisSpacing: 4.0,
+                //                   itemBuilder: (context, index) {
+                //                     ItemModel model = ItemModel.fromJson(
+                //                         dataSnapshot
+                //                             .data.documents[index].data);
+                //                     return categoryinfo(model, context);
+                //                   },
+                //                   itemCount:
+                //                       dataSnapshot.data.documents.length);
+                //         },
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // child: ListView(
+                //   scrollDirection: Axis.vertical,
+                //   shrinkWrap: true,
+                //   children: [
+                //     StreamBuilder<QuerySnapshot>(
+                //       stream: Firestore.instance
+                //           .collection("category")
+                //           .snapshots(),
+                //       builder: (context, dataSnapshot) {
+                //         return !dataSnapshot.hasData
+                //             ? SliverToBoxAdapter(
+                //                 child: Center(
+                //                   child: circularProgress(),
+                //                 ),
+                //               )
+                //             : StaggeredGridView.countBuilder(
+                //                 crossAxisCount: 4,
+                //                 staggeredTileBuilder: (c) =>
+                //                     StaggeredTile.count(2, 2),
+                //                 mainAxisSpacing: 4.0,
+                //                 crossAxisSpacing: 4.0,
+                //                 itemBuilder: (context, index) {
+                //                   ItemModel model = ItemModel.fromJson(
+                //                       dataSnapshot
+                //                           .data.documents[index].data);
+                //                   return categoryinfo(model, context);
+                //                 },
+                //                 itemCount:
+                //                     dataSnapshot.data.documents.length);
+                //       },
+                //     ),
+                // ],
+                // ),
+              ],
+            ),
           ),
         ),
         drawer: MyDrawer(),
