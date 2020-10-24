@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grocery/Authentication/authenication.dart';
-import 'package:grocery/Authentication/login.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:grocery/Address/addAddress.dart';
 import 'package:grocery/Store/Search.dart';
@@ -9,7 +8,6 @@ import 'package:grocery/Store/cart.dart';
 import 'package:grocery/Orders/myOrders.dart';
 import 'package:grocery/Store/storehome.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
@@ -22,15 +20,6 @@ Future<void> main() async {
 
   runApp(MyDrawer());
 }
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: MyDrawer(),
-//     );
-//   }
-// }
 
 class MyDrawer extends StatefulWidget {
   @override
@@ -48,83 +37,66 @@ class _MyDrawerState extends State<MyDrawer> {
   checklogin() async {
     if (await EcommerceApp.auth.currentUser() != null) {
       setState(() {
-        
-      logincheck = true;
+        logincheck = true;
       });
     } else {
       setState(() {
-        
-      logincheck = false;
+        logincheck = false;
       });
     }
   }
 
   Widget build(BuildContext context) {
     return Drawer(
+      elevation: 10,
       child: ListView(
         children: [
           Container(
-            padding: EdgeInsets.only(top: 25.0, bottom: 10.0),
-            // decoration: new BoxDecoration(
-            //   gradient: new LinearGradient(
-            //     colors: [Colors.pink, Colors.lightGreenAccent],
-            //     begin: const FractionalOffset(0.0, 0.0),
-            //     end: const FractionalOffset(1.0, 0.0),
-            //     stops: [0.0, 1.0],
-            //     tileMode: TileMode.clamp,
-            //   ),
-            // ),
+            padding: EdgeInsets.only(top: 25.0, bottom: 20.0),
+            // height: MediaQuery.of(context).size.height,
+            height: 100.0,
+            decoration: new BoxDecoration(
+              color: Color(0xff94b941),
+            ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Material(
-                //   borderRadius: BorderRadius.all(Radius.circular(80.0)),
-                //   elevation: 8.0,
-                //   child: Container(
-                //     height: 160.0,
-                //     width: 160.0,
-                //     child: CircleAvatar(
-                //       backgroundImage: NetworkImage(
-                //         EcommerceApp.sharedPreferences
-                //             .getString(EcommerceApp.userAvatarUrl),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                SizedBox(height: 30.0),
                 Text(
-                  logincheck ? EcommerceApp.sharedPreferences
-                      .getString(EcommerceApp.userName
-                      ) : "Hello User",
+                  logincheck
+                      ? "Hello, "+EcommerceApp.sharedPreferences
+                          .getString(EcommerceApp.userName)
+                      : "Hello, User",
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 35.0,
-                      fontFamily: "Signatra"),
+                    color: Colors.white,
+                    fontSize: 25.0,
+                    fontFamily: "Arial Bold",
+                  ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 12.0),
+          // SizedBox(height: 12.0),
           Container(
             padding: EdgeInsets.only(top: 1.0),
-            // decoration: new BoxDecoration(
-            //   gradient: new LinearGradient(
-            //     colors: [Colors.pink, Colors.lightGreenAccent],
-            //     begin: const FractionalOffset(0.0, 0.0),
-            //     end: const FractionalOffset(1.0, 0.0),
-            //     stops: [0.0, 1.0],
-            //     tileMode: TileMode.clamp,
-            //   ),
-            // ),
+            height: MediaQuery.of(context).size.height - 150,
+            decoration: new BoxDecoration(
+              color: Color(0xfffffff8),
+            ),
             child: Column(
               children: [
                 ListTile(
                   leading: Icon(
                     Icons.home,
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                   title: Text(
                     "Home",
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20.0,
+                      fontFamily: "Arial Bold",
+                    ),
                   ),
                   onTap: () {
                     Route route =
@@ -134,129 +106,27 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
                 Divider(
                   height: 10.0,
-                  color: Colors.white,
+                  color: Color(0xfffffff8),
                   thickness: 6.0,
                 ),
                 ListTile(
                   leading: Icon(
                     Icons.shopping_cart,
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                   title: Text(
                     "My Orders",
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20.0,
+                      fontFamily: "Arial Bold",
+                    ),
                   ),
                   onTap: () {
-                    if(logincheck){
-
-                    Route route = MaterialPageRoute(builder: (c) => MyOrders());
-                    Navigator.push(context, route);
-                    }
-                    else{
-                      Route route =
-                          MaterialPageRoute(builder: (_) => AuthenticScreen());
-                      Navigator.push(context, route);
-                    }
-                  },
-                ),
-                Divider(
-                  height: 10.0,
-                  color: Colors.white,
-                  thickness: 6.0,
-                ),
-                ListTile(
-                  leading: Icon(
-                    Icons.shopping_cart,
-                    color: Colors.white,
-                  ),
-                  title: Text(
-                    "My Cart",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onTap: () {
-                    if(logincheck){
-
-                    Route route = MaterialPageRoute(builder: (c) => CartPage());
-                    Navigator.push(context, route);
-                    }
-                    else{
-                      Route route =
-                          MaterialPageRoute(builder: (_) => AuthenticScreen());
-                      Navigator.push(context, route);
-                    }
-                  },
-                ),
-                Divider(
-                  height: 10.0,
-                  color: Colors.white,
-                  thickness: 6.0,
-                ),
-                ListTile(
-                  leading: Icon(
-                    Icons.search,
-                    color: Colors.white,
-                  ),
-                  title: Text(
-                    "Search",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onTap: () {
-                    Route route =
-                        MaterialPageRoute(builder: (c) => SearchProduct());
-                    Navigator.push(context, route);
-                  },
-                ),
-                Divider(
-                  height: 10.0,
-                  color: Colors.white,
-                  thickness: 6.0,
-                ),
-                ListTile(
-                  leading: Icon(
-                    Icons.add_location,
-                    color: Colors.white,
-                  ),
-                  title: Text(
-                    "Add New Address",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onTap: () {
-                    if(logincheck){
-
-                    Route route = MaterialPageRoute(builder: (c) => AddAddress());
-                    Navigator.push(context, route);
-                    }
-                    else{
-                      Route route =
-                          MaterialPageRoute(builder: (_) => AuthenticScreen());
-                      Navigator.push(context, route);
-                    }
-                  },
-                ),
-                Divider(
-                  height: 10.0,
-                  color: Colors.white,
-                  thickness: 6.0,
-                ),
-                ListTile(
-                  leading: Icon(
-                    Icons.all_out,
-                    color: Colors.white,
-                  ),
-                  title: Text(
-                    logincheck
-                        ? "LogOut"
-                        : "LogIn/SignUp",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onTap: () {
-                    // checklogin();
                     if (logincheck) {
-                      EcommerceApp.auth.signOut().then((c) {
-                        Route route =
-                            MaterialPageRoute(builder: (c) => SplashScreen());
-                        Navigator.pushReplacement(context, route);
-                      });
+                      Route route =
+                          MaterialPageRoute(builder: (c) => MyOrders());
+                      Navigator.push(context, route);
                     } else {
                       Route route =
                           MaterialPageRoute(builder: (_) => AuthenticScreen());
@@ -266,8 +136,151 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
                 Divider(
                   height: 10.0,
-                  color: Colors.white,
+                  color: Color(0xfffffff8),
                   thickness: 6.0,
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.shopping_cart,
+                    color: Colors.black,
+                  ),
+                  title: Text(
+                    "My Cart",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20.0,
+                      fontFamily: "Arial Bold",
+                    ),
+                  ),
+                  onTap: () {
+                    if (logincheck) {
+                      Route route =
+                          MaterialPageRoute(builder: (c) => CartPage());
+                      Navigator.push(context, route);
+                    } else {
+                      Route route =
+                          MaterialPageRoute(builder: (_) => AuthenticScreen());
+                      Navigator.push(context, route);
+                    }
+                  },
+                ),
+                Divider(
+                  height: 10.0,
+                  color:Color(0xfffffff8),
+                  thickness: 6.0,
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.search,
+                    color: Colors.black,
+                  ),
+                  title: Text(
+                    "Search",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20.0,
+                      fontFamily: "Arial Bold",
+                    ),
+                  ),
+                  onTap: () {
+                    Route route =
+                        MaterialPageRoute(builder: (c) => SearchProduct());
+                    Navigator.push(context, route);
+                  },
+                ),
+                Divider(
+                  height: 10.0,
+                  color: Color(0xfffffff8),
+                  thickness: 6.0,
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.add_location,
+                    color: Colors.black,
+                  ),
+                  title: Text(
+                    "Add New Address",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20.0,
+                      fontFamily: "Arial Bold",
+                    ),
+                  ),
+                  onTap: () {
+                    if (logincheck) {
+                      Route route =
+                          MaterialPageRoute(builder: (c) => AddAddress());
+                      Navigator.push(context, route);
+                    } else {
+                      Route route =
+                          MaterialPageRoute(builder: (_) => AuthenticScreen());
+                      Navigator.push(context, route);
+                    }
+                  },
+                ),
+                Divider(
+                  height: 10.0,
+                  color: Color(0xfffffff8),
+                  thickness: 6.0,
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.perm_device_info_rounded,
+                    color: Colors.black,
+                  ),
+                  title: Text(
+                    "About",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20.0,
+                      fontFamily: "Arial Bold",
+                    ),
+                  ),
+                  onTap: () {},
+                ),
+                Expanded(
+                  child: Align(
+                    alignment: FractionalOffset.bottomCenter,
+                    child: Container(
+                      margin: EdgeInsets.only(left:10.0, right: 10.0),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Color(0xff94b941),
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      height: 60,
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.all_out,
+                          color: Colors.white,
+                          size: 30.0,
+                        ),
+                        title: Text(
+                          logincheck ? "Logout" : "Login / Register",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            fontFamily: "Arial Bold",
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        onTap: () {
+                          // checklogin();
+                          if (logincheck) {
+                            EcommerceApp.auth.signOut().then((c) {
+                              Route route = MaterialPageRoute(
+                                  builder: (c) => SplashScreen());
+                              Navigator.pushReplacement(context, route);
+                            });
+                          } else {
+                            Route route = MaterialPageRoute(
+                                builder: (_) => AuthenticScreen());
+                            Navigator.push(context, route);
+                          }
+                        },
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
