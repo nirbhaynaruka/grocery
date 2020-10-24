@@ -48,7 +48,7 @@ class _CartPageState extends State<CartPage> {
           }
         },
         label: Text("Check Out"),
-        backgroundColor: Colors.green,
+        backgroundColor: Color(0xff94b941),
         icon: Icon(Icons.navigate_next),
       ),
       appBar: AppBar(

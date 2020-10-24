@@ -1,4 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:grocery/Authentication/authenication.dart';
+import 'package:grocery/Config/config.dart';
+import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:grocery/Models/item.dart';
+import 'package:grocery/Store/cart.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:grocery/Store/storehome.dart';
 import '../Store/category.dart';
 
@@ -7,23 +14,134 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../Widgets/customAppBar.dart';
 
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  EcommerceApp.auth = FirebaseAuth.instance;
+  EcommerceApp.sharedPreferences = await SharedPreferences.getInstance();
+  EcommerceApp.firestore = Firestore.instance;
+
+  runApp(SearchProduct());
+}
+
+
 class SearchProduct extends StatefulWidget {
   @override
   _SearchProductState createState() => new _SearchProductState();
 }
 
 class _SearchProductState extends State<SearchProduct> {
-  Future<QuerySnapshot> docList;
+  Future<QuerySnapshot> docList;  
   @override
+  bool logincheck = false;
+  @override
+  void initState() {
+    checklogin();
+    super.initState();
+  }
+
+  checklogin() async {
+    if (await EcommerceApp.auth.currentUser() != null) {
+      setState(() {
+        logincheck = true;
+      });
+    } else {
+      setState(() {
+        logincheck = false;
+      });
+    }
+  }
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: MyAppBar(
+        appBar: AppBar(
+          backgroundColor: Color(0xff94b941),
+          title: Text( "Nature Coop Fresh",
+            
+            style: TextStyle(
+              fontSize: 25.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontFamily: "Folks-Heavy",
+            ),
+          ),
+          centerTitle: true,
+          actions: [
+            Stack(
+              children: [
+                IconButton(
+                    icon: Icon(Icons.shopping_basket, color: Colors.white),
+                    onPressed: () {
+                      checklogin();
+                      if (logincheck) {
+                        Route route =
+                            MaterialPageRoute(builder: (c) => CartPage());
+                        Navigator.push(context, route);
+                      } else {
+                        Route route = MaterialPageRoute(
+                            builder: (_) => AuthenticScreen());
+                        Navigator.push(context, route);
+                      }
+                    }),
+                Positioned(
+                  child: Stack(
+                    children: [
+                      Icon(
+                        Icons.brightness_1,
+                        size: 20.0,
+                        color: Colors.white,
+                      ),
+                      Positioned(
+                        top: 3.0,
+                        bottom: 4.0,
+                        left: 6.0,
+                        child: Consumer<CartItemCounter>(
+                          builder: (context, counter, _) {
+                            return Text(
+                              logincheck
+                                  ? (EcommerceApp.sharedPreferences
+                                              .getStringList(
+                                                  EcommerceApp.userCartList)
+                                              .length -
+                                          1)
+                                      .toString()
+                                  : "0",
+                              style: TextStyle(
+                                color: Color(0xff94b941),
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ],
           bottom: PreferredSize(
             child: searchWidget(),
             preferredSize: Size(56.0, 56.0),
           ),
         ),
+         floatingActionButton: Transform.scale(
+          scale: 1.2,
+          child: FloatingActionButton(
+            onPressed: () => searchWidget(),
+            elevation: 5,
+            backgroundColor: Color(0xff94b941),
+            splashColor: Color(0xffdde8bd),
+            child: Icon(Icons.search, size: 30),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        // MyAppBar(
+        //   bottom: PreferredSize(
+        //     child: searchWidget(),
+        //     preferredSize: Size(56.0, 56.0),
+        //   ),
+        // ),
         body: FutureBuilder<QuerySnapshot>(
           future: docList,
           builder: (context, snap) {
@@ -48,6 +166,7 @@ class _SearchProductState extends State<SearchProduct> {
       alignment: Alignment.center,
       width: MediaQuery.of(context).size.width,
       height: 80.0,
+      
       decoration: new BoxDecoration(
         color: Colors.greenAccent.withOpacity(0.7),
       ),

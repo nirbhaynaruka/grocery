@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:grocery/Config/config.dart';
+import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:grocery/Counters/totalMoney.dart';
 import 'package:grocery/Models/address.dart';
 import 'package:grocery/Orders/placeOrderPayment.dart';
@@ -24,7 +25,66 @@ class _AddressState extends State<Address> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: MyAppBar(),
+        appBar: AppBar(
+
+        backgroundColor: Color(0xff94b941),
+          title: Text(
+            "Nature Coop Fresh",
+            style: TextStyle(
+              fontSize: 25.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontFamily: "Folks-Heavy",
+            ),
+          ),
+          centerTitle: true,
+          actions: [
+            Stack(
+              children: [
+                IconButton(
+                    icon: Icon(Icons.shopping_basket, color: Colors.white),
+                    onPressed: null,
+                    ),
+                Positioned(
+                  child: Stack(
+                    children: [
+                      Icon(
+                        Icons.brightness_1,
+                        size: 20.0,
+                        color: Colors.white,
+                      ),
+                      Positioned(
+                        top: 3.0,
+                        bottom: 4.0,
+                        left: 6.0,
+                        child: Consumer<CartItemCounter>(
+                          builder: (context, counter, _) {
+                            return Text(
+                              (EcommerceApp.sharedPreferences
+                                              .getStringList(
+                                                  EcommerceApp.userCartList)
+                                              .length -
+                                          1)
+                                      .toString()
+                                  ,
+                              style: TextStyle(
+                                color: Color(0xff94b941),
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ],
+    
+        ), 
+        // MyAppBar(),
         body: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -87,7 +147,7 @@ class _AddressState extends State<Address> {
             Navigator.push(context, route);
           },
           label: Text("Add New Address"),
-          backgroundColor: Colors.green,
+          backgroundColor: Color(0xff94b941),
           icon: Icon(
             Icons.add_location,
           ),
@@ -148,7 +208,7 @@ class _AddressCardState extends State<AddressCard> {
             .displayResult(widget.value);
       },
       child: Card(
-        color: Colors.greenAccent.withOpacity(0.4),
+        color: Colors.white,
         child: Column(
           children: [
             Row(
@@ -156,7 +216,7 @@ class _AddressCardState extends State<AddressCard> {
                 Radio(
                   value: widget.value,
                   groupValue: widget.currentIndex,
-                  activeColor: Colors.green,
+                  activeColor: Color(0xff94b941),
                   onChanged: (val) {
                     Provider.of<AddressChanger>(context, listen: false)
                         .displayResult(val);

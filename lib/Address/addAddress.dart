@@ -1,8 +1,10 @@
 import 'package:grocery/Config/config.dart';
+import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:grocery/Store/storehome.dart';
 import 'package:grocery/Widgets/customAppBar.dart';
 import 'package:grocery/Models/address.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddAddress extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
@@ -19,8 +21,64 @@ class AddAddress extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         key: scafflodKey,
-        appBar: MyAppBar(),
-        
+        appBar: AppBar(
+          backgroundColor: Color(0xff94b941),
+          title: Text(
+            "Nature Coop Fresh",
+            style: TextStyle(
+              fontSize: 25.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontFamily: "Folks-Heavy",
+            ),
+          ),
+          centerTitle: true,
+          actions: [
+            Stack(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.shopping_basket, color: Colors.white),
+                  onPressed: null,
+                ),
+                Positioned(
+                  child: Stack(
+                    children: [
+                      Icon(
+                        Icons.brightness_1,
+                        size: 20.0,
+                        color: Colors.white,
+                      ),
+                      Positioned(
+                        top: 3.0,
+                        bottom: 4.0,
+                        left: 6.0,
+                        child: Consumer<CartItemCounter>(
+                          builder: (context, counter, _) {
+                            return Text(
+                              (EcommerceApp.sharedPreferences
+                                          .getStringList(
+                                              EcommerceApp.userCartList)
+                                          .length -
+                                      1)
+                                  .toString(),
+                              style: TextStyle(
+                                color: Color(0xff94b941),
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+        // MyAppBar(),
+
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             if (formKey.currentState.validate()) {
@@ -48,12 +106,13 @@ class AddAddress extends StatelessWidget {
                 formKey.currentState.reset();
               });
 
-              Route route = MaterialPageRoute(builder: (c) => StoreHome());
-              Navigator.push(context, route);
+              // Route route = MaterialPageRoute(builder: (c) => StoreHome());
+              // Navigator.push(context, route);
+              Navigator.pop(context);
             }
           },
           label: Text("Done"),
-          backgroundColor: Colors.green,
+          backgroundColor: Color(0xff94b941),
           icon: Icon(Icons.check),
         ),
         body: SingleChildScrollView(

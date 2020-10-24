@@ -45,8 +45,7 @@ class OrderDetails extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.all(4.0),
                             child: Text(
-                              "rs." +
-                                  dataMap[EcommerceApp.totalAmount].toString(),
+                              '\u{20B9}${ dataMap[EcommerceApp.totalAmount].toString()}',
                               style: TextStyle(
                                   fontSize: 20.0, fontWeight: FontWeight.bold),
                             ),
@@ -263,7 +262,7 @@ class ShippingDetails extends StatelessWidget {
               width: MediaQuery.of(context).size.width - 40.0,
               child: Center(
                 child: Text(
-                  "confirmed || Item REceived",
+                  "confirmed || Item Received",
                   style: TextStyle(color: Colors.white, fontSize: 15.0),
                 ),
               ),

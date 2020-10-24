@@ -27,7 +27,7 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
             IconButton(
               icon: Icon(
                 Icons.shopping_cart,
-                color: Colors.pink,
+                color: Color(0xff94b941),
               ),
               onPressed: () {
                 Route route = MaterialPageRoute(builder: (c) => CartPage());

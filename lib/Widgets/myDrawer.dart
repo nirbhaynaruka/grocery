@@ -64,7 +64,7 @@ class _MyDrawerState extends State<MyDrawer> {
               children: [
                 Text(
                   logincheck
-                      ? "Hello, "+EcommerceApp.sharedPreferences
+                      ? "Welcome, "+EcommerceApp.sharedPreferences
                           .getString(EcommerceApp.userName)
                       : "Hello, User",
                   style: TextStyle(
@@ -111,7 +111,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
                 ListTile(
                   leading: Icon(
-                    Icons.shopping_cart,
+                    Icons.shopping_basket_outlined,
                     color: Colors.black,
                   ),
                   title: Text(

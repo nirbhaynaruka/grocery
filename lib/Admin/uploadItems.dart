@@ -208,10 +208,12 @@ class _UploadPageState extends State<UploadPage>
             title: Container(
                 width: 250.0,
                 child: TextField(
+                  maxLength: 20,
                   style: TextStyle(
                     color: Colors.deepPurpleAccent,
                   ),
                   controller: _shorttextEditingController,
+                  
                   decoration: InputDecoration(
                     hintText: "short",
                     hintStyle: TextStyle(color: Colors.deepPurpleAccent),
@@ -230,6 +232,7 @@ class _UploadPageState extends State<UploadPage>
             title: Container(
                 width: 250.0,
                 child: TextField(
+                  maxLength: 20,
                   style: TextStyle(
                     color: Colors.deepPurpleAccent,
                   ),
@@ -337,6 +340,7 @@ class _UploadPageState extends State<UploadPage>
     String imageDownloadUrl = await uploadItemImage(file);
 
     saveiteminfo(imageDownloadUrl);
+    saveiteminfoitems(imageDownloadUrl);
   }
 
   Future<String> uploadItemImage(mfileImage) async {
@@ -351,6 +355,30 @@ class _UploadPageState extends State<UploadPage>
 
   saveiteminfo(String downloadUrl) {
     final itemsRef = Firestore.instance.collection("$_selectedcategory");
+    itemsRef.document(productId).setData({
+      "shortInfo": _shorttextEditingController.text.trim(),
+      "longDescription": _descriptiontextEditingController.text.trim(),
+      "price": int.parse(_pricetextEditingController.text),
+      "publishedDate": DateTime.now(),
+      "status": "available",
+      "thumbnailUrl": downloadUrl,
+      "title": _titletextEditingController.text.trim(),
+      "catname": _selectedcategory,
+    });
+    setState(() {
+      file = null;
+      _selectedcategory = "Select a Category";
+      uploading = false;
+      productId = DateTime.now().millisecondsSinceEpoch.toString();
+      _descriptiontextEditingController.clear();
+      _pricetextEditingController.clear();
+      _shorttextEditingController.clear();
+      _titletextEditingController.clear();
+    });
+  }
+
+  saveiteminfoitems(String downloadUrl) {
+    final itemsRef = Firestore.instance.collection("items");
     itemsRef.document(productId).setData({
       "shortInfo": _shorttextEditingController.text.trim(),
       "longDescription": _descriptiontextEditingController.text.trim(),

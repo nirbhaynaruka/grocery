@@ -20,61 +20,61 @@ class _MyOrdersState extends State<MyOrders> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.green,
-          iconTheme: IconThemeData(color: Colors.white),
-          centerTitle: true,
+          backgroundColor: Color(0xff94b941),
           title: Text(
-            "my orders",
-            style: TextStyle(color: Colors.white),
+            "My Orders",
+            style: TextStyle(
+              fontSize: 25.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontFamily: "Folks-Heavy",
+            ),
           ),
-           actions: [
-        Stack(
-          children: [
-            IconButton(
-              icon: Icon(
-                Icons.shopping_cart,
-                color: Colors.pink,
-              ),
-              onPressed: () {
-                Route route = MaterialPageRoute(builder: (c) => CartPage());
-                Navigator.push(context, route);
-              },
-            ),
-            Positioned(
-              child: Stack(
-                children: [
-                  Icon(
-                    Icons.brightness_1,
-                    size: 20.0,
-                    color: Colors.green,
-                  ),
-                  Positioned(
-                    top: 3.0,
-                    bottom: 4.0,
-                    left: 6.0,
-                    child: Consumer<CartItemCounter>(
-                      builder: (context, counter, _) {
-                        return Text(
-                          (EcommerceApp.sharedPreferences
-                                      .getStringList(EcommerceApp.userCartList)
-                                      .length -
-                                  1)
-                              .toString(),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        );
-                      },
+          centerTitle: true,
+          actions: [
+            Stack(
+              children: [
+                IconButton(
+                    icon: Icon(Icons.shopping_basket, color: Colors.white),
+                    onPressed: null,
                     ),
+                Positioned(
+                  child: Stack(
+                    children: [
+                      Icon(
+                        Icons.brightness_1,
+                        size: 20.0,
+                        color: Colors.white,
+                      ),
+                      Positioned(
+                        top: 3.0,
+                        bottom: 4.0,
+                        left: 6.0,
+                        child: Consumer<CartItemCounter>(
+                          builder: (context, counter, _) {
+                            return Text(
+                              (EcommerceApp.sharedPreferences
+                                              .getStringList(
+                                                  EcommerceApp.userCartList)
+                                              .length -
+                                          1)
+                                      .toString()
+                                  ,
+                              style: TextStyle(
+                                color: Color(0xff94b941),
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
+              ],
+            )
           ],
-        ),
-      ],
         ),
         body: StreamBuilder<QuerySnapshot>(
           stream: EcommerceApp.firestore
