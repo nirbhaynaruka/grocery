@@ -221,8 +221,8 @@ class _CartPageState extends State<CartPage> {
   // setState(() {
     setState(() {
       
-    });
       totalAmmount = 0;
+    });
   // });
     });
   }

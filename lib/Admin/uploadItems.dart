@@ -213,7 +213,6 @@ class _UploadPageState extends State<UploadPage>
                     color: Colors.deepPurpleAccent,
                   ),
                   controller: _shorttextEditingController,
-                  
                   decoration: InputDecoration(
                     hintText: "short",
                     hintStyle: TextStyle(color: Colors.deepPurpleAccent),

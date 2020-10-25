@@ -150,7 +150,7 @@ class _SearchProductState extends State<SearchProduct> {
                       return sourceInfo(model, context);
                     },
                   )
-                : Text("No data available..");
+                : Center(child: Text("Search Your Product"));
           },
         ),
       ),
