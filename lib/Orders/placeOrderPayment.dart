@@ -1,13 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery/Config/config.dart';
-import 'package:grocery/Store/storehome.dart';
-import 'package:grocery/Counters/cartitemcounter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery/main.dart';
-import 'package:provider/provider.dart';
 
 class PaymentPage extends StatefulWidget {
   final String addressId;
@@ -39,22 +34,37 @@ class _PaymentPageState extends State<PaymentPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Image.asset("images/cash.png")),
-              SizedBox(
-                height: 10.0,
+              Icon(Icons.shopping_basket_outlined,size: 100.0,color: Color(0xff94b941),),
+            
+            
+            SizedBox(
+                height: 30.0,
               ),
-              FlatButton(
-                  onPressed: () => addOrderDetails(),
-                  color: Colors.pink,
-                  textColor: Colors.white,
-                  padding: EdgeInsets.all(8.0),
-                  splashColor: Colors.deepOrange,
-                  child: Text(
-                    "place order",
-                    style: TextStyle(fontSize: 30.0),
-                  ))
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(2.0)),
+                   boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.2),
+                spreadRadius: 2,
+                blurRadius: 5,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ]
+
+                ),
+                child: FlatButton(
+                  
+                    onPressed: () => addOrderDetails(),
+                    color: Colors.white,
+                    textColor: Color(0xff94b941),
+                    padding: EdgeInsets.all(8.0),
+                    splashColor: Color(0xff94b941),
+                    child: Text(
+                      "place order",
+                      style: TextStyle(fontSize: 30.0),
+                    )),
+              )
             ],
           ),
         ),
