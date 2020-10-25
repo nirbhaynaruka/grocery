@@ -33,19 +33,13 @@ class _EdititemsState extends State<Edititems> {
   @override
   void initState() {
     checklogin();
+    setState(() {
+      
+    });
     super.initState();
   }
- List<String> categories = [
-      'Beauty & Hygeine',
-      'Beverages and Snacks',
-      'Cleaning & Household',
-      'Cooking Essentials',
-      'Dairy Products',
-      'Fruits & Vegetables',
-      'Packaged Foods',
-      'Miscellaneous'
-    ]; // Option 2
-    String _selectedcategory = "Select a Category";
+
+
   checklogin() async {
     if (await EcommerceApp.auth.currentUser() != null) {
       setState(() {
@@ -153,7 +147,8 @@ class _EdititemsState extends State<Edititems> {
                     itemBuilder: (context, index) {
                       ItemModel model =
                           ItemModel.fromJson(snap.data.documents[index].data);
-                      return sourceeditInfo(model, context);
+                      var pid = snap.data.documents[index].documentID;
+                      return sourceeditInfo(model, context, pid);
                     },
                   )
                 : Center(child: Text("Search Your Product"));
@@ -222,7 +217,7 @@ class _EdititemsState extends State<Edititems> {
     );
   }
 
-  Widget sourceeditInfo(ItemModel model, BuildContext context,
+  Widget sourceeditInfo(ItemModel model, BuildContext context, var pid,
       {Color background, removeCartFunction}) {
     Size size;
 
@@ -236,55 +231,54 @@ class _EdititemsState extends State<Edititems> {
     TextEditingController _titletextEditingController = TextEditingController();
     TextEditingController _shorttextEditingController = TextEditingController();
     String productId = DateTime.now().millisecondsSinceEpoch.toString();
-   
-    
-  Future<void> update(short,long,original,price,title,catname) async {
-    // setState(() {});
 
-    final itemsRef = await Firestore.instance.collection("items");
-    itemsRef.document( EcommerceApp.productID)
-        .updateData({
-      "shortInfo": short.text.trim(),
-      "longDescription": long.text.trim(),
-      "originalPrice": int.parse(original.text),
-      "price": int.parse(price.text),
-      "publishedDate": DateTime.now(),
-      "status": "available",
-      "title": title.text.trim(),
-      "catname": catname.trim(),
-    }).then((value) {
-        Navigator.pop(context);
-   
-      });
-    final itemsRef1 = await Firestore.instance.collection("$_selectedcategory");
-    itemsRef.document( EcommerceApp.productID)
-        .updateData({
-      "shortInfo": short.text.trim(),
-      "longDescription": long.text.trim(),
-      "originalPrice": int.parse(original.text),
-      "price": int.parse(price.text),
-      "publishedDate": DateTime.now(),
-      "status": "available",
-      "title": title.text.trim(),
-      "catname": catname.trim(),
-    }).then((value) {
-        Navigator.pop(context);
-   
-      });
-    setState(() {
-      _selectedcategory = "Select a Category";
-      productId = DateTime.now().millisecondsSinceEpoch.toString();
-      _descriptiontextEditingController.clear();
+    Future<void> update(short, long, original, price, title, catname) async {
+      // setState(() {});
 
-      _originalpricetextEditingController.clear();
-      _pricetextEditingController.clear();
-      _shorttextEditingController.clear();
-      _titletextEditingController.clear();
-    });
-  }
+      final itemsRef =
+          await EcommerceApp.firestore.collection("items").document(pid)
+              // .collection(EcommerceApp.subCollectionAddress)
+              // Firestore.instance.collection("items");
+              // itemsRef.document( EcommerceApp.userCartList)
+              .updateData({
+        "shortInfo": short.text.trim(),
+        "longDescription": long.text.trim(),
+        "originalPrice": int.parse(original.text),
+        "price": int.parse(price.text),
+        "publishedDate": DateTime.now(),
+        "status": "available",
+        "title": title.text.trim(),
+        // "catname": catname.trim(),
+      });
+      final itemsRef1 =
+          await EcommerceApp.firestore.collection(catname).document(pid)
+              // Firestore.instance.collection("$_selectedcategory");
+              // itemsRef.document(EcommerceApp.userCartList)
+              .updateData({
+        "shortInfo": short.text.trim(),
+        "longDescription": long.text.trim(),
+        "originalPrice": int.parse(original.text),
+        "price": int.parse(price.text),
+        "publishedDate": DateTime.now(),
+        "status": "available",
+        "title": title.text.trim(),
+        // "catname": catname.trim(),
+      });
+      setState(() {
+        // _selectedcategory = "Select a Category";
+        productId = DateTime.now().millisecondsSinceEpoch.toString();
+        _descriptiontextEditingController.clear();
+
+        _originalpricetextEditingController.clear();
+        _pricetextEditingController.clear();
+        _shorttextEditingController.clear();
+        _titletextEditingController.clear();
+        Navigator.pop(context);
+      });
+    }
 
     Future<bool> showReview(
-        price, originalPrice, shortInfo, title, longDescription) {
+        price, originalPrice, shortInfo, title, longDescription,catname) {
       return showDialog(
           context: context,
           barrierDismissible: true,
@@ -300,37 +294,30 @@ class _EdititemsState extends State<Edititems> {
                     FlatButton(
                         onPressed: () {
                           setState(() {
-                            update(_shorttextEditingController,_descriptiontextEditingController,_originalpricetextEditingController,_pricetextEditingController,_titletextEditingController,_selectedcategory);
+                            update(
+                                _shorttextEditingController,
+                                _descriptiontextEditingController,
+                                _originalpricetextEditingController,
+                                _pricetextEditingController,
+                                _titletextEditingController,
+                                catname);
                             Navigator.of(context).pop();
                           });
                         },
                         // uploading ? null : () => uploadImageandSaveItemInfo(),
-                        child: Text("add",
+                        child: Text("Update",
                             style: TextStyle(
                               color: Colors.green,
                             ))),
                   ]),
               body: ListView(
+                
                 children: [
-                  // uploading ? linearProgress() : Text("data"),
-                  // Container(
-                  //   height: 230.0,
-                  //   width: MediaQuery.of(context).size.width * 0.8,
-                  //   child: Center(
-                  //     child: AspectRatio(
-                  //       aspectRatio: 16 / 9,
-                  //       child: Container(
-                  //         decoration: BoxDecoration(
-                  //             image: DecorationImage(
-                  //                 image: FileImage(file), fit: BoxFit.cover)),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
+                
                   Padding(padding: EdgeInsets.only(top: 12.0)),
                   ListTile(
                     leading: Icon(
-                      Icons.perm_device_information,
+                      Icons.edit,
                       color: Colors.pink,
                     ),
                     title: Container(
@@ -342,7 +329,7 @@ class _EdititemsState extends State<Edititems> {
                           ),
                           controller: _shorttextEditingController,
                           decoration: InputDecoration(
-                            hintText: shortInfo,
+                            hintText: "ShortInfo - " + shortInfo,
                             hintStyle:
                                 TextStyle(color: Colors.deepPurpleAccent),
                             border: InputBorder.none,
@@ -354,7 +341,7 @@ class _EdititemsState extends State<Edititems> {
                   ),
                   ListTile(
                     leading: Icon(
-                      Icons.perm_device_information,
+                      Icons.edit,
                       color: Colors.pink,
                     ),
                     title: Container(
@@ -366,7 +353,7 @@ class _EdititemsState extends State<Edititems> {
                           ),
                           controller: _titletextEditingController,
                           decoration: InputDecoration(
-                            hintText: title,
+                            hintText: "Title - " + title,
                             hintStyle:
                                 TextStyle(color: Colors.deepPurpleAccent),
                             border: InputBorder.none,
@@ -378,33 +365,7 @@ class _EdititemsState extends State<Edititems> {
                   ),
                   ListTile(
                     leading: Icon(
-                      Icons.perm_device_information,
-                      color: Colors.pink,
-                    ),
-                    title: DropdownButton(
-                      // value: _selectedcategory,
-                      items: categories.map((val) {
-                        return DropdownMenuItem(
-                          child: Text(val),
-                          value: val,
-                        );
-                      }).toList(),
-                      hint: Text(
-                          "$_selectedcategory"), // Not necessary for Option 1
-                      onChanged: (val) {
-                        // setState(() {
-                        _selectedcategory = val;
-                        // });
-                        this.setState(() {});
-                      },
-                    ),
-                  ),
-                  Divider(
-                    color: Colors.pink,
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.perm_device_information,
+                      Icons.edit,
                       color: Colors.pink,
                     ),
                     title: Container(
@@ -415,7 +376,7 @@ class _EdititemsState extends State<Edititems> {
                           ),
                           controller: _descriptiontextEditingController,
                           decoration: InputDecoration(
-                            hintText: longDescription,
+                            hintText: "LongDesc - " + longDescription,
                             hintStyle:
                                 TextStyle(color: Colors.deepPurpleAccent),
                             border: InputBorder.none,
@@ -427,7 +388,7 @@ class _EdititemsState extends State<Edititems> {
                   ),
                   ListTile(
                     leading: Icon(
-                      Icons.perm_device_information,
+                      Icons.edit,
                       color: Colors.pink,
                     ),
                     title: Container(
@@ -439,7 +400,7 @@ class _EdititemsState extends State<Edititems> {
                           ),
                           controller: _originalpricetextEditingController,
                           decoration: InputDecoration(
-                            hintText: originalPrice.toString(),
+                            hintText: "OriginalPrice - " + originalPrice.toString(),
                             hintStyle:
                                 TextStyle(color: Colors.deepPurpleAccent),
                             border: InputBorder.none,
@@ -451,7 +412,7 @@ class _EdititemsState extends State<Edititems> {
                   ),
                   ListTile(
                     leading: Icon(
-                      Icons.perm_device_information,
+                      Icons.edit,
                       color: Colors.pink,
                     ),
                     title: Container(
@@ -463,7 +424,7 @@ class _EdititemsState extends State<Edititems> {
                           ),
                           controller: _pricetextEditingController,
                           decoration: InputDecoration(
-                            hintText: price.toString(),
+                            hintText:"FinalPrice - " + price.toString(),
                             hintStyle:
                                 TextStyle(color: Colors.deepPurpleAccent),
                             border: InputBorder.none,
@@ -604,7 +565,8 @@ class _EdititemsState extends State<Edititems> {
                                         model.originalPrice,
                                         model.shortInfo,
                                         model.title,
-                                        model.longDescription);
+                                        model.longDescription,
+                                        model.catname);
                                     //                                   Route route =
                                     //     MaterialPageRoute(builder: (c) => ProductPage(itemModel: model));
                                     // Navigator.push(context, route);
