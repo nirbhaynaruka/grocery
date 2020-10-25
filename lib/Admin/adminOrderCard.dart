@@ -2,11 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:grocery/Admin/adminOrderDetails.dart';
 import 'package:grocery/Models/item.dart';
 import 'package:flutter/material.dart';
-import 'package:grocery/Store/cart.dart';
 import 'package:grocery/Widgets/orderCard.dart';
-
-// import '../Store/storehome.dart';
-// import '../Store/category.dart';
 
 int counter = 0;
 
