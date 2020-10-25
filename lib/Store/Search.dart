@@ -6,13 +6,9 @@ import 'package:grocery/Models/item.dart';
 import 'package:grocery/Store/cart.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:grocery/Store/storehome.dart';
 import '../Store/category.dart';
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../Widgets/customAppBar.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

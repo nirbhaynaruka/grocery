@@ -1,7 +1,5 @@
 import 'package:grocery/Config/config.dart';
 import 'package:grocery/Counters/cartitemcounter.dart';
-import 'package:grocery/Store/storehome.dart';
-import 'package:grocery/Widgets/customAppBar.dart';
 import 'package:grocery/Models/address.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

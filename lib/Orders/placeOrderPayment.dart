@@ -1,13 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery/Config/config.dart';
-import 'package:grocery/Store/storehome.dart';
-import 'package:grocery/Counters/cartitemcounter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery/main.dart';
-import 'package:provider/provider.dart';
 
 class PaymentPage extends StatefulWidget {
   final String addressId;

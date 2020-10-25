@@ -4,11 +4,8 @@ import 'package:grocery/Authentication/authenication.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:grocery/Store/cart.dart';
-import 'package:grocery/Widgets/customAppBar.dart';
-import 'package:grocery/Widgets/myDrawer.dart';
 import 'package:grocery/Models/item.dart';
 import 'package:flutter/material.dart';
-// import 'package:grocery/Store/storehome.dart';
 import '../Store/category.dart';
 
 import 'package:provider/provider.dart';
