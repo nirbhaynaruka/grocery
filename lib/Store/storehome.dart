@@ -56,35 +56,35 @@ class _StoreHomeState extends State<StoreHome> {
   List<ItemModel> model = [
     ItemModel(
       catname: "Fruits & Vegetables",
-      catthumbnail: "https://firebasestorage.googleapis.com/v0/b/glocery-app.appspot.com/o/items%2Fproduct%201603282417494.jpg?alt=media&token=dd9cc941-8540-45a6-9316-e8fa592ab8b9",
+      catthumbnail: "assets/images/FruitsandVegetables.png",
     ),
     ItemModel(
       catname: "Dairy Products",
-      catthumbnail: "https://firebasestorage.googleapis.com/v0/b/glocery-app.appspot.com/o/items%2Fproduct%201603282417494.jpg?alt=media&token=dd9cc941-8540-45a6-9316-e8fa592ab8b9",
+      catthumbnail: "assets/images/DairyProducts.png",
     ),
     ItemModel(
       catname: "Cleaning & Household",
-      catthumbnail: "https://firebasestorage.googleapis.com/v0/b/glocery-app.appspot.com/o/items%2Fproduct%201603282417494.jpg?alt=media&token=dd9cc941-8540-45a6-9316-e8fa592ab8b9",
+      catthumbnail: "assets/images/Cleaning_Household.png",
     ),
     ItemModel(
       catname: "Beauty & Hygeine",
-      catthumbnail: "https://firebasestorage.googleapis.com/v0/b/glocery-app.appspot.com/o/items%2Fproduct%201603282417494.jpg?alt=media&token=dd9cc941-8540-45a6-9316-e8fa592ab8b9",
+      catthumbnail: "assets/images/BeautyandHygeine.png",
     ),
     ItemModel(
       catname: "Beverages and Snacks",
-      catthumbnail: "https://firebasestorage.googleapis.com/v0/b/glocery-app.appspot.com/o/items%2Fproduct%201603282417494.jpg?alt=media&token=dd9cc941-8540-45a6-9316-e8fa592ab8b9",
+      catthumbnail: "assets/images/Beverage_Snacks.png",
     ),
     ItemModel(
       catname: "Cooking Essentials",
-      catthumbnail: "https://firebasestorage.googleapis.com/v0/b/glocery-app.appspot.com/o/items%2Fproduct%201603282417494.jpg?alt=media&token=dd9cc941-8540-45a6-9316-e8fa592ab8b9",
+      catthumbnail: "assets/images/CookingEssentials.png",
     ),
     ItemModel(
       catname: "Miscellaneous",
-      catthumbnail: "https://firebasestorage.googleapis.com/v0/b/glocery-app.appspot.com/o/items%2Fproduct%201603282417494.jpg?alt=media&token=dd9cc941-8540-45a6-9316-e8fa592ab8b9",
+      catthumbnail: "assets/images/BeautyandHygeine.png",
     ),
     ItemModel(
       catname: "Packaged Foods",
-      catthumbnail: "https://firebasestorage.googleapis.com/v0/b/glocery-app.appspot.com/o/items%2Fproduct%201603282417494.jpg?alt=media&token=dd9cc941-8540-45a6-9316-e8fa592ab8b9",
+      catthumbnail: "assets/images/BeautyandHygeine.png",
     ),
   ];
   Widget build(BuildContext context) {
@@ -244,7 +244,7 @@ Widget categoryinfo(ItemModel model, BuildContext context,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.network(
+            Image.asset(
               model.catthumbnail,
               fit: BoxFit.cover,
               height: 80.0,
