@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:grocery/Authentication/loginWithPhone.dart';
 import 'login.dart';
 import 'register.dart';
-import 'package:grocery/Config/config.dart';
 
 class AuthenticScreen extends StatefulWidget {
   @override

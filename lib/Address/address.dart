@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:grocery/Counters/cartitemcounter.dart';
-import 'package:grocery/Counters/totalMoney.dart';
 import 'package:grocery/Models/address.dart';
 import 'package:grocery/Orders/placeOrderPayment.dart';
-import 'package:grocery/Widgets/customAppBar.dart';
 import 'package:grocery/Widgets/loadingWidget.dart';
 import 'package:grocery/Widgets/wideButton.dart';
 import 'package:grocery/Counters/changeAddresss.dart';
