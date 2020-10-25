@@ -21,9 +21,10 @@ class PaymentPage extends StatefulWidget {
 }
 
 class _PaymentPageState extends State<PaymentPage> {
+  final TextEditingController _controller = TextEditingController();
+  Widget button = Container();
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -39,135 +40,188 @@ class _PaymentPageState extends State<PaymentPage> {
           ),
           centerTitle: true,
         ),
-        body: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Text(
-                    "Order Summary",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0,
+        body: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: Text(
+                      "Apply Coupon Code",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.all(10.0),
-                // width: screenWidth * 1,
-                child: Table(
-                  border: TableBorder.all(width: 1.0),
-                  children: [
-                    TableRow(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: KeyText(msg: "Order Address: "),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(widget.addressID),
-                        ),
-                      ],
+                Container(
+                  padding: EdgeInsets.all(20.0),
+                  color: Colors.amber,
+                  child: GestureDetector(
+                    // onTap: () {
+                    //   setState(() {
+                    //     button = RaisedButton(
+                    //       onPressed: () {},
+                    //       color: Color(0xff94b941),
+                    //       child: Text(
+                    //         "Apply",
+                    //         style: TextStyle(color: Colors.black),
+                    //       ),
+                    //     );
+                    //   });
+                    // },
+                    child: TextField(
+                      controller: _controller,
+                      decoration: InputDecoration.collapsed(
+                          hintText: "Type Coupon Code"),
                     ),
-                    TableRow(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: KeyText(msg: "Order Items: "),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(widget.addressID),
-                        ),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: KeyText(msg: "Sub Total: "),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Rs. " + widget.totalAmount.toString()),
-                        ),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: KeyText(msg: "Shipping(including GST):"),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Rs. 0"),
-                        ),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: KeyText(msg: "Coupon Code(applied):"),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(widget.addressID),
-                        ),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: KeyText(msg: "Total"),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Rs. " + (widget.totalAmount.toString())),
-                        ),
-                      ],
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-              Icon(
-                Icons.shopping_basket_outlined,
-                size: 100.0,
-                color: Color(0xff94b941),
-              ),
-              SizedBox(height: 30.0),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(2.0)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ]),
-                child: FlatButton(
-                    onPressed: () => addOrderDetails(),
-                    color: Colors.white,
-                    textColor: Color(0xff94b941),
-                    padding: EdgeInsets.all(8.0),
-                    splashColor: Color(0xff94b941),
+                RaisedButton(
+                  onPressed: () {},
+                  color: Color(0xff94b941),
+                  child: Text(
+                    "Apply",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: EdgeInsets.all(15.0),
                     child: Text(
-                      "Place Order",
-                      style: TextStyle(fontSize: 30.0),
-                    )),
-              )
-            ],
+                      "Order Summary",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(10.0),
+                  // width: screenWidth * 1,
+                  child: Table(
+                    border: TableBorder.all(width: 1.0),
+                    children: [
+                      TableRow(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: KeyText(msg: "Order Address: "),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(widget.addressID),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: KeyText(msg: "Order Items: "),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text((EcommerceApp.sharedPreferences
+                                        .getStringList(
+                                            EcommerceApp.userCartList)
+                                        .length -
+                                    1)
+                                .toString()),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: KeyText(msg: "Sub Total: "),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("Rs. " + widget.totalAmount.toString()),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: KeyText(msg: "Shipping(including GST):"),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("Rs. 0"),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: KeyText(msg: "Coupon Code(applied):"),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(widget.addressID),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: KeyText(msg: "Total"),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child:
+                                Text("Rs. " + (widget.totalAmount.toString())),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(
+                  Icons.shopping_basket_outlined,
+                  size: 100.0,
+                  color: Color(0xff94b941),
+                ),
+                SizedBox(height: 30.0),
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(2.0)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ]),
+                  child: FlatButton(
+                      onPressed: () => addOrderDetails(),
+                      color: Colors.white,
+                      textColor: Color(0xff94b941),
+                      padding: EdgeInsets.all(8.0),
+                      splashColor: Color(0xff94b941),
+                      child: Text(
+                        "Place Order",
+                        style: TextStyle(fontSize: 30.0),
+                      )),
+                )
+              ],
+            ),
           ),
         ),
       ),
