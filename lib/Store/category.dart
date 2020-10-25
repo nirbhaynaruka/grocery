@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grocery/Authentication/authenication.dart';
+import 'package:grocery/Store/Search.dart';
 import 'package:grocery/Store/cart.dart';
 import 'package:grocery/Store/product_page.dart';
 import 'package:grocery/Counters/cartitemcounter.dart';
@@ -124,13 +125,27 @@ class _CategoryState extends State<Category> {
             )
           ],
         ),
-        drawer: MyDrawer(),
+        floatingActionButton: Transform.scale(
+          scale: 1.2,
+          child: FloatingActionButton(
+            onPressed: () {
+              Route route = MaterialPageRoute(builder: (c) => SearchProduct());
+              Navigator.push(context, route);
+            },
+            elevation: 5,
+            backgroundColor: Color(0xff94b941),
+            splashColor: Color(0xffdde8bd),
+            child: Icon(Icons.search, size: 30),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        // drawer: MyDrawer(),
         body: CustomScrollView(
           slivers: [
-            SliverPersistentHeader(
-              delegate: SearchBoxDelegate(),
-              pinned: true,
-            ),
+            // SliverPersistentHeader(
+            //   delegate: SearchBoxDelegate(),
+            //   pinned: true,
+            // ),
             StreamBuilder<QuerySnapshot>(
               stream: Firestore.instance
                   .collection(widget.itemModel.catname)
