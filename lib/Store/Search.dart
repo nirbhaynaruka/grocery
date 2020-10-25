@@ -23,14 +23,15 @@ Future<void> main() async {
   runApp(SearchProduct());
 }
 
-
 class SearchProduct extends StatefulWidget {
   @override
   _SearchProductState createState() => new _SearchProductState();
 }
 
 class _SearchProductState extends State<SearchProduct> {
-  Future<QuerySnapshot> docList;  
+  final TextEditingController _searchTextEditingController =
+      TextEditingController();
+  Future<QuerySnapshot> docList;
   @override
   bool logincheck = false;
   @override
@@ -50,13 +51,14 @@ class _SearchProductState extends State<SearchProduct> {
       });
     }
   }
+
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xff94b941),
-          title: Text( "Nature Coop Fresh",
-            
+          title: Text(
+            "Nature Coop Fresh",
             style: TextStyle(
               fontSize: 25.0,
               fontWeight: FontWeight.bold,
@@ -71,7 +73,7 @@ class _SearchProductState extends State<SearchProduct> {
                 IconButton(
                     icon: Icon(Icons.shopping_basket, color: Colors.white),
                     onPressed: () {
-                      checklogin();
+                      // checklogin();
                       if (logincheck) {
                         Route route =
                             MaterialPageRoute(builder: (c) => CartPage());
@@ -122,26 +124,20 @@ class _SearchProductState extends State<SearchProduct> {
           ],
           bottom: PreferredSize(
             child: searchWidget(),
-            preferredSize: Size(56.0, 56.0),
+            preferredSize: Size(60.0, 60.0),
           ),
         ),
-         floatingActionButton: Transform.scale(
-          scale: 1.2,
-          child: FloatingActionButton(
-            onPressed: () => searchWidget(),
-            elevation: 5,
-            backgroundColor: Color(0xff94b941),
-            splashColor: Color(0xffdde8bd),
-            child: Icon(Icons.search, size: 30),
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        // MyAppBar(
-        //   bottom: PreferredSize(
-        //     child: searchWidget(),
-        //     preferredSize: Size(56.0, 56.0),
+        // floatingActionButton: Transform.scale(
+        //   scale: 1.2,
+        //   child: FloatingActionButton(
+        //     onPressed: () => searchWidget(),
+        //     elevation: 5,
+        //     backgroundColor: Color(0xff94b941),
+        //     splashColor: Color(0xffdde8bd),
+        //     child: Icon(Icons.search, size: 30),
         //   ),
         // ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: FutureBuilder<QuerySnapshot>(
           future: docList,
           builder: (context, snap) {
@@ -165,10 +161,19 @@ class _SearchProductState extends State<SearchProduct> {
     return Container(
       alignment: Alignment.center,
       width: MediaQuery.of(context).size.width,
-      height: 80.0,
-      
+      height: 50,
+      margin: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10),
       decoration: new BoxDecoration(
-        color: Colors.greenAccent.withOpacity(0.7),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(5.0),
+        border: Border.all(width: 2.0, color: Color(0xff94b941)),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(0, 4),
+            blurRadius: 15,
+            color: Color(0xFFB7B7B7).withOpacity(.5),
+          ),
+        ],
       ),
       child: Container(
         width: MediaQuery.of(context).size.width - 40.0,
@@ -183,18 +188,25 @@ class _SearchProductState extends State<SearchProduct> {
               padding: EdgeInsets.only(left: 8.0),
               child: Icon(
                 Icons.search,
-                color: Colors.blueGrey,
+                color: Colors.black,
+                size: 30,
               ),
             ),
             Flexible(
               child: Padding(
                 padding: EdgeInsets.only(left: 8.0),
                 child: TextField(
+                  controller:  _searchTextEditingController,
                   onChanged: (value) {
                     startSearching(value);
                   },
-                  decoration:
-                      InputDecoration.collapsed(hintText: "Search here...."),
+                  decoration: InputDecoration.collapsed(
+                    hintText: "Search here....",
+                    hintStyle: TextStyle(
+                      fontFamily: "Arial Bold",
+                      fontSize: 18,
+                    ),
+                  ),
                 ),
               ),
             ),

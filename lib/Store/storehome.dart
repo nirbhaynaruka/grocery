@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grocery/Authentication/authenication.dart';
+import 'package:grocery/Store/Search.dart';
 import 'package:grocery/Store/cart.dart';
 import 'package:grocery/Store/category.dart';
 import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:grocery/Widgets/customSlider.dart';
-import 'package:grocery/Widgets/loadingWidget.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -204,7 +202,10 @@ class _StoreHomeState extends State<StoreHome> {
         floatingActionButton: Transform.scale(
           scale: 1.2,
           child: FloatingActionButton(
-            onPressed: () => SearchBoxDelegate(),
+            onPressed: () {
+              Route route = MaterialPageRoute(builder: (c) => SearchProduct());
+              Navigator.push(context, route);
+            },
             elevation: 5,
             backgroundColor: Color(0xff94b941),
             splashColor: Color(0xffdde8bd),
