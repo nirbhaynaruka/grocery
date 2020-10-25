@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:grocery/Widgets/customSlider.dart';
 import 'package:grocery/Widgets/loadingWidget.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -52,6 +53,40 @@ class _StoreHomeState extends State<StoreHome> {
     }
   }
 
+  List<ItemModel> model = [
+    ItemModel(
+      catname: "Fruits & Vegetables",
+      catthumbnail: "https://firebasestorage.googleapis.com/v0/b/glocery-app.appspot.com/o/items%2Fproduct%201603282417494.jpg?alt=media&token=dd9cc941-8540-45a6-9316-e8fa592ab8b9",
+    ),
+    ItemModel(
+      catname: "Dairy Products",
+      catthumbnail: "https://firebasestorage.googleapis.com/v0/b/glocery-app.appspot.com/o/items%2Fproduct%201603282417494.jpg?alt=media&token=dd9cc941-8540-45a6-9316-e8fa592ab8b9",
+    ),
+    ItemModel(
+      catname: "Cleaning & Household",
+      catthumbnail: "https://firebasestorage.googleapis.com/v0/b/glocery-app.appspot.com/o/items%2Fproduct%201603282417494.jpg?alt=media&token=dd9cc941-8540-45a6-9316-e8fa592ab8b9",
+    ),
+    ItemModel(
+      catname: "Beauty & Hygeine",
+      catthumbnail: "https://firebasestorage.googleapis.com/v0/b/glocery-app.appspot.com/o/items%2Fproduct%201603282417494.jpg?alt=media&token=dd9cc941-8540-45a6-9316-e8fa592ab8b9",
+    ),
+    ItemModel(
+      catname: "Beverages and Snacks",
+      catthumbnail: "https://firebasestorage.googleapis.com/v0/b/glocery-app.appspot.com/o/items%2Fproduct%201603282417494.jpg?alt=media&token=dd9cc941-8540-45a6-9316-e8fa592ab8b9",
+    ),
+    ItemModel(
+      catname: "Cooking Essentials",
+      catthumbnail: "https://firebasestorage.googleapis.com/v0/b/glocery-app.appspot.com/o/items%2Fproduct%201603282417494.jpg?alt=media&token=dd9cc941-8540-45a6-9316-e8fa592ab8b9",
+    ),
+    ItemModel(
+      catname: "Miscellaneous",
+      catthumbnail: "https://firebasestorage.googleapis.com/v0/b/glocery-app.appspot.com/o/items%2Fproduct%201603282417494.jpg?alt=media&token=dd9cc941-8540-45a6-9316-e8fa592ab8b9",
+    ),
+    ItemModel(
+      catname: "Packaged Foods",
+      catthumbnail: "https://firebasestorage.googleapis.com/v0/b/glocery-app.appspot.com/o/items%2Fproduct%201603282417494.jpg?alt=media&token=dd9cc941-8540-45a6-9316-e8fa592ab8b9",
+    ),
+  ];
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     size = MediaQuery.of(context).size;
@@ -125,101 +160,44 @@ class _StoreHomeState extends State<StoreHome> {
             )
           ],
         ),
-
         body: SingleChildScrollView(
-          child: Container(
-            // width: MediaQuery.of(context).size.width,
-            // height: MediaQuery.of(context).size.height,
-            child: Stack(
-              children: [
-                SizedBox(height: 20),
-                CarouselPage(),
-                SizedBox(height: 20),
-                Container(
-                  child: Text("SHOP BY CATEGORY"),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: CarouselPage(),
+              ),
+              SizedBox(height: 35),
+              Container(
+                alignment: Alignment.center,
+                child: Text(
+                  "SHOP BY CATEGORY",
+                  style: TextStyle(
+                    fontSize: 21,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Arial Bold",
+                  ),
                 ),
-                // Container(
-                //   child: new GridView.count(
-                //     crossAxisCount: 4,
-                //     children: new List<Widget>.generate(16, (index) {
-                //       return new GridTile(
-                //         child: new Card(
-                //             color: Colors.blue.shade200,
-                //             child: new Center(
-                //               child: new Text('tile $index'),
-                //             )),
-                //       );
-                //     }),
-                //   ),
-                // ),
-                // Expanded(
-                //   child: CustomScrollView(
-                //     slivers: [
-                //       StreamBuilder<QuerySnapshot>(
-                //         stream: Firestore.instance
-                //             .collection("category")
-                //             .snapshots(),
-                //         builder: (context, dataSnapshot) {
-                //           return !dataSnapshot.hasData
-                //               ? SliverToBoxAdapter(
-                //                   child: Center(
-                //                     child: circularProgress(),
-                //                   ),
-                //                 )
-                //               : SliverStaggeredGrid.countBuilder(
-                //                   crossAxisCount: 4,
-                //                   staggeredTileBuilder: (c) =>
-                //                       StaggeredTile.count(2, 2),
-                //                   mainAxisSpacing: 4.0,
-                //                   crossAxisSpacing: 4.0,
-                //                   itemBuilder: (context, index) {
-                //                     ItemModel model = ItemModel.fromJson(
-                //                         dataSnapshot
-                //                             .data.documents[index].data);
-                //                     return categoryinfo(model, context);
-                //                   },
-                //                   itemCount:
-                //                       dataSnapshot.data.documents.length);
-                //         },
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // child: ListView(
-                //   scrollDirection: Axis.vertical,
-                //   shrinkWrap: true,
-                //   children: [
-                //     StreamBuilder<QuerySnapshot>(
-                //       stream: Firestore.instance
-                //           .collection("category")
-                //           .snapshots(),
-                //       builder: (context, dataSnapshot) {
-                //         return !dataSnapshot.hasData
-                //             ? SliverToBoxAdapter(
-                //                 child: Center(
-                //                   child: circularProgress(),
-                //                 ),
-                //               )
-                //             : StaggeredGridView.countBuilder(
-                //                 crossAxisCount: 4,
-                //                 staggeredTileBuilder: (c) =>
-                //                     StaggeredTile.count(2, 2),
-                //                 mainAxisSpacing: 4.0,
-                //                 crossAxisSpacing: 4.0,
-                //                 itemBuilder: (context, index) {
-                //                   ItemModel model = ItemModel.fromJson(
-                //                       dataSnapshot
-                //                           .data.documents[index].data);
-                //                   return categoryinfo(model, context);
-                //                 },
-                //                 itemCount:
-                //                     dataSnapshot.data.documents.length);
-                //       },
-                //     ),
-                // ],
-                // ),
-              ],
-            ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10.0),
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  child: GridView.count(
+                    physics: NeverScrollableScrollPhysics(),
+                    // shrinkWrap: true,
+                    // scrollDirection: Axis.vertical,
+                    crossAxisCount: 2,
+                    padding: EdgeInsets.all(10.0),
+                    childAspectRatio: 0.9,
+                    children: model.map((model) {
+                      return categoryinfo(model, context);
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         drawer: MyDrawer(),
@@ -234,39 +212,6 @@ class _StoreHomeState extends State<StoreHome> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        // body: Container(
-        //   child: CustomScrollView(
-        //     slivers: [
-        //       SliverPersistentHeader(
-        //         delegate: SearchBoxDelegate(),
-        //         pinned: true,
-        //       ),
-        //       StreamBuilder<QuerySnapshot>(
-        //         stream: Firestore.instance.collection("category").snapshots(),
-        //         builder: (context, dataSnapshot) {
-        //           return !dataSnapshot.hasData
-        //               ? SliverToBoxAdapter(
-        //                   child: Center(
-        //                     child: circularProgress(),
-        //                   ),
-        //                 )
-        //               : SliverStaggeredGrid.countBuilder(
-        //                   crossAxisCount: 4,
-        //                   staggeredTileBuilder: (c) =>
-        //                       StaggeredTile.count(2, 2),
-        //                   mainAxisSpacing: 4.0,
-        //                   crossAxisSpacing: 4.0,
-        //                   itemBuilder: (context, index) {
-        //                     ItemModel model = ItemModel.fromJson(
-        //                         dataSnapshot.data.documents[index].data);
-        //                     return categoryinfo(model, context);
-        //                   },
-        //                   itemCount: dataSnapshot.data.documents.length);
-        //         },
-        //       ),
-        //     ],
-        //   ),
-        // ),
       ),
     );
   }
@@ -281,16 +226,12 @@ Widget categoryinfo(ItemModel model, BuildContext context,
       Navigator.push(context, route);
     },
     child: Container(
-        margin: EdgeInsets.all(10.0),
+        margin: EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(10.0),
+        alignment: Alignment.center,
         decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            // BorderRadius.only(
-            //   topLeft: Radius.circular(8),
-            //     topRight: Radius.circular(8),
-            //     bottomLeft: Radius.circular(8),
-            //     bottomRight: Radius.circular(8)
-            // ),
+            borderRadius: BorderRadius.circular(3.0),
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.2),
@@ -308,10 +249,16 @@ Widget categoryinfo(ItemModel model, BuildContext context,
               fit: BoxFit.cover,
               height: 80.0,
             ),
-            SizedBox(
-              height: 10.0,
+            SizedBox(height: 30.0),
+            Text(
+              model.catname,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                fontFamily: "Arial Bold",
+              ),
+              textAlign: TextAlign.center,
             ),
-            Text(model.catname),
           ],
         )
         //     InkWell(

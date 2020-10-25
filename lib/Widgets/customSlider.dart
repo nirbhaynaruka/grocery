@@ -7,7 +7,7 @@ class CarouselPage extends StatelessWidget {
     return Center(
       child: SizedBox(
         height: 200.0,
-        width: 350.0,
+        width: MediaQuery.of(context).size.width-10,
         child: Carousel(
           images: [
             NetworkImage(
@@ -32,7 +32,7 @@ class CarouselPage extends StatelessWidget {
           dotColor: Colors.lightGreenAccent,
           indicatorBgPadding: 5.0,
           // dotBgColor: Color().withOpacity(0.5),
-          borderRadius: true,
+          borderRadius: false,
         ),
       ),
     );
