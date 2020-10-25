@@ -1,20 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grocery/Authentication/authenication.dart';
-import 'package:grocery/Store/Search.dart';
-import 'package:grocery/Store/cart.dart';
-import 'package:grocery/Store/product_page.dart';
-import 'package:grocery/Counters/cartitemcounter.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:provider/provider.dart';
 import 'package:grocery/Config/config.dart';
+import 'package:grocery/Counters/cartitemcounter.dart';
+import 'package:grocery/Models/item.dart';
+import 'package:grocery/Store/cart.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../Widgets/loadingWidget.dart';
-import '../Models/item.dart';
+import '../Store/category.dart';
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-double width;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   EcommerceApp.auth = FirebaseAuth.instance;
@@ -25,19 +20,32 @@ Future<void> main() async {
 }
 
 class Edititems extends StatefulWidget {
-  
   @override
-  _EdititemsState createState() => _EdititemsState();
+  _EdititemsState createState() => new _EdititemsState();
 }
 
 class _EdititemsState extends State<Edititems> {
+  final TextEditingController _searchTextEditingController =
+      TextEditingController();
+  Future<QuerySnapshot> docList;
+  @override
   bool logincheck = false;
   @override
   void initState() {
     checklogin();
     super.initState();
   }
-
+ List<String> categories = [
+      'Beauty & Hygeine',
+      'Beverages and Snacks',
+      'Cleaning & Household',
+      'Cooking Essentials',
+      'Dairy Products',
+      'Fruits & Vegetables',
+      'Packaged Foods',
+      'Miscellaneous'
+    ]; // Option 2
+    String _selectedcategory = "Select a Category";
   checklogin() async {
     if (await EcommerceApp.auth.currentUser() != null) {
       setState(() {
@@ -51,13 +59,12 @@ class _EdititemsState extends State<Edititems> {
   }
 
   Widget build(BuildContext context) {
-    width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xff94b941),
           title: Text(
-            "Edit Items",  
+            "Nature Coop Fresh",
             style: TextStyle(
               fontSize: 25.0,
               fontWeight: FontWeight.bold,
@@ -72,7 +79,7 @@ class _EdititemsState extends State<Edititems> {
                 IconButton(
                     icon: Icon(Icons.shopping_basket, color: Colors.white),
                     onPressed: () {
-                      checklogin();
+                      // checklogin();
                       if (logincheck) {
                         Route route =
                             MaterialPageRoute(builder: (c) => CartPage());
@@ -121,287 +128,525 @@ class _EdititemsState extends State<Edititems> {
               ],
             )
           ],
-        ),
-        floatingActionButton: Transform.scale(
-          scale: 1.2,
-          child: FloatingActionButton(
-            onPressed: () {
-              Route route = MaterialPageRoute(builder: (c) => SearchProduct());
-              Navigator.push(context, route);
-            },
-            elevation: 5,
-            backgroundColor: Color(0xff94b941),
-            splashColor: Color(0xffdde8bd),
-            child: Icon(Icons.search, size: 30),
+          bottom: PreferredSize(
+            child: searchWidget(),
+            preferredSize: Size(60.0, 60.0),
           ),
         ),
+        // floatingActionButton: Transform.scale(
+        //   scale: 1.2,
+        //   child: FloatingActionButton(
+        //     onPressed: () => searchWidget(),
+        //     elevation: 5,
+        //     backgroundColor: Color(0xff94b941),
+        //     splashColor: Color(0xffdde8bd),
+        //     child: Icon(Icons.search, size: 30),
+        //   ),
+        // ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        // drawer: MyDrawer(),
-        body: CustomScrollView(
-          slivers: [
-            // SliverPersistentHeader(
-            //   delegate: SearchBoxDelegate(),
-            //   pinned: true,
-            // ),
-            StreamBuilder<QuerySnapshot>(
-              stream: Firestore.instance
-                  .collection(widget.itemModel.catname)
-                  .orderBy("publishedDate", descending: true)
-                  .snapshots(),
-              builder: (context, dataSnapshot) {
-                return !dataSnapshot.hasData
-                    ? SliverToBoxAdapter(
-                        child: Center(
-                          child: circularProgress(),
-                        ),
-                      )
-                    : SliverStaggeredGrid.countBuilder(
-                        crossAxisCount: 1,
-                        staggeredTileBuilder: (c) => StaggeredTile.fit(1),
-                        itemBuilder: (context, index) {
-                          ItemModel model = ItemModel.fromJson(
-                              dataSnapshot.data.documents[index].data);
+        body: FutureBuilder<QuerySnapshot>(
+          future: docList,
+          builder: (context, snap) {
+            return snap.hasData
+                ? ListView.builder(
+                    itemCount: snap.data.documents.length,
+                    itemBuilder: (context, index) {
+                      ItemModel model =
+                          ItemModel.fromJson(snap.data.documents[index].data);
+                      return sourceeditInfo(model, context);
+                    },
+                  )
+                : Center(child: Text("Search Your Product"));
+          },
+        ),
+      ),
+    );
+  }
 
-                          return sourceInfo(model, context);
-                        },
-                        itemCount: dataSnapshot.data.documents.length);
-              },
-            )
+  Widget searchWidget() {
+    return Container(
+      alignment: Alignment.center,
+      width: MediaQuery.of(context).size.width,
+      height: 50,
+      margin: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10),
+      decoration: new BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(5.0),
+        border: Border.all(width: 2.0, color: Color(0xff94b941)),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(0, 4),
+            blurRadius: 15,
+            color: Color(0xFFB7B7B7).withOpacity(.5),
+          ),
+        ],
+      ),
+      child: Container(
+        width: MediaQuery.of(context).size.width - 40.0,
+        height: 50.0,
+        decoration: new BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6.0),
+        ),
+        child: Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: 8.0),
+              child: Icon(
+                Icons.search,
+                color: Colors.black,
+                size: 30,
+              ),
+            ),
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.only(left: 8.0),
+                child: TextField(
+                  controller: _searchTextEditingController,
+                  onChanged: (value) {
+                    startSearching(value);
+                  },
+                  decoration: InputDecoration.collapsed(
+                    hintText: "Search here....",
+                    hintStyle: TextStyle(
+                      fontFamily: "Arial Bold",
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
-}
 
-Widget sourceInfo(ItemModel model, BuildContext context,
-    {Color background, removeCartFunction}) {
-  Size size;
-  // heightm = MediaQuery.of(context).size.height;
-  return InkWell(
-    onTap: () {
-      Route route =
-          MaterialPageRoute(builder: (c) => ProductPage(itemModel: model));
-      Navigator.push(context, route);
-    },
-    splashColor: Color(0xff94b941),
-    child: Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.all(6.0),
-          child: Container(
-            height:MediaQuery.of(context).size.height / 5,
-            width: width,
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(2.0)),
-                     boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 2,
-                      blurRadius: 2,
-                      offset: Offset(0, 3), // changes position of shadow
-                    ),
-                  ]
-                    ),
-            height:MediaQuery.of(context).size.height / 5,
+  Widget sourceeditInfo(ItemModel model, BuildContext context,
+      {Color background, removeCartFunction}) {
+    Size size;
 
-                    child: Image.network(
-                      model.thumbnailUrl,
-                      width: MediaQuery.of(context).size.width * 0.33,
-                      // height: 140.0,
+    ///[.]
+    TextEditingController _descriptiontextEditingController =
+        TextEditingController();
+    TextEditingController _pricetextEditingController = TextEditingController();
+    TextEditingController _originalpricetextEditingController =
+        TextEditingController();
+
+    TextEditingController _titletextEditingController = TextEditingController();
+    TextEditingController _shorttextEditingController = TextEditingController();
+    String productId = DateTime.now().millisecondsSinceEpoch.toString();
+   
+    
+  Future<void> update(short,long,original,price,title,catname) async {
+    // setState(() {});
+
+    final itemsRef = await Firestore.instance.collection("items");
+    itemsRef.document( EcommerceApp.productID)
+        .updateData({
+      "shortInfo": short.text.trim(),
+      "longDescription": long.text.trim(),
+      "originalPrice": int.parse(original.text),
+      "price": int.parse(price.text),
+      "publishedDate": DateTime.now(),
+      "status": "available",
+      "title": title.text.trim(),
+      "catname": catname.trim(),
+    }).then((value) {
+        Navigator.pop(context);
+   
+      });
+    final itemsRef1 = await Firestore.instance.collection("$_selectedcategory");
+    itemsRef.document( EcommerceApp.productID)
+        .updateData({
+      "shortInfo": short.text.trim(),
+      "longDescription": long.text.trim(),
+      "originalPrice": int.parse(original.text),
+      "price": int.parse(price.text),
+      "publishedDate": DateTime.now(),
+      "status": "available",
+      "title": title.text.trim(),
+      "catname": catname.trim(),
+    }).then((value) {
+        Navigator.pop(context);
+   
+      });
+    setState(() {
+      _selectedcategory = "Select a Category";
+      productId = DateTime.now().millisecondsSinceEpoch.toString();
+      _descriptiontextEditingController.clear();
+
+      _originalpricetextEditingController.clear();
+      _pricetextEditingController.clear();
+      _shorttextEditingController.clear();
+      _titletextEditingController.clear();
+    });
+  }
+
+    Future<bool> showReview(
+        price, originalPrice, shortInfo, title, longDescription) {
+      return showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (BuildContext context) {
+            return Scaffold(
+              appBar: AppBar(
+                  backgroundColor: Colors.red,
+                  leading: IconButton(
+                      icon: Icon(Icons.arrow_back), onPressed: () {}),
+                  title: Text("Edit product",
+                      style: TextStyle(color: Colors.white)),
+                  actions: [
+                    FlatButton(
+                        onPressed: () {
+                          setState(() {
+                            update(_shorttextEditingController,_descriptiontextEditingController,_originalpricetextEditingController,_pricetextEditingController,_titletextEditingController,_selectedcategory);
+                            Navigator.of(context).pop();
+                          });
+                        },
+                        // uploading ? null : () => uploadImageandSaveItemInfo(),
+                        child: Text("add",
+                            style: TextStyle(
+                              color: Colors.green,
+                            ))),
+                  ]),
+              body: ListView(
+                children: [
+                  // uploading ? linearProgress() : Text("data"),
+                  // Container(
+                  //   height: 230.0,
+                  //   width: MediaQuery.of(context).size.width * 0.8,
+                  //   child: Center(
+                  //     child: AspectRatio(
+                  //       aspectRatio: 16 / 9,
+                  //       child: Container(
+                  //         decoration: BoxDecoration(
+                  //             image: DecorationImage(
+                  //                 image: FileImage(file), fit: BoxFit.cover)),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  Padding(padding: EdgeInsets.only(top: 12.0)),
+                  ListTile(
+                    leading: Icon(
+                      Icons.perm_device_information,
+                      color: Colors.pink,
+                    ),
+                    title: Container(
+                        width: 250.0,
+                        child: TextField(
+                          maxLength: 20,
+                          style: TextStyle(
+                            color: Colors.deepPurpleAccent,
+                          ),
+                          controller: _shorttextEditingController,
+                          decoration: InputDecoration(
+                            hintText: shortInfo,
+                            hintStyle:
+                                TextStyle(color: Colors.deepPurpleAccent),
+                            border: InputBorder.none,
+                          ),
+                        )),
+                  ),
+                  Divider(
+                    color: Colors.pink,
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.perm_device_information,
+                      color: Colors.pink,
+                    ),
+                    title: Container(
+                        width: 250.0,
+                        child: TextField(
+                          maxLength: 20,
+                          style: TextStyle(
+                            color: Colors.deepPurpleAccent,
+                          ),
+                          controller: _titletextEditingController,
+                          decoration: InputDecoration(
+                            hintText: title,
+                            hintStyle:
+                                TextStyle(color: Colors.deepPurpleAccent),
+                            border: InputBorder.none,
+                          ),
+                        )),
+                  ),
+                  Divider(
+                    color: Colors.pink,
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.perm_device_information,
+                      color: Colors.pink,
+                    ),
+                    title: DropdownButton(
+                      // value: _selectedcategory,
+                      items: categories.map((val) {
+                        return DropdownMenuItem(
+                          child: Text(val),
+                          value: val,
+                        );
+                      }).toList(),
+                      hint: Text(
+                          "$_selectedcategory"), // Not necessary for Option 1
+                      onChanged: (val) {
+                        // setState(() {
+                        _selectedcategory = val;
+                        // });
+                        this.setState(() {});
+                      },
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: 4.0,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 15.0,
-                      ),
-                      Container(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                model.title,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: "Arial Bold",
-                                  fontSize: 25.0,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 5.0),
-                      Container(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                model.shortInfo,
-                                
-                                style: TextStyle(
-                                  color: Colors.black54,
-                                  fontFamily: "Arial",
-                                  fontSize: 20.0,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 20.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          
-                          Padding(
-                            padding: EdgeInsets.only(top: 5.0),
-                            child: Row(
-                              children: [
-                                // Icon(Icons.curr),
-
-                                Text(
-                                  '\u{20B9}${model.price}',
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                SizedBox(width: 5.0),
-                                Text(
-                                  '\u{20B9}${model.originalPrice}',
-                                  style: TextStyle(
-                                    fontSize: 10.0,
-                                    color: Colors.grey,
-                                    decoration: TextDecoration.lineThrough,
-                                  ),
-                                ),
-                              ],
-                            ),
+                  Divider(
+                    color: Colors.pink,
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.perm_device_information,
+                      color: Colors.pink,
+                    ),
+                    title: Container(
+                        width: 250.0,
+                        child: TextField(
+                          style: TextStyle(
+                            color: Colors.deepPurpleAccent,
                           ),
-                          removeCartFunction == null
-                              ? Padding(
-                                  padding: EdgeInsets.only(top: 8.0),
-                                  child: Center(
-                                    child: InkWell(
-                                      onTap: () {
-                                        checkItemInCart(model.shortInfo, context);
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color: Color(0xff94b941),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(6))),
-                                        //  color: Colors.green,
-                                        width: MediaQuery.of(context).size.width *
-                                            0.20,
-                                        height: 50.0,
-                                        child: Center(
-                                          child: Text(
-                                            "Add",
-                                            style: TextStyle(color: Colors.white),
-                                          ),
-                                        ),
+                          controller: _descriptiontextEditingController,
+                          decoration: InputDecoration(
+                            hintText: longDescription,
+                            hintStyle:
+                                TextStyle(color: Colors.deepPurpleAccent),
+                            border: InputBorder.none,
+                          ),
+                        )),
+                  ),
+                  Divider(
+                    color: Colors.pink,
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.perm_device_information,
+                      color: Colors.pink,
+                    ),
+                    title: Container(
+                        width: 250.0,
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          style: TextStyle(
+                            color: Colors.deepPurpleAccent,
+                          ),
+                          controller: _originalpricetextEditingController,
+                          decoration: InputDecoration(
+                            hintText: originalPrice.toString(),
+                            hintStyle:
+                                TextStyle(color: Colors.deepPurpleAccent),
+                            border: InputBorder.none,
+                          ),
+                        )),
+                  ),
+                  Divider(
+                    color: Colors.pink,
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.perm_device_information,
+                      color: Colors.pink,
+                    ),
+                    title: Container(
+                        width: 250.0,
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          style: TextStyle(
+                            color: Colors.deepPurpleAccent,
+                          ),
+                          controller: _pricetextEditingController,
+                          decoration: InputDecoration(
+                            hintText: price.toString(),
+                            hintStyle:
+                                TextStyle(color: Colors.deepPurpleAccent),
+                            border: InputBorder.none,
+                          ),
+                        )),
+                  ),
+                  Divider(
+                    color: Colors.pink,
+                  )
+                ],
+              ),
+            );
+          });
+    }
+
+    ///[.]
+    // heightm = MediaQuery.of(context).size.height;
+    return InkWell(
+      onTap: () {
+        // Route route =
+        //     MaterialPageRoute(builder: (c) => ProductPage(itemModel: model));
+        // Navigator.push(context, route);
+      },
+      splashColor: Color(0xff94b941),
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(6.0),
+            child: Container(
+              height: MediaQuery.of(context).size.height / 5,
+              width: width,
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(2.0)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.2),
+                              spreadRadius: 2,
+                              blurRadius: 2,
+                              offset:
+                                  Offset(0, 3), // changes position of shadow
+                            ),
+                          ]),
+                      height: MediaQuery.of(context).size.height / 5,
+                      child: Image.network(
+                        model.thumbnailUrl,
+                        width: MediaQuery.of(context).size.width * 0.33,
+                        // height: 140.0,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 4.0,
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 15.0,
+                        ),
+                        Container(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  model.title,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "Arial Bold",
+                                    fontSize: 25.0,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 5.0),
+                        Container(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  model.shortInfo,
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                    fontFamily: "Arial",
+                                    fontSize: 20.0,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 20.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(top: 5.0),
+                              child: Row(
+                                children: [
+                                  // Icon(Icons.curr),
+
+                                  Text(
+                                    '\u{20B9}${model.price}',
+                                    style: TextStyle(
+                                      fontSize: 20.0,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  SizedBox(width: 5.0),
+                                  Text(
+                                    '\u{20B9}${model.originalPrice}',
+                                    style: TextStyle(
+                                      fontSize: 10.0,
+                                      color: Colors.grey,
+                                      decoration: TextDecoration.lineThrough,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 8.0),
+                              child: Center(
+                                child: InkWell(
+                                  onTap: () {
+                                    showReview(
+                                        model.price,
+                                        model.originalPrice,
+                                        model.shortInfo,
+                                        model.title,
+                                        model.longDescription);
+                                    //                                   Route route =
+                                    //     MaterialPageRoute(builder: (c) => ProductPage(itemModel: model));
+                                    // Navigator.push(context, route);
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: Color(0xff94b941),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(6))),
+                                    //  color: Colors.green,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.20,
+                                    height: 50.0,
+                                    child: Center(
+                                      child: Text(
+                                        "Edit",
+                                        style: TextStyle(color: Colors.white),
                                       ),
                                     ),
                                   ),
-                                )
-                              // IconButton(
-                              //     icon: Icon(
-                              //       Icons.add_shopping_cart,
-                              //       color: Colors.pinkAccent,
-                              //     ),
-                              //     onPressed: () {
-                              //       checkItemInCart(model.shortInfo, context);
-                              //     })
-                              : IconButton(
-                                  icon: Icon(
-                                    Icons.delete,
-                                    color: Color(0xff94b941),
-                                  ),
-                                  onPressed: () {
-                                    removeCartFunction();
-                                  }),
-                        ],
-                      ),
-                // Divider(height: 5.0, color: Colors.black),
-
-                      // Flexible(
-                      //   child: Container(),
-                      // ),
-                    ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-                Divider(height: 5.0, color: Colors.grey),
-      ],
-    ),
-  );
-}
+          Divider(height: 5.0, color: Colors.grey),
+        ],
+      ),
+    );
+  }
 
-Widget card({Color primaryColor = Colors.redAccent, String imgPath}) {
-  return Container(
-    height: 150.0,
-    width: width * 0.34,
-    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-    decoration: BoxDecoration(
-        color: primaryColor,
-        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-              offset: Offset(0, 5), blurRadius: 10.0, color: Colors.grey[200]),
-        ]),
-    child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-        child: Image.network(
-          imgPath,
-          height: 150.0,
-          width: width * 0.34,
-          fit: BoxFit.fill,
-        )),
-  );
-}
-
-void checkItemInCart(String productID, BuildContext context) {
-  EcommerceApp.sharedPreferences
-          .getStringList(EcommerceApp.userCartList)
-          .contains(productID)
-      ? Fluttertoast.showToast(msg: "Item is Already in the Cart!")
-      : addItemToCart(productID, context);
-}
-
-addItemToCart(String productID, BuildContext context) {
-  List tempCartList =
-      EcommerceApp.sharedPreferences.getStringList(EcommerceApp.userCartList);
-  tempCartList.add(productID);
-
-  EcommerceApp.firestore
-      .collection(EcommerceApp.collectionUser)
-      .document(EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID))
-      .updateData({
-    EcommerceApp.userCartList: tempCartList,
-  }).then((v) {
-    Fluttertoast.showToast(msg: "Item Added to Cart Successfully.");
-    EcommerceApp.sharedPreferences
-        .setStringList(EcommerceApp.userCartList, tempCartList);
-    Provider.of<CartItemCounter>(context, listen: false).displayResult();
-  });
+  Future startSearching(String query) async {
+    docList = Firestore.instance
+        .collection("items")
+        .where("shortInfo", isGreaterThanOrEqualTo: query)
+        .getDocuments();
+  }
 }
