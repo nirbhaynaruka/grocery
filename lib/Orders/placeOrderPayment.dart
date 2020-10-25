@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:grocery/Address/address.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery/Counters/cartitemcounter.dart';
@@ -22,28 +23,128 @@ class PaymentPage extends StatefulWidget {
 class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Container(
-        //  decoration: new BoxDecoration(
-        //     gradient: new LinearGradient(
-        //   colors: [Colors.pink, Colors.lightGreenAccent],
-        //   begin: const FractionalOffset(0.0, 0.0),
-        //   end: const FractionalOffset(1.0, 0.0),
-        //   stops: [0.0, 1.0],
-        //   tileMode: TileMode.clamp,
-        // )),
-        child: Center(
+    double screenWidth = MediaQuery.of(context).size.width;
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color(0xff94b941),
+          title: Text(
+            "Place Order",
+            style: TextStyle(
+              fontSize: 25.0,
+              letterSpacing: 1.5,
+              color: Colors.white,
+              fontFamily: "Folks-Heavy",
+            ),
+          ),
+          centerTitle: true,
+        ),
+        body: Container(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Text(
+                    "Order Summary",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(10.0),
+                // width: screenWidth * 1,
+                child: Table(
+                  border: TableBorder.all(width: 1.0),
+                  children: [
+                    TableRow(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: KeyText(msg: "Order Address: "),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(widget.addressID),
+                        ),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: KeyText(msg: "Order Items: "),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(widget.addressID),
+                        ),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: KeyText(msg: "Sub Total: "),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("Rs. " + widget.totalAmount.toString()),
+                        ),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: KeyText(msg: "Shipping(including GST):"),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("Rs. 0"),
+                        ),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: KeyText(msg: "Coupon Code(applied):"),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(widget.addressID),
+                        ),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: KeyText(msg: "Total"),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("Rs. " + (widget.totalAmount.toString())),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
               Icon(
                 Icons.shopping_basket_outlined,
                 size: 100.0,
                 color: Color(0xff94b941),
               ),
-              SizedBox(
-                height: 30.0,
-              ),
+              SizedBox(height: 30.0),
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(2.0)),
@@ -62,7 +163,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     padding: EdgeInsets.all(8.0),
                     splashColor: Color(0xff94b941),
                     child: Text(
-                      "place order",
+                      "Place Order",
                       style: TextStyle(fontSize: 30.0),
                     )),
               )

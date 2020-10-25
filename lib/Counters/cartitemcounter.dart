@@ -12,6 +12,7 @@ class CartItemCounter extends ChangeNotifier {
             .getStringList(EcommerceApp.userCartList)
             .length -
         1;
+    print(_counter);
     await Future.delayed(const Duration(milliseconds: 100), () {
       notifyListeners();
     });

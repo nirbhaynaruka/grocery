@@ -24,8 +24,7 @@ class _AddressState extends State<Address> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-
-        backgroundColor: Color(0xff94b941),
+          backgroundColor: Color(0xff94b941),
           title: Text(
             "Nature Coop Fresh",
             style: TextStyle(
@@ -40,9 +39,9 @@ class _AddressState extends State<Address> {
             Stack(
               children: [
                 IconButton(
-                    icon: Icon(Icons.shopping_basket, color: Colors.white),
-                    onPressed: null,
-                    ),
+                  icon: Icon(Icons.shopping_basket, color: Colors.white),
+                  onPressed: null,
+                ),
                 Positioned(
                   child: Stack(
                     children: [
@@ -59,12 +58,11 @@ class _AddressState extends State<Address> {
                           builder: (context, counter, _) {
                             return Text(
                               (EcommerceApp.sharedPreferences
-                                              .getStringList(
-                                                  EcommerceApp.userCartList)
-                                              .length -
-                                          1)
-                                      .toString()
-                                  ,
+                                          .getStringList(
+                                              EcommerceApp.userCartList)
+                                          .length -
+                                      1)
+                                  .toString(),
                               style: TextStyle(
                                 color: Color(0xff94b941),
                                 fontSize: 12.0,
@@ -80,8 +78,7 @@ class _AddressState extends State<Address> {
               ],
             )
           ],
-    
-        ), 
+        ),
         // MyAppBar(),
         body: Column(
           mainAxisSize: MainAxisSize.min,
@@ -152,7 +149,7 @@ class _AddressState extends State<Address> {
         ),
       ),
     );
-  }      
+  }
 
   noAddressCard() {
     return Card(
