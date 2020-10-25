@@ -15,6 +15,8 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final TextEditingController _nameTextEditingController =
       TextEditingController();
+      final TextEditingController _phoneTextEditingController =
+      TextEditingController();
   final TextEditingController _emailTextEditingController =
       TextEditingController();
   final TextEditingController _passwordTextEditingController =
@@ -71,8 +73,8 @@ class _RegisterState extends State<Register> {
                     isObsecure: false,
                   ),
                   CustomTextField(
-                    controller: _nameTextEditingController,
-                    data: Icons.person,
+                    controller:  _phoneTextEditingController,
+                    data: Icons.phone,
                     hintText: "Mobile Number",
                     isObsecure: false,
                   ),
@@ -220,6 +222,7 @@ class _RegisterState extends State<Register> {
       "uid": fUser.uid,
       "email": fUser.email,
       "name": _nameTextEditingController.text.trim(),
+      "phone": "+91"+_phoneTextEditingController.text,
       // "url": userImageUrl,
       EcommerceApp.userCartList: ["garbageValue"],
     });
@@ -228,6 +231,8 @@ class _RegisterState extends State<Register> {
     await EcommerceApp.sharedPreferences.setString("email", fUser.email);
     await EcommerceApp.sharedPreferences
         .setString("name", _nameTextEditingController.text.trim());
+        await EcommerceApp.sharedPreferences
+        .setString("phone", "+91"+_phoneTextEditingController.text);
     // await EcommerceApp.sharedPreferences.setString("url", userImageUrl);
     await EcommerceApp.sharedPreferences
         .setStringList(EcommerceApp.userCartList, ["garbageValue"]);
