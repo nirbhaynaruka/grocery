@@ -153,7 +153,7 @@ Widget sourceorderInfo(ItemModel model, BuildContext context, {Color background}
                                 ),
                                 SizedBox(width: 5.0),
                                      Text(
-                                      '\u{20B9}${(model.price + model.price*0.25).toString()}',
+                                      '\u{20B9}${model.originalPrice}',
                                       style: TextStyle(
                                         fontSize: 15.0,
                                         color: Colors.grey,

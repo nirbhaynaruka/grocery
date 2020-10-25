@@ -8,6 +8,7 @@ class ItemModel {
   String longDescription;
   String status;
   int price;
+  int originalPrice;
   String catname;
   String catthumbnail;
 
@@ -30,6 +31,7 @@ class ItemModel {
     longDescription = json['longDescription'];
     status = json['status'];
     price = json['price'];
+    originalPrice = json['originalPrice'];
     catname = json['catname'];
     catthumbnail = json['catthumbnail'];
   }
@@ -39,6 +41,7 @@ class ItemModel {
     data['title'] = this.title;
     data['shortInfo'] = this.shortInfo;
     data['price'] = this.price;
+    data['originalPrice'] = this.originalPrice;
     if (this.publishedDate != null) {
       data['publishedDate'] = this.publishedDate;
     }
@@ -46,7 +49,7 @@ class ItemModel {
     data['longDescription'] = this.longDescription;
     data['status'] = this.status;
     data['catname'] = this.catname;
-    
+
     return data;
   }
 }

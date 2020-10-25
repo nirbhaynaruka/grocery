@@ -19,6 +19,8 @@ class _UploadPageState extends State<UploadPage>
   TextEditingController _descriptiontextEditingController =
       TextEditingController();
   TextEditingController _pricetextEditingController = TextEditingController();
+  TextEditingController _originalpricetextEditingController =
+      TextEditingController();
 
   TextEditingController _titletextEditingController = TextEditingController();
   TextEditingController _shorttextEditingController = TextEditingController();
@@ -77,6 +79,20 @@ class _UploadPageState extends State<UploadPage>
               )),
         ],
       ),
+      floatingActionButton: Transform.scale(
+        scale: 1.2,
+        child: FloatingActionButton(
+          onPressed: () {
+            // Route route = MaterialPageRoute(builder: (c) => SearchProduct());
+            // Navigator.push(context, route);
+          },
+          elevation: 5,
+          backgroundColor: Color(0xff94b941),
+          splashColor: Color(0xffdde8bd),
+          child: Icon(Icons.search, size: 30),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: getAdminHomeScreen(),
     );
   }
@@ -87,11 +103,17 @@ class _UploadPageState extends State<UploadPage>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.shop_two,
-              color: Colors.amber,
-              size: 200.0,
-            ),
+            IconButton(
+                icon: Icon(
+                  Icons.edit,
+                  color: Colors.amber,
+                  size: 200.0,
+                ),
+                onPressed: () {
+                  //          Route route =
+                  //     MaterialPageRoute(builder: (c) => Edititems());
+                  // Navigator.push(context, route);
+                }),
             Padding(
               padding: EdgeInsets.only(top: 20.0),
               child: RaisedButton(
@@ -303,9 +325,32 @@ class _UploadPageState extends State<UploadPage>
                   style: TextStyle(
                     color: Colors.deepPurpleAccent,
                   ),
+                  controller: _originalpricetextEditingController,
+                  decoration: InputDecoration(
+                    hintText: "Original Price",
+                    hintStyle: TextStyle(color: Colors.deepPurpleAccent),
+                    border: InputBorder.none,
+                  ),
+                )),
+          ),
+          Divider(
+            color: Colors.pink,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.perm_device_information,
+              color: Colors.pink,
+            ),
+            title: Container(
+                width: 250.0,
+                child: TextField(
+                  keyboardType: TextInputType.number,
+                  style: TextStyle(
+                    color: Colors.deepPurpleAccent,
+                  ),
                   controller: _pricetextEditingController,
                   decoration: InputDecoration(
-                    hintText: "price",
+                    hintText: "Final Price",
                     hintStyle: TextStyle(color: Colors.deepPurpleAccent),
                     border: InputBorder.none,
                   ),
@@ -324,6 +369,7 @@ class _UploadPageState extends State<UploadPage>
       file = null;
       _selectedcategory = "Select a Category";
       _descriptiontextEditingController.clear();
+      _originalpricetextEditingController.clear();
       _pricetextEditingController.clear();
       _shorttextEditingController.clear();
       _titletextEditingController.clear();
@@ -350,11 +396,12 @@ class _UploadPageState extends State<UploadPage>
     return downloadUrl;
   }
 
- Future saveiteminfo(String downloadUrl) async{
+  Future saveiteminfo(String downloadUrl) async {
     final itemStore = await Firestore.instance.collection("items");
     itemStore.document(productId).setData({
       "shortInfo": _shorttextEditingController.text.trim(),
       "longDescription": _descriptiontextEditingController.text.trim(),
+      "originalPrice": int.parse(_originalpricetextEditingController.text),
       "price": int.parse(_pricetextEditingController.text),
       "publishedDate": DateTime.now(),
       "status": "available",
@@ -366,6 +413,7 @@ class _UploadPageState extends State<UploadPage>
     itemsRef.document(productId).setData({
       "shortInfo": _shorttextEditingController.text.trim(),
       "longDescription": _descriptiontextEditingController.text.trim(),
+      "originalPrice": int.parse(_originalpricetextEditingController.text),
       "price": int.parse(_pricetextEditingController.text),
       "publishedDate": DateTime.now(),
       "status": "available",
@@ -379,6 +427,8 @@ class _UploadPageState extends State<UploadPage>
       uploading = false;
       productId = DateTime.now().millisecondsSinceEpoch.toString();
       _descriptiontextEditingController.clear();
+
+      _originalpricetextEditingController.clear();
       _pricetextEditingController.clear();
       _shorttextEditingController.clear();
       _titletextEditingController.clear();

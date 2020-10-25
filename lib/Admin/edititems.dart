@@ -21,17 +21,16 @@ Future<void> main() async {
   EcommerceApp.sharedPreferences = await SharedPreferences.getInstance();
   EcommerceApp.firestore = Firestore.instance;
 
-  runApp(Category());
+  runApp(Edititems());
 }
 
-class Category extends StatefulWidget {
-  final ItemModel itemModel;
-  Category({this.itemModel});
+class Edititems extends StatefulWidget {
+  
   @override
-  _CategoryState createState() => _CategoryState();
+  _EdititemsState createState() => _EdititemsState();
 }
 
-class _CategoryState extends State<Category> {
+class _EdititemsState extends State<Edititems> {
   bool logincheck = false;
   @override
   void initState() {
@@ -58,7 +57,7 @@ class _CategoryState extends State<Category> {
         appBar: AppBar(
           backgroundColor: Color(0xff94b941),
           title: Text(
-            widget.itemModel.catname,
+            "Edit Items",  
             style: TextStyle(
               fontSize: 25.0,
               fontWeight: FontWeight.bold,

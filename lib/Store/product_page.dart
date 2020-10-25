@@ -168,8 +168,17 @@ class _ProductPageState extends State<ProductPage> {
                           height: 10.0,
                         ),
                         Text(
-                          "rs" + widget.itemModel.price.toString(),
+                          "Rs" + widget.itemModel.price.toString(),
                           style: largeTextStyle,
+                        ),
+                        Text(
+                          "Rs" + widget.itemModel.originalPrice.toString(),
+                          style: TextStyle(
+
+                          fontSize: 20.0,
+                                    color: Colors.grey,
+                                    decoration: TextDecoration.lineThrough,
+                          ),
                         ),
                         SizedBox(
                           height: 10.0,
