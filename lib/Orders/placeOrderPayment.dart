@@ -35,20 +35,29 @@ class _PaymentPageState extends State<PaymentPage> {
         //   stops: [0.0, 1.0],
         //   tileMode: TileMode.clamp,
         // )),
-        child: Center(child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(padding:EdgeInsets.all(8.0),
-            child: Image.asset("images/cash.png")),
-            SizedBox(height: 10.0,),
-            FlatButton(onPressed:()=>addOrderDetails(),
-            color: Colors.pink,
-            textColor: Colors.white,
-            padding: EdgeInsets.all(8.0),
-            splashColor: Colors.deepOrange,
-            child: Text("place order", style: TextStyle(fontSize: 30.0),))
-          ],
-        ),),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Image.asset("images/cash.png")),
+              SizedBox(
+                height: 10.0,
+              ),
+              FlatButton(
+                  onPressed: () => addOrderDetails(),
+                  color: Colors.pink,
+                  textColor: Colors.white,
+                  padding: EdgeInsets.all(8.0),
+                  splashColor: Colors.deepOrange,
+                  child: Text(
+                    "place order",
+                    style: TextStyle(fontSize: 30.0),
+                  ))
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -93,8 +102,10 @@ class _PaymentPageState extends State<PaymentPage> {
     });
     Fluttertoast.showToast(
         msg: "congrats, your order has been placed succesfully");
+
     Route route = MaterialPageRoute(builder: (c) => SplashScreen());
-    Navigator.pushReplacement(context, route);
+    // Navigator.pushReplacement(context, route);
+    Navigator.pushAndRemoveUntil(context, route, (route) => false);
   }
 
   Future writeOrderDetalilsforUser(Map<String, dynamic> data) async {
