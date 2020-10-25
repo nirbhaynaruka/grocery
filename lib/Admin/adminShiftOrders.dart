@@ -32,14 +32,15 @@ class _MyOrdersState extends State<AdminShiftOrders> {
                 icon: Icon(Icons.arrow_drop_down_circle),
                 color: Colors.white,
                 onPressed: () {
-                  SystemNavigator.pop();
+                  // SystemNavigator.pop();
                 })
           ],
         ),
         body: StreamBuilder<QuerySnapshot>(
           stream: Firestore.instance.collection("orders").snapshots(),
           builder: (c, snapshot) {
-            return snapshot.hasData
+            return
+             snapshot.hasData
                 ? ListView.builder(
                     itemCount: snapshot.data.documents.length,
                     itemBuilder: (c, index) {
@@ -51,16 +52,15 @@ class _MyOrdersState extends State<AdminShiftOrders> {
                                     .data[EcommerceApp.productID])
                             .getDocuments(),
                         builder: (c, snap) {
-                          return snap.hasData
+                          return 
+                          snap.hasData
                               ? AdminOrderCard(
                                   itemCount: snap.data.documents.length,
                                   data: snap.data.documents,
                                   orderID:
                                       snapshot.data.documents[index].documentID,
-                                  orderBy: snapshot
-                                      .data.documents[index].data["orderBy"],
-                                  addressID: snapshot
-                                      .data.documents[index].data["addressID"],
+                                  orderBy: snapshot.data.documents[index].data["orderBy"],
+                                  addressID: snapshot.data.documents[index].data["addressID"],
                                 )
                               : 
                               Center(
@@ -71,7 +71,7 @@ class _MyOrdersState extends State<AdminShiftOrders> {
                     },
                   )
                 : Center(
-                    child: circularProgress(),
+                    child: Text("no orders"),
                   );
           },
         ),

@@ -125,7 +125,7 @@ class _AddressState extends State<Address> {
                                   return AddressCard(
                                     currentIndex: address.count,
                                     value: index,
-                                    addressId: snapshot
+                                    addressID: snapshot
                                         .data.documents[index].documentID,
                                     totalAmount: widget.totalAmount,
                                     model: AddressModel.fromJson(
@@ -179,7 +179,7 @@ class _AddressState extends State<Address> {
 
 class AddressCard extends StatefulWidget {
   final AddressModel model;
-  final String addressId;
+  final String addressID;
   final double totalAmount;
   final int currentIndex;
   final int value;
@@ -187,7 +187,7 @@ class AddressCard extends StatefulWidget {
   const AddressCard(
       {Key key,
       this.model,
-      this.addressId,
+      this.addressID,
       this.totalAmount,
       this.currentIndex,
       this.value})
@@ -277,7 +277,7 @@ class _AddressCardState extends State<AddressCard> {
                     onPressed: () {
                       Route route = MaterialPageRoute(
                           builder: (c) => PaymentPage(
-                                addressId: widget.addressId,
+                                addressID: widget.addressID,
                                 totalAmount: widget.totalAmount,
                               ));
                       Navigator.push(context, route);

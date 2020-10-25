@@ -157,7 +157,7 @@ class StatusBanner extends StatelessWidget {
             width: 20.0,
           ),
           Text(
-            "order placed" + msg,
+            "order placed " + msg,
             style: TextStyle(color: Colors.green),
           ),
           SizedBox(
@@ -262,7 +262,7 @@ class ShippingDetails extends StatelessWidget {
               child: Center(
                 child: Text(
                   "confirmed || Item Received",
-                  style: TextStyle(color: Colors.white, fontSize: 15.0),
+                  style: TextStyle(color: Colors.green, fontSize: 15.0),
                 ),
               ),
             ),

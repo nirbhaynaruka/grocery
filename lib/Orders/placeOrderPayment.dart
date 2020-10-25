@@ -2,14 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:flutter/material.dart';
+import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:grocery/main.dart';
+import 'package:provider/provider.dart';
 
 class PaymentPage extends StatefulWidget {
-  final String addressId;
+  final String addressID;
   final double totalAmount;
   PaymentPage({
     Key key,
-    this.addressId,
+    this.addressID,
     this.totalAmount,
   }) : super(key: key);
 
@@ -34,27 +36,26 @@ class _PaymentPageState extends State<PaymentPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.shopping_basket_outlined,size: 100.0,color: Color(0xff94b941),),
-            
-            
-            SizedBox(
+              Icon(
+                Icons.shopping_basket_outlined,
+                size: 100.0,
+                color: Color(0xff94b941),
+              ),
+              SizedBox(
                 height: 30.0,
               ),
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(2.0)),
-                   boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 2,
-                blurRadius: 5,
-                offset: Offset(0, 3), // changes position of shadow
-              ),
-            ]
-
-                ),
+                    borderRadius: BorderRadius.all(Radius.circular(2.0)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ]),
                 child: FlatButton(
-                  
                     onPressed: () => addOrderDetails(),
                     color: Colors.white,
                     textColor: Color(0xff94b941),
@@ -74,7 +75,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
   addOrderDetails() {
     writeOrderDetalilsforUser({
-      EcommerceApp.addressID: widget.addressId,
+      EcommerceApp.addressID: widget.addressID,
       EcommerceApp.totalAmount: widget.totalAmount,
       "orderBy": EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID),
       EcommerceApp.productID: EcommerceApp.sharedPreferences
@@ -84,7 +85,7 @@ class _PaymentPageState extends State<PaymentPage> {
       EcommerceApp.isSuccess: true,
     });
     writeOrderDetalilsforAdmin({
-      EcommerceApp.addressID: widget.addressId,
+      EcommerceApp.addressID: widget.addressID,
       EcommerceApp.totalAmount: widget.totalAmount,
       "orderBy": EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID),
       EcommerceApp.productID: EcommerceApp.sharedPreferences
@@ -109,6 +110,7 @@ class _PaymentPageState extends State<PaymentPage> {
     }).then((value) {
       EcommerceApp.sharedPreferences
           .setStringList(EcommerceApp.userCartList, tempList);
+      Provider.of<CartItemCounter>(context, listen: false).displayResult();
     });
     Fluttertoast.showToast(
         msg: "Congrats, Your Order has been Placed Succesfully");
@@ -132,10 +134,10 @@ class _PaymentPageState extends State<PaymentPage> {
 
   Future writeOrderDetalilsforAdmin(Map<String, dynamic> data) async {
     await EcommerceApp.firestore
-      ..collection(EcommerceApp.collectionOrders)
-          .document(
-              EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID) +
-                  data['orderTime'])
-          .setData(data);
+        .collection(EcommerceApp.collectionOrders)
+        .document(
+            EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID) +
+                data['orderTime'])
+        .setData(data);
   }
 }

@@ -35,6 +35,8 @@ class _StoreHomeState extends State<StoreHome> {
   @override
   void initState() {
     checklogin();
+    setState(() {
+    });
     super.initState();
   }
 

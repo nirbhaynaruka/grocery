@@ -15,13 +15,13 @@ String getOrderId = "";
 class AdminOrderDetails extends StatelessWidget {
   final String orderID;
   final String orderBy;
-  final String addressId;
+  final String addressID;
 
   AdminOrderDetails({
     Key key,
     this.orderID,
     this.orderBy,
-    this.addressId,
+    this.addressID,
   }) : super(key: key);
 
   @override
@@ -37,8 +37,10 @@ class AdminOrderDetails extends StatelessWidget {
               if (snapshot.hasData) {
                 dataMap = snapshot.data.data;
               }
-              return snapshot.hasData
-                  ? Container(
+              return 
+              snapshot.hasData
+                  ? 
+                  Container(
                       child: Column(
                         children: [
                           AdminStatusBanner(
@@ -108,22 +110,25 @@ class AdminOrderDetails extends StatelessWidget {
                             },
                             future: EcommerceApp.firestore
                                 .collection(EcommerceApp.collectionUser)
-                                .document(orderBy).collection(EcommerceApp.subCollectionAddress).document(addressId)
+                                .document(orderBy)
+                                .collection(EcommerceApp.subCollectionAddress)
+                                .document(addressID)
                                 .get(),
                           )
                         ],
                       ),
                     )
-                  : Center(
+                  : 
+                  Center(
                       child: circularProgress(),
                     );
             },
             future: EcommerceApp.firestore
-                .collection(EcommerceApp.collectionUser)
-                .document(EcommerceApp.sharedPreferences
-                    .getString(EcommerceApp.userUID))
                 .collection(EcommerceApp.collectionOrders)
-                .document(orderID)
+                // .document(EcommerceApp.sharedPreferences
+                //     .getString(EcommerceApp.userUID))
+                // .collection(EcommerceApp.collectionOrders)
+                .document(getOrderId)
                 .get(),
           ),
         ),
@@ -262,7 +267,7 @@ class AdminShippingDetails extends StatelessWidget {
               child: Center(
                 child: Text(
                   "confirmed || Parcel Shifted",
-                  style: TextStyle(color: Colors.white, fontSize: 15.0),
+                  style: TextStyle(color: Colors.green, fontSize: 15.0),
                 ),
               ),
             ),
@@ -280,7 +285,7 @@ class AdminShippingDetails extends StatelessWidget {
 
     getOrderId = "";
     Route route = MaterialPageRoute(builder: (c) => UploadPage());
-    Navigator.push(context, route);
+    Navigator.pushReplacement(context, route);
 
     Fluttertoast.showToast(msg: "Parcel has been Shifted. Confirmed.");
   }

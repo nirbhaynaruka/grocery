@@ -2,10 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:grocery/Admin/adminOrderDetails.dart';
 import 'package:grocery/Models/item.dart';
 import 'package:flutter/material.dart';
+import 'package:grocery/Store/cart.dart';
+import 'package:grocery/Widgets/orderCard.dart';
 
 // import '../Store/storehome.dart';
-import '../Store/category.dart';
-
+// import '../Store/category.dart';
 
 int counter = 0;
 
@@ -29,12 +30,15 @@ class AdminOrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        //  Route route =
+        //                   MaterialPageRoute(builder: (c) => CartPage());
+        //               Navigator.push(context, route);
         Route route;
         if (counter == 0) {
           counter = counter + 1;
           route = MaterialPageRoute(
               builder: (c) => AdminOrderDetails(
-                  orderID: orderID, orderBy: orderBy, addressId: addressID));
+                  orderID: orderID, orderBy: orderBy, addressID: addressID));
           Navigator.push(context, route);
         }
       },
@@ -45,7 +49,9 @@ class AdminOrderCard extends StatelessWidget {
         child: ListView.builder(
           itemBuilder: (c, index) {
             ItemModel model = ItemModel.fromJson(data[index].data);
-            return sourceInfo(model, context);
+            return 
+            // Text("data");
+            sourceorderInfo(model, context);
           },
           itemCount: itemCount,
           physics: NeverScrollableScrollPhysics(),
