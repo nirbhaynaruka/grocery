@@ -13,6 +13,12 @@ class MyOrders extends StatefulWidget {
 
 class _MyOrdersState extends State<MyOrders> {
   @override
+   void initState() {
+    setState(() {
+      
+    });
+    super.initState();
+  }
   Widget build(BuildContext context) {
     var snapshot;
     return SafeArea(

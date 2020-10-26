@@ -226,11 +226,11 @@ class _StoreHomeState extends State<StoreHome> {
 
 Widget categoryinfo(ItemModel model, BuildContext context,
     {Color: Colors.white}) {
-      String name = model.catname;
+      // String name = model.catname;
   return GestureDetector(
     onTap: () {
       Route route =
-          MaterialPageRoute(builder: (c) => Category(catname: name));
+          MaterialPageRoute(builder: (c) => Category(itemModel: model));
       Navigator.push(context, route);
     },
     child: Container(

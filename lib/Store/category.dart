@@ -6,7 +6,7 @@ import 'package:grocery/Store/cart.dart';
 import 'package:grocery/Store/product_page.dart';
 import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+// import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:grocery/Config/config.dart';
@@ -25,15 +25,16 @@ Future<void> main() async {
 }
 
 class Category extends StatefulWidget {
-  // final ItemModel itemModel;
-  final String catname;
-  Category({this.catname});
+  final ItemModel itemModel;
+  // final String catname;
+  Category({this.itemModel});
   @override
   _CategoryState createState() => _CategoryState();
 }
 
 class _CategoryState extends State<Category> {
   bool logincheck = false;
+
   @override
   void initState() {
     checklogin();
@@ -56,127 +57,121 @@ class _CategoryState extends State<Category> {
     width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color(0xff94b941),
-          title: Text(
-            widget.catname,
-            style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              fontFamily: "Folks-Heavy",
+          appBar: AppBar(
+            backgroundColor: Color(0xff94b941),
+            title: Text(
+              widget.itemModel.catname,
+              style: TextStyle(
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontFamily: "Folks-Heavy",
+              ),
+            ),
+            centerTitle: true,
+            actions: [
+              Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: IconButton(
+                        icon: Icon(Icons.shopping_basket, color: Colors.white),
+                        onPressed: () {
+                          checklogin();
+                          if (logincheck) {
+                            Route route =
+                                MaterialPageRoute(builder: (c) => CartPage());
+                            Navigator.push(context, route);
+                          } else {
+                            Route route = MaterialPageRoute(
+                                builder: (_) => AuthenticScreen());
+                            Navigator.push(context, route);
+                          }
+                        }),
+                  ),
+                  Positioned(
+                    top: 5.0,
+                    right: 8.0,
+                    child: Stack(
+                      children: [
+                        Icon(
+                          Icons.brightness_1,
+                          size: 20.0,
+                          color: Colors.white,
+                        ),
+                        Positioned(
+                          top: 3.0,
+                          bottom: 4.0,
+                          left: 6.0,
+                          child: Consumer<CartItemCounter>(
+                            builder: (context, counter, _) {
+                              return Text(
+                                logincheck
+                                    ? (EcommerceApp.sharedPreferences
+                                                .getStringList(
+                                                    EcommerceApp.userCartList)
+                                                .length -
+                                            1)
+                                        .toString()
+                                    : "0",
+                                style: TextStyle(
+                                  color: Color(0xff94b941),
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+          floatingActionButton: Transform.scale(
+            scale: 1.1,
+            child: FloatingActionButton(
+              onPressed: () {
+                Route route =
+                    MaterialPageRoute(builder: (c) => SearchProduct());
+                Navigator.push(context, route);
+              },
+              elevation: 5,
+              backgroundColor: Color(0xff94b941),
+              splashColor: Color(0xffdde8bd),
+              child: Icon(Icons.search, size: 30),
             ),
           ),
-          centerTitle: true,
-          actions: [
-            Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: IconButton(
-                      icon: Icon(Icons.shopping_basket, color: Colors.white),
-                      onPressed: () {
-                        checklogin();
-                        if (logincheck) {
-                          Route route =
-                              MaterialPageRoute(builder: (c) => CartPage());
-                          Navigator.push(context, route);
-                        } else {
-                          Route route = MaterialPageRoute(
-                              builder: (_) => AuthenticScreen());
-                          Navigator.push(context, route);
-                        }
-                      }),
-                ),
-                Positioned(
-                  top: 5.0,
-                  right: 8.0,
-                  child: Stack(
-                    children: [
-                      Icon(
-                        Icons.brightness_1,
-                        size: 20.0,
-                        color: Colors.white,
-                      ),
-                      Positioned(
-                        top: 3.0,
-                        bottom: 4.0,
-                        left: 6.0,
-                        child: Consumer<CartItemCounter>(
-                          builder: (context, counter, _) {
-                            return Text(
-                              logincheck
-                                  ? (EcommerceApp.sharedPreferences
-                                              .getStringList(
-                                                  EcommerceApp.userCartList)
-                                              .length -
-                                          1)
-                                      .toString()
-                                  : "0",
-                              style: TextStyle(
-                                color: Color(0xff94b941),
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
-        floatingActionButton: Transform.scale(
-          scale: 1.1,
-          child: FloatingActionButton(
-            onPressed: () {
-              Route route = MaterialPageRoute(builder: (c) => SearchProduct());
-              Navigator.push(context, route);
-            },
-            elevation: 5,
-            backgroundColor: Color(0xff94b941),
-            splashColor: Color(0xffdde8bd),
-            child: Icon(Icons.search, size: 30),
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        // drawer: MyDrawer(),
-        body: CustomScrollView(
-          slivers: [
-            // SliverPersistentHeader(
-            //   delegate: SearchBoxDelegate(),
-            //   pinned: true,
-            // ),
-            StreamBuilder<QuerySnapshot>(
-              stream: Firestore.instance
-                  .collection(widget.catname)
-                  .orderBy("publishedDate", descending: true)
-                  .snapshots(),
-              builder: (context, dataSnapshot) {
-                return !dataSnapshot.hasData
-                    ? SliverToBoxAdapter(
-                        child: Center(
-                          child: circularProgress(),
-                        ),
-                      )
-                    : SliverStaggeredGrid.countBuilder(
-                        crossAxisCount: 1,
-                        staggeredTileBuilder: (c) => StaggeredTile.fit(1),
-                        itemBuilder: (context, index) {
-                          ItemModel model = ItemModel.fromJson(
-                              dataSnapshot.data.documents[index].data);
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          // drawer: MyDrawer(),
+          body:
+              // Center(
+              //   child: Text(widget.catname),
+              // )
 
-                          return sourceInfo(model, context);
-                        },
-                        itemCount: dataSnapshot.data.documents.length);
-              },
-            )
-          ],
-        ),
-      ),
+              StreamBuilder<QuerySnapshot>(
+            stream: Firestore.instance
+                .collection(widget.itemModel.catname)
+                .orderBy("publishedDate", descending: true)
+                .snapshots(),
+            builder: (context, dataSnapshot) {
+              return !dataSnapshot.hasData
+                  ? Center(
+                      child: circularProgress(),
+                    )
+                  : ListView.builder(
+                      itemCount: dataSnapshot.data.documents.length,
+                      itemBuilder: (context, index) {
+                        ItemModel model = ItemModel.fromJson(
+                            dataSnapshot.data.documents[index].data);
+                        return sourceInfo(model, context);
+                      },
+                    );
+            },
+          )),
     );
   }
 }

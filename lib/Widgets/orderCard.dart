@@ -5,7 +5,7 @@ import 'package:grocery/Models/item.dart';
 import 'package:flutter/material.dart';
 import '../Store/storehome.dart';
 
-class OrderCard extends StatelessWidget {
+class OrderCard extends StatefulWidget {
   final int itemCount;
   final List<DocumentSnapshot> data;
   final String orderId;
@@ -18,27 +18,36 @@ class OrderCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _OrderCardState createState() => _OrderCardState();
+}
+
+class _OrderCardState extends State<OrderCard> {
+  @override
+   void initState() {
+    super.initState();
+  }
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Route route;
-        if (counter == 0) {
-          counter = counter + 1;
+        Route 
+        // route;
+        // if (counter == 0) {
+        //   counter = counter + 1;
           route =
-              MaterialPageRoute(builder: (c) => OrderDetails(orderId: orderId));
-        }
+              MaterialPageRoute(builder: (c) => OrderDetails(orderId: widget.orderId));
+        // }
         Navigator.push(context, route);
       },
       child: Container(
         padding: EdgeInsets.all(10.0),
         margin: EdgeInsets.all(10.0),
-        height: itemCount * 190.0,
+        height: widget.itemCount * 190.0,
         child: ListView.builder(
           itemBuilder: (c, index) {
-            ItemModel model = ItemModel.fromJson(data[index].data);
+            ItemModel model = ItemModel.fromJson(widget.data[index].data);
             return sourceorderInfo(model, context);
           },
-          itemCount: itemCount,
+          itemCount: widget.itemCount,
           physics: NeverScrollableScrollPhysics(),
         ),
       ),
