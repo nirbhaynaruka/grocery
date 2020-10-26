@@ -33,12 +33,9 @@ class _EdititemsState extends State<Edititems> {
   @override
   void initState() {
     checklogin();
-    setState(() {
-      
-    });
+    setState(() {});
     super.initState();
   }
-
 
   checklogin() async {
     if (await EcommerceApp.auth.currentUser() != null) {
@@ -278,7 +275,7 @@ class _EdititemsState extends State<Edititems> {
     }
 
     Future<bool> showReview(
-        price, originalPrice, shortInfo, title, longDescription,catname) {
+        price, originalPrice, shortInfo, title, longDescription, catname) {
       return showDialog(
           context: context,
           barrierDismissible: true,
@@ -311,9 +308,7 @@ class _EdititemsState extends State<Edititems> {
                             ))),
                   ]),
               body: ListView(
-                
                 children: [
-                
                   Padding(padding: EdgeInsets.only(top: 12.0)),
                   ListTile(
                     leading: Icon(
@@ -400,7 +395,8 @@ class _EdititemsState extends State<Edititems> {
                           ),
                           controller: _originalpricetextEditingController,
                           decoration: InputDecoration(
-                            hintText: "OriginalPrice - " + originalPrice.toString(),
+                            hintText:
+                                "OriginalPrice - " + originalPrice.toString(),
                             hintStyle:
                                 TextStyle(color: Colors.deepPurpleAccent),
                             border: InputBorder.none,
@@ -424,7 +420,7 @@ class _EdititemsState extends State<Edititems> {
                           ),
                           controller: _pricetextEditingController,
                           decoration: InputDecoration(
-                            hintText:"FinalPrice - " + price.toString(),
+                            hintText: "FinalPrice - " + price.toString(),
                             hintStyle:
                                 TextStyle(color: Colors.deepPurpleAccent),
                             border: InputBorder.none,
@@ -557,37 +553,81 @@ class _EdititemsState extends State<Edititems> {
                             ),
                             Padding(
                               padding: EdgeInsets.only(top: 8.0),
-                              child: Center(
-                                child: InkWell(
-                                  onTap: () {
-                                    showReview(
-                                        model.price,
-                                        model.originalPrice,
-                                        model.shortInfo,
-                                        model.title,
-                                        model.longDescription,
-                                        model.catname);
-                                    //                                   Route route =
-                                    //     MaterialPageRoute(builder: (c) => ProductPage(itemModel: model));
-                                    // Navigator.push(context, route);
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Color(0xff94b941),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(6))),
-                                    //  color: Colors.green,
-                                    width: MediaQuery.of(context).size.width *
-                                        0.20,
-                                    height: 50.0,
-                                    child: Center(
-                                      child: Text(
-                                        "Edit",
-                                        style: TextStyle(color: Colors.white),
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                      icon: Icon(
+                                        Icons.delete_forever,
+                                        size: 20.0,
+                                        color: Colors.red,
                                       ),
+                                      onPressed: () async {
+                                        await EcommerceApp.firestore
+                                            .collection("items")
+                                            .document(pid)
+                                            .delete();
+                                        await EcommerceApp.firestore
+                                            .collection(model.catname)
+                                            .document(pid)
+                                            .delete();
+                                        setState(() {
+                                        });
+                                      }),
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.edit,
+                                      size: 20.0,
+                                      color: Colors.red,
                                     ),
+                                    onPressed: () {
+                                      showReview(
+                                          model.price,
+                                          model.originalPrice,
+                                          model.shortInfo,
+                                          model.title,
+                                          model.longDescription,
+                                          model.catname);
+                                      //                                   Route route =
+                                      //     MaterialPageRoute(builder: (c) => ProductPage(itemModel: model));
+                                      // Navigator.push(context, route);
+                                    },
                                   ),
-                                ),
+
+                                  // Center(
+                                  //   child: InkWell(
+                                  //     onTap: () {
+                                  //       showReview(
+                                  //           model.price,
+                                  //           model.originalPrice,
+                                  //           model.shortInfo,
+                                  //           model.title,
+                                  //           model.longDescription,
+                                  //           model.catname);
+                                  //       //                                   Route route =
+                                  //       //     MaterialPageRoute(builder: (c) => ProductPage(itemModel: model));
+                                  //       // Navigator.push(context, route);
+                                  //     },
+                                  //     child:
+                                  //         Icon(Icons.delete_forever, size: 20.0,color: Colors.red,)),
+                                  //     // Container(
+                                  //     //   decoration: BoxDecoration(
+                                  //     //       color: Color(0xff94b941),
+                                  //     //       borderRadius: BorderRadius.all(
+                                  //     //           Radius.circular(6))),
+                                  //     //   //  color: Colors.green,
+                                  //     //   width: MediaQuery.of(context).size.width *
+                                  //     //       0.20,
+                                  //     //   height: 50.0,
+                                  //     //   child: Center(
+                                  //     //     child: Text(
+                                  //     //       "Edit",
+                                  //     //       style: TextStyle(color: Colors.white),
+                                  //     //     ),
+                                  //     //   ),
+                                  //     // ),
+
+                                  // ),
+                                ],
                               ),
                             )
                           ],
