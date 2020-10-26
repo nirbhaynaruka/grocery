@@ -129,94 +129,98 @@ class _ProductPageState extends State<ProductPage> {
           ],
         ),
         // drawer: MyDrawer(),
-        body: ListView(
-          children: [
-            Container(
-              padding: EdgeInsets.all(8.0),
-              width: MediaQuery.of(context).size.width,
-              color: Colors.white,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Stack(
-                    children: [
-                      Center(
-                        child: Image.network(widget.itemModel.thumbnailUrl,
-                            height: MediaQuery.of(context).size.height * 0.5),
-                      ),
-                      Container(
-                        color: Colors.grey[300],
-                        child: SizedBox(
-                          height: 1.0,
-                          width: double.infinity,
-                        ),
-                      )
-                    ],
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+        body: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height * 0.35,
+                width: MediaQuery.of(context).size.width,
+                child:Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Image.network(
+                      widget.itemModel.thumbnailUrl,fit: BoxFit.contain,
+                    ),
+                ),
+                
+              ),
+              SizedBox(height: 10.0,),
+              Container(
+
+                height: MediaQuery.of(context).size.height * 0.4,
+                padding: EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.itemModel.title,
+                      style: boldTextStyle,
+                    ),
+              SizedBox(height: 10.0,),
+
+                    Row(
                       children: [
                         Text(
-                          widget.itemModel.title,
-                          style: boldTextStyle,
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Text(
-                          widget.itemModel.longDescription,
-                          style: largeTextStyle,
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Text(
-                          "Rs" + widget.itemModel.price.toString(),
-                          style: largeTextStyle,
-                        ),
-                        Text(
-                          "Rs" + widget.itemModel.originalPrice.toString(),
+                           '\u{20B9}${widget.itemModel.price.toString()}',
                           style: TextStyle(
-
-                          fontSize: 20.0,
-                                    color: Colors.grey,
-                                    decoration: TextDecoration.lineThrough,
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         SizedBox(
-                          height: 10.0,
+                          width: 10.0,
+                        ),
+                        Text(
+                          '\u{20B9}${widget.itemModel.originalPrice.toString()}',
+                          
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.grey,
+                          fontWeight: FontWeight.normal,
+
+                            decoration: TextDecoration.lineThrough,
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 8.0),
-                    child: Center(
+              SizedBox(height: 10.0,),
+
+                    Expanded(
+                                          child: SingleChildScrollView(
+                                            child: Text(
+                          widget.itemModel.longDescription,
+                          style: largeTextStyle,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // SizedBox(height: 10.0,),
+
+              Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: Container(
+                    decoration: BoxDecoration(
+                  color: Color(0xff94b941),
+                            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          ),
+
+                  height: MediaQuery.of(context).size.height * 0.06,
+                  // margin: EdgeInsets.all(20.0),
+                  child: Center(
                       child: InkWell(
                         onTap: () {
                           if (logincheck) {
-                            checkItemInCart(
-                                widget.itemModel.shortInfo, context);
+                            checkItemInCart(widget.itemModel.shortInfo, context);
                           } else {
                             Route route = MaterialPageRoute(
                                 builder: (_) => AuthenticScreen());
                             Navigator.push(context, route);
                           }
                         },
-
-                        // => checkItemInCart(widget.itemModel.shortInfo, context),
                         child: Container(
-                          // decoration: new BoxDecoration(
-                          //   gradient: new LinearGradient(
-                          //     colors: [Colors.pink, Colors.lightGreenAccent],
-                          //     begin: const FractionalOffset(0.0, 0.0),
-                          //     end: const FractionalOffset(1.0, 0.0),
-                          //     stops: [0.0, 1.0],
-                          //     tileMode: TileMode.clamp,
-                          //   ),
-                          // ),
+                        
                           width: MediaQuery.of(context).size.width - 40.0,
                           height: 50.0,
                           child: Center(
@@ -228,16 +232,111 @@ class _ProductPageState extends State<ProductPage> {
                         ),
                       ),
                     ),
-                  )
-                ],
+                  
+                ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
+
+        // ListView(
+        //   children: [
+        //     Container(
+        //       // padding: EdgeInsets.all(8.0),
+        //       // width: MediaQuery.of(context).size.width,
+        //       color: Colors.red,
+        //       child: Column(
+        //         crossAxisAlignment: CrossAxisAlignment.start,
+        //         children: [
+        //           Container(
+        //             child: Center(
+        //               child: Image.network(
+        //                 widget.itemModel.thumbnailUrl,
+        //             height: MediaQuery.of(context).size.height / 4,
+        //                 // height: MediaQuery.of(context).size.height * 0.5
+        //               ),
+        //             ),
+        //           ),
+        //           Container(
+        //             padding: EdgeInsets.all(20.0),
+        //             child: Column(
+        //               crossAxisAlignment: CrossAxisAlignment.start,
+        //               children: [
+        //                 Text(
+        //                   widget.itemModel.title,
+        //                   style: boldTextStyle,
+        //                 ),
+        //                 SizedBox(
+        //                   height: 10.0,
+        //                 ),
+        //                 Row(
+        //                   children: [
+        //                     Text(
+        //                       "Rs" + widget.itemModel.price.toString(),
+        //                       style: largeTextStyle,
+        //                     ),
+        //                     SizedBox(
+        //                       width: 10.0,
+        //                     ),
+        //                     Text(
+        //                       "Rs" + widget.itemModel.originalPrice.toString(),
+        //                       style: TextStyle(
+        //                         fontSize: 15.0,
+        //                         color: Colors.grey,
+        //                         decoration: TextDecoration.lineThrough,
+        //                       ),
+        //                     ),
+        //                   ],
+        //                 ),
+        //                 SizedBox(
+        //                   height: 10.0,
+        //                 ),
+        //                 Text(
+        //                   widget.itemModel.longDescription,
+        //                   style: largeTextStyle,
+        //                 ),
+        //                 SizedBox(
+        //                   height: 10.0,
+        //                 ),
+        //               ],
+        //             ),
+        //           ),
+        //           Padding(
+        //             padding: EdgeInsets.only(top: 8.0),
+        //             child: Center(
+        //               child: InkWell(
+        //                 onTap: () {
+        //                   if (logincheck) {
+        //                     checkItemInCart(
+        //                         widget.itemModel.shortInfo, context);
+        //                   } else {
+        //                     Route route = MaterialPageRoute(
+        //                         builder: (_) => AuthenticScreen());
+        //                     Navigator.push(context, route);
+        //                   }
+        //                 },
+        //                 child: Container(
+        //                   width: MediaQuery.of(context).size.width - 40.0,
+        //                   height: 50.0,
+        //                   child: Center(
+        //                     child: Text(
+        //                       "Add to Cart",
+        //                       style: TextStyle(color: Colors.white),
+        //                     ),
+        //                   ),
+        //                 ),
+        //               ),
+        //             ),
+        //           )
+        //         ],
+        //       ),
+        //     )
+        //   ],
+        // ),
       ),
     );
   }
 }
 
-const boldTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
-const largeTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 20);
+const boldTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 30,fontFamily: "Arial Bold");
+const largeTextStyle = TextStyle(fontWeight: FontWeight.w400, fontSize: 20, fontFamily: "Arial");

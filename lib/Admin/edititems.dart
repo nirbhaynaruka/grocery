@@ -151,7 +151,7 @@ class _EdititemsState extends State<Edititems> {
                       return sourceeditInfo(model, context, pid);
                     },
                   )
-                : Center(child: Text("Search Your Product"));
+                : Center(child: Text("Search Your Product to Edit"));
           },
         ),
       ),
@@ -202,7 +202,7 @@ class _EdititemsState extends State<Edititems> {
                     startSearching(value);
                   },
                   decoration: InputDecoration.collapsed(
-                    hintText: "Search here....",
+                    hintText: "Search to Edit....",
                     hintStyle: TextStyle(
                       fontFamily: "Arial Bold",
                       fontSize: 18,
