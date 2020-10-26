@@ -160,7 +160,7 @@ class _LoginState extends State<Login> {
         Navigator.pushReplacement(context, PageRouteBuilder(
     pageBuilder: (_, __, ___) => StoreHome(),
     transitionDuration: Duration(seconds: 0),
-  ),);
+  ),).then((value) => setState(() {}));
       });
     }
   }

@@ -60,7 +60,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(context, PageRouteBuilder(
     pageBuilder: (_, __, ___) => StoreHome(),
     transitionDuration: Duration(seconds: 0),
-  ),);
+  ),).then((value) => setState(() {}));
       // if (await EcommerceApp.auth.currentUser() != null) {
       //   Route route = MaterialPageRoute(builder: (_) => StoreHome());
       //   Navigator.pushReplacement(context, route);

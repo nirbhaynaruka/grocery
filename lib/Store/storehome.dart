@@ -31,10 +31,12 @@ class StoreHome extends StatefulWidget {
 class _StoreHomeState extends State<StoreHome> {
   bool logincheck = false;
   Size size;
-  
+  // var xxx;
+
   @override
   void initState() {
     checklogin();
+   
     setState(() {});
     super.initState();
   }
@@ -110,14 +112,23 @@ class _StoreHomeState extends State<StoreHome> {
                   child: IconButton(
                       icon: Icon(Icons.shopping_basket, color: Colors.white),
                       onPressed: () {
+                        //  print((EcommerceApp.sharedPreferences
+                        //                       .getStringList(
+                        //                           EcommerceApp.userCartList)
+                        //                       .length -
+                        //                   1)
+                        //               .toString()
+                        //  );
                         // checklogin();
                         if (logincheck) {
                           // Route route =
                           //     MaterialPageRoute(builder: (c) => CartPage());
-                          Navigator.push(context, PageRouteBuilder(
-    pageBuilder: (_, __, ___) => CartPage(),
-    transitionDuration: Duration(seconds: 0),
-  )).then((value) => setState(() {}));
+                          Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (_, __, ___) => CartPage(),
+                                transitionDuration: Duration(seconds: 0),
+                              )).then((value) => setState(() {}));
                         } else {
                           Route route = MaterialPageRoute(
                               builder: (_) => AuthenticScreen());
@@ -213,10 +224,13 @@ class _StoreHomeState extends State<StoreHome> {
           child: FloatingActionButton(
             onPressed: () {
               Route route = MaterialPageRoute(builder: (c) => SearchProduct());
-              Navigator.push(context, PageRouteBuilder(
-    pageBuilder: (_, __, ___) => SearchProduct(),
-    transitionDuration: Duration(seconds: 0),
-  ),);
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (_, __, ___) => SearchProduct(),
+                  transitionDuration: Duration(seconds: 0),
+                ),
+              );
             },
             elevation: 5,
             backgroundColor: Color(0xff94b941),
@@ -232,15 +246,18 @@ class _StoreHomeState extends State<StoreHome> {
 
 Widget categoryinfo(ItemModel model, BuildContext context,
     {Color: Colors.white}) {
-      // String name = model.catname;
+  // String name = model.catname;
   return GestureDetector(
     onTap: () {
       Route route =
           MaterialPageRoute(builder: (c) => Category(itemModel: model));
-      Navigator.push(context, PageRouteBuilder(
-    pageBuilder: (_, __, ___) => Category(itemModel: model),
-    transitionDuration: Duration(seconds: 0),
-  ),);
+      Navigator.push(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (_, __, ___) => Category(itemModel: model),
+          transitionDuration: Duration(seconds: 0),
+        ),
+      );
     },
     child: Container(
         margin: EdgeInsets.all(8.0),
