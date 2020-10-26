@@ -38,6 +38,7 @@ class _CategoryState extends State<Category> {
   @override
   void initState() {
     checklogin();
+    var _itemCount;
     super.initState();
   }
 
@@ -179,6 +180,7 @@ class _CategoryState extends State<Category> {
 Widget sourceInfo(ItemModel model, BuildContext context,
     {Color background, removeCartFunction}) {
   Size size;
+  int _itemCount = 1;
   // heightm = MediaQuery.of(context).size.height;
   return InkWell(
     onTap: () {
@@ -209,7 +211,8 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                               color: Colors.grey.withOpacity(0.2),
                               spreadRadius: 2,
                               blurRadius: 2,
-                              offset: Offset(0, 3), // changes position of shadow
+                              offset:
+                                  Offset(0, 3), // changes position of shadow
                             ),
                           ]),
                       height: MediaQuery.of(context).size.height / 5,
@@ -276,7 +279,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                   // Icon(Icons.curr),
 
                                   Text(
-                                    '\u{20B9}${model.price}',
+                                    '\u{20B9}${model.price * _itemCount}',
                                     style: TextStyle(
                                       fontSize: 20.0,
                                       color: Colors.black,
@@ -284,7 +287,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                   ),
                                   SizedBox(width: 5.0),
                                   Text(
-                                    '\u{20B9}${model.originalPrice}',
+                                    '\u{20B9}${model.originalPrice * _itemCount}',
                                     style: TextStyle(
                                       fontSize: 10.0,
                                       color: Colors.grey,
@@ -309,15 +312,16 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(6))),
                                           //  color: Colors.green,
-                                          width:
-                                              MediaQuery.of(context).size.width *
-                                                  0.20,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.20,
                                           height: 50.0,
                                           child: Center(
                                             child: Text(
                                               "Add",
-                                              style:
-                                                  TextStyle(color: Colors.white),
+                                              style: TextStyle(
+                                                  color: Colors.white),
                                             ),
                                           ),
                                         ),
@@ -332,14 +336,41 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                 //     onPressed: () {
                                 //       checkItemInCart(model.shortInfo, context);
                                 //     })
-                                : IconButton(
-                                    icon: Icon(
-                                      Icons.delete,
-                                      color: Color(0xff94b941),
-                                    ),
-                                    onPressed: () {
-                                      removeCartFunction();
-                                    }),
+                                : Row(
+                                    children: [
+                                      _itemCount != 1
+                                          ? IconButton(
+                                              icon: Icon(
+                                                Icons.remove,
+                                                color: Color(0xff94b941),
+                                              ),
+                                              onPressed: () {
+                                                _itemCount--;
+                                              }
+                                              //  => setState(()=>_itemCount--),
+                                              )
+                                          : new Container(),
+                                      Text(_itemCount.toString()),
+                                      IconButton(
+                                          icon: Icon(
+                                            Icons.add,
+                                            color: Color(0xff94b941),
+                                          ),
+                                          onPressed: () {
+                                            _itemCount++;
+                                          }
+                                          // =>setState(()=>_itemCount++))
+                                          ),
+                                      IconButton(
+                                          icon: Icon(
+                                            Icons.delete,
+                                            color: Color(0xff94b941),
+                                          ),
+                                          onPressed: () {
+                                            removeCartFunction();
+                                          }),
+                                    ],
+                                  ),
                           ],
                         ),
                         // Divider(height: 5.0, color: Colors.black),

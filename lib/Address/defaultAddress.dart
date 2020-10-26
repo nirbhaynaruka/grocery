@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:grocery/Models/address.dart';
@@ -196,6 +197,9 @@ class _AddressCardState extends State<AddressCard> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return InkWell(
+      // onLongPress: () {
+      //   deleteaddress(widget.addressID);
+      // },
       onTap: () {
         Provider.of<AddressChanger>(context, listen: false)
             .displayResult(widget.value);
@@ -285,6 +289,18 @@ class _AddressCardState extends State<AddressCard> {
     );
   }
 }
+
+// deleteaddress(addressID) {
+//   EcommerceApp.firestore
+//       .collection("users")
+//       .document(EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID))
+//       .collection(EcommerceApp.subCollectionAddress)
+//       .document(addressID)
+//       .delete()
+//       .then((value) => {
+//             Fluttertoast.showToast(msg: EcommerceApp.subCollectionAddress),
+//           });
+// }
 
 class KeyText extends StatelessWidget {
   final String msg;
