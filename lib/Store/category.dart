@@ -255,7 +255,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontFamily: "Arial Bold",
-                                    fontSize: 25.0,
+                                    fontSize: 20.0,
                                   ),
                                 ),
                               ),
