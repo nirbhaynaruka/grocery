@@ -51,7 +51,7 @@ class _AdminSignInScreenState extends State<AdminSignInScreen> {
             Container(
               alignment: Alignment.bottomCenter,
               child: Image.asset(
-                "images/admin.png",
+                "assets/icons/new_logo_white.jpg",
                 height: 260.0,
                 width: 260.0,
               ),
