@@ -19,11 +19,9 @@ class _CartPageState extends State<CartPage> {
   double totalAmmount;
   @override
   void initState() {
-    
     super.initState();
     totalAmmount = 0;
     Provider.of<TotalAmount>(context, listen: false).displayResult(0);
-    
   }
 
   @override
@@ -47,63 +45,67 @@ class _CartPageState extends State<CartPage> {
         icon: Icon(Icons.navigate_next),
       ),
       appBar: AppBar(
-      backgroundColor: Color(0xff94b941),
-          title: Text(
-            "Nature Coop Fresh",
-            style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              fontFamily: "Folks-Heavy",
-            ),
+        backgroundColor: Color(0xff94b941),
+        title: Text(
+          "Nature Coop Fresh",
+          style: TextStyle(
+            fontSize: 25.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            fontFamily: "Folks-Heavy",
           ),
-          centerTitle: true,
-          actions: [
-            Stack(
-              children: [
-                IconButton(
-                    icon: Icon(Icons.shopping_basket, color: Colors.white),
-                    onPressed: null,
-                    ),
-                Positioned(
-                  child: Stack(
-                    children: [
-                      Icon(
-                        Icons.brightness_1,
-                        size: 20.0,
-                        color: Colors.white,
-                      ),
-                      Positioned(
-                        top: 3.0,
-                        bottom: 4.0,
-                        left: 6.0,
-                        child: Consumer<CartItemCounter>(
-                          builder: (context, counter, _) {
-                            return Text(
-                              (EcommerceApp.sharedPreferences
-                                              .getStringList(
-                                                  EcommerceApp.userCartList)
-                                              .length -
-                                          1)
-                                      .toString()
-                                  ,
-                              style: TextStyle(
-                                color: Color(0xff94b941),
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            )
-          ],
         ),
-      
+        centerTitle: true,
+        actions: [
+          Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: IconButton(
+                  icon: Icon(Icons.shopping_basket, color: Colors.white),
+                  onPressed: null,
+                ),
+              ),
+              Positioned(
+                top: 5.0,
+                right: 8.0,
+                child: Stack(
+                  children: [
+                    Icon(
+                      Icons.brightness_1,
+                      size: 20.0,
+                      color: Colors.white,
+                    ),
+                    Positioned(
+                      top: 3.0,
+                      bottom: 4.0,
+                      left: 6.0,
+                      child: Consumer<CartItemCounter>(
+                        builder: (context, counter, _) {
+                          return Text(
+                            (EcommerceApp.sharedPreferences
+                                        .getStringList(
+                                            EcommerceApp.userCartList)
+                                        .length -
+                                    1)
+                                .toString(),
+                            style: TextStyle(
+                              color: Color(0xff94b941),
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+
       // drawer: MyDrawer(),
       body: CustomScrollView(
         slivers: [
@@ -187,7 +189,10 @@ class _CartPageState extends State<CartPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.insert_emoticon, color: Colors.black,),
+              Icon(
+                Icons.insert_emoticon,
+                color: Colors.black,
+              ),
               Text("Cart is Empty!!"),
               Text("Starting Shopping..."),
             ],
@@ -213,12 +218,11 @@ class _CartPageState extends State<CartPage> {
       EcommerceApp.sharedPreferences
           .setStringList(EcommerceApp.userCartList, tempCartList);
       Provider.of<CartItemCounter>(context, listen: false).displayResult();
-  // setState(() {
-    setState(() {
-      
-      totalAmmount = 0;
-    });
-  // });
+      // setState(() {
+      setState(() {
+        totalAmmount = 0;
+      });
+      // });
     });
   }
 }

@@ -70,21 +70,26 @@ class _ProductPageState extends State<ProductPage> {
           actions: [
             Stack(
               children: [
-                IconButton(
-                    icon: Icon(Icons.shopping_basket, color: Colors.white),
-                    onPressed: () {
-                      // checklogin();
-                      if (logincheck) {
-                        Route route =
-                            MaterialPageRoute(builder: (c) => CartPage());
-                        Navigator.push(context, route);
-                      } else {
-                        Route route = MaterialPageRoute(
-                            builder: (_) => AuthenticScreen());
-                        Navigator.push(context, route);
-                      }
-                    }),
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: IconButton(
+                      icon: Icon(Icons.shopping_basket, color: Colors.white),
+                      onPressed: () {
+                        // checklogin();
+                        if (logincheck) {
+                          Route route =
+                              MaterialPageRoute(builder: (c) => CartPage());
+                          Navigator.push(context, route);
+                        } else {
+                          Route route = MaterialPageRoute(
+                              builder: (_) => AuthenticScreen());
+                          Navigator.push(context, route);
+                        }
+                      }),
+                ),
                 Positioned(
+                  top: 5.0,
+                  right: 8.0,
                   child: Stack(
                     children: [
                       Icon(

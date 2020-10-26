@@ -46,61 +46,63 @@ class _PaymentPageState extends State<PaymentPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                // Align(
+                //   alignment: Alignment.center,
+                //   child: Padding(
+                //     padding: EdgeInsets.all(15.0),
+                //     child: Text(
+                //       "Apply Coupon Code",
+                //       style: TextStyle(
+                //         color: Colors.black,
+                //         fontWeight: FontWeight.bold,
+                //         fontSize: 20.0,
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // Container(
+                //   padding: EdgeInsets.all(20.0),
+                //   color: Colors.amber,
+                //   child: GestureDetector(
+                //     // onTap: () {
+                //     //   setState(() {
+                //     //     button = RaisedButton(
+                //     //       onPressed: () {},
+                //     //       color: Color(0xff94b941),
+                //     //       child: Text(
+                //     //         "Apply",
+                //     //         style: TextStyle(color: Colors.black),
+                //     //       ),
+                //     //     );
+                //     //   });
+                //     // },
+                //     child: TextField(
+                //       controller: _controller,
+                //       decoration: InputDecoration.collapsed(
+                //           hintText: "Type Coupon Code"),
+                //     ),
+                //   ),
+                // ),
+                // RaisedButton(
+                //   onPressed: () {},
+                //   color: Color(0xff94b941),
+                //   child: Text(
+                //     "Apply",
+                //     style: TextStyle(color: Colors.black),
+                //   ),
+                // ),
                 Align(
-                  alignment: Alignment.center,
+                  alignment: Alignment.topLeft,
                   child: Padding(
                     padding: EdgeInsets.all(15.0),
-                    child: Text(
-                      "Apply Coupon Code",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(20.0),
-                  color: Colors.amber,
-                  child: GestureDetector(
-                    // onTap: () {
-                    //   setState(() {
-                    //     button = RaisedButton(
-                    //       onPressed: () {},
-                    //       color: Color(0xff94b941),
-                    //       child: Text(
-                    //         "Apply",
-                    //         style: TextStyle(color: Colors.black),
-                    //       ),
-                    //     );
-                    //   });
-                    // },
-                    child: TextField(
-                      controller: _controller,
-                      decoration: InputDecoration.collapsed(
-                          hintText: "Type Coupon Code"),
-                    ),
-                  ),
-                ),
-                RaisedButton(
-                  onPressed: () {},
-                  color: Color(0xff94b941),
-                  child: Text(
-                    "Apply",
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Text(
-                      "Order Summary",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
+                    child: Container(
+                      child: Text(
+                        "Order Summary",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.0,
+                        ),
                       ),
                     ),
                   ),
@@ -164,18 +166,18 @@ class _PaymentPageState extends State<PaymentPage> {
                           ),
                         ],
                       ),
-                      TableRow(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: KeyText(msg: "Coupon Code(applied):"),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(widget.addressID),
-                          ),
-                        ],
-                      ),
+                      // TableRow(
+                      //   children: [
+                      //     Padding(
+                      //       padding: const EdgeInsets.all(8.0),
+                      //       child: KeyText(msg: "Coupon Code(applied):"),
+                      //     ),
+                      //     Padding(
+                      //       padding: const EdgeInsets.all(8.0),
+                      //       child: Text(widget.addressID),
+                      //     ),
+                      //   ],
+                      // ),
                       TableRow(
                         children: [
                           Padding(

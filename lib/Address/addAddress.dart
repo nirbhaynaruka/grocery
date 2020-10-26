@@ -34,11 +34,16 @@ class AddAddress extends StatelessWidget {
           actions: [
             Stack(
               children: [
-                IconButton(
-                  icon: Icon(Icons.shopping_basket, color: Colors.white),
-                  onPressed: null,
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: IconButton(
+                    icon: Icon(Icons.shopping_basket, color: Colors.white),
+                    onPressed: null,
+                  ),
                 ),
                 Positioned(
+                  top: 5.0,
+                  right: 8.0,
                   child: Stack(
                     children: [
                       Icon(

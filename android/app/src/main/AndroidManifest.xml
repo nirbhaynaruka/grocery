@@ -11,7 +11,7 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="grocery"
+        android:label="Nature Coop Fresh"
         android:icon="@mipmap/ic_launcher"
        >
         <activity
