@@ -40,6 +40,27 @@ class _PaymentPageState extends State<PaymentPage> {
           ),
           centerTitle: true,
         ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            Route route = MaterialPageRoute(builder: (c) => addOrderDetails());
+            Navigator.push(context, route);
+          },
+          label: Padding(
+            padding: const EdgeInsets.all(1.0),
+            child: Text(
+              "Place Order",
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: "Arial Bold",
+              ),
+            ),
+          ),
+          backgroundColor: Color(0xff94b941),
+          icon: Icon(
+            Icons.done_all,
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         body: SingleChildScrollView(
           child: Container(
             child: Column(
@@ -194,34 +215,34 @@ class _PaymentPageState extends State<PaymentPage> {
                     ],
                   ),
                 ),
-                Icon(
-                  Icons.shopping_basket_outlined,
-                  size: 100.0,
-                  color: Color(0xff94b941),
-                ),
-                SizedBox(height: 30.0),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(2.0)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 2,
-                          blurRadius: 5,
-                          offset: Offset(0, 3), // changes position of shadow
-                        ),
-                      ]),
-                  child: FlatButton(
-                      onPressed: () => addOrderDetails(),
-                      color: Colors.white,
-                      textColor: Color(0xff94b941),
-                      padding: EdgeInsets.all(8.0),
-                      splashColor: Color(0xff94b941),
-                      child: Text(
-                        "Place Order",
-                        style: TextStyle(fontSize: 30.0),
-                      )),
-                )
+                // Icon(
+                //   Icons.shopping_basket_outlined,
+                //   size: 100.0,
+                //   color: Color(0xff94b941),
+                // ),
+                // SizedBox(height: 30.0),
+                // Container(
+                //   decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.all(Radius.circular(2.0)),
+                //       boxShadow: [
+                //         BoxShadow(
+                //           color: Colors.grey.withOpacity(0.2),
+                //           spreadRadius: 2,
+                //           blurRadius: 5,
+                //           offset: Offset(0, 3), // changes position of shadow
+                //         ),
+                //       ]),
+                //   child: FlatButton(
+                //       onPressed: () => addOrderDetails(),
+                //       color: Colors.white,
+                //       textColor: Color(0xff94b941),
+                //       padding: EdgeInsets.all(8.0),
+                //       splashColor: Color(0xff94b941),
+                //       child: Text(
+                //         "Place Order",
+                //         style: TextStyle(fontSize: 30.0),
+                //       )),
+                // )
               ],
             ),
           ),
