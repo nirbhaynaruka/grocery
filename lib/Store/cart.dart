@@ -121,9 +121,11 @@ class _CartPageState extends State<CartPage> {
               return Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Center(
-                  child: cartProvider.count == 0
-                      ? Container()
-                      : Text(
+                  // child: cartProvider.count == 0
+                      // ? 
+                      // Container()
+                      // :
+                      child: Text(
                           "Total Price: Rs ${amountProvider.totalAmount.toString()}",
                           style: TextStyle(
                               color: Colors.black,
@@ -220,7 +222,9 @@ class _CartPageState extends State<CartPage> {
         .updateData({
       EcommerceApp.userCartList: tempCartList,
     }).then((v) {
-      Fluttertoast.showToast(msg: "Item Removed Successfully.");
+        Navigator.pop(context);
+      Fluttertoast.showToast(msg: "Item Removed Successfully. Continue Shopping");
+
       EcommerceApp.sharedPreferences
           .setStringList(EcommerceApp.userCartList, tempCartList);
       Provider.of<CartItemCounter>(context, listen: false).displayResult();
