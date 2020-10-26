@@ -15,7 +15,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final TextEditingController _nameTextEditingController =
       TextEditingController();
-      final TextEditingController _phoneTextEditingController =
+  final TextEditingController _phoneTextEditingController =
       TextEditingController();
   final TextEditingController _emailTextEditingController =
       TextEditingController();
@@ -29,8 +29,7 @@ class _RegisterState extends State<Register> {
   // File _imageFile;
   @override
   Widget build(BuildContext context) {
-    double _screenWidth = MediaQuery.of(context).size.width,
-        _screenHeight = MediaQuery.of(context).size.height;
+    double _screenWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -38,7 +37,7 @@ class _RegisterState extends State<Register> {
             Container(
               alignment: Alignment.bottomCenter,
               child: Image.asset(
-                "images/login.png",
+                "assets/icons/new_logo_white.jpg",
                 height: 220.0,
                 width: 220.0,
               ),
@@ -73,7 +72,7 @@ class _RegisterState extends State<Register> {
                     isObsecure: false,
                   ),
                   CustomTextField(
-                    controller:  _phoneTextEditingController,
+                    controller: _phoneTextEditingController,
                     data: Icons.phone,
                     hintText: "Mobile Number",
                     isObsecure: false,
@@ -222,7 +221,7 @@ class _RegisterState extends State<Register> {
       "uid": fUser.uid,
       "email": fUser.email,
       "name": _nameTextEditingController.text.trim(),
-      "phone": "+91"+_phoneTextEditingController.text,
+      "phone": "+91" + _phoneTextEditingController.text,
       // "url": userImageUrl,
       EcommerceApp.userCartList: ["garbageValue"],
     });
@@ -231,8 +230,8 @@ class _RegisterState extends State<Register> {
     await EcommerceApp.sharedPreferences.setString("email", fUser.email);
     await EcommerceApp.sharedPreferences
         .setString("name", _nameTextEditingController.text.trim());
-        await EcommerceApp.sharedPreferences
-        .setString("phone", "+91"+_phoneTextEditingController.text);
+    await EcommerceApp.sharedPreferences
+        .setString("phone", "+91" + _phoneTextEditingController.text);
     // await EcommerceApp.sharedPreferences.setString("url", userImageUrl);
     await EcommerceApp.sharedPreferences
         .setStringList(EcommerceApp.userCartList, ["garbageValue"]);

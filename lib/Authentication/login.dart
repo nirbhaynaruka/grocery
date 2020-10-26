@@ -33,7 +33,7 @@ class _LoginState extends State<Login> {
             Container(
               alignment: Alignment.bottomCenter,
               child: Image.asset(
-                "images/login.png",
+                "assets/icons/new_logo_white.jpg",
                 height: 220.0,
                 width: 220.0,
               ),

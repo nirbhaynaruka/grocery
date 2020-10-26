@@ -56,8 +56,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   displaySplash() {
     Timer(Duration(seconds: 2), () async {
-       Route route = MaterialPageRoute(builder: (_) => StoreHome());
-        Navigator.pushReplacement(context, route);
+      Route route = MaterialPageRoute(builder: (_) => StoreHome());
+      Navigator.pushReplacement(context, route);
       // if (await EcommerceApp.auth.currentUser() != null) {
       //   Route route = MaterialPageRoute(builder: (_) => StoreHome());
       //   Navigator.pushReplacement(context, route);
@@ -79,13 +79,17 @@ class _SplashScreenState extends State<SplashScreen> {
             children: [
               Container(
                 margin: const EdgeInsets.all(15.0),
-                child: Image.asset("images/welcome.png"),
+                child: Image.asset(
+                  "assets/icons/new_logo_white.jpg",
+                  height: 220.0,
+                  width: 220.0,
+                ),
               ),
               SizedBox(height: 20.0),
               Center(
                 child: SpinKitFadingCube(
                   color: Color(0xff6d882f),
-                  size: 60.0,
+                  size: 65.0,
                   duration: Duration(seconds: 1),
                 ),
               ),
