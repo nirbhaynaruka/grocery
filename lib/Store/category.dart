@@ -189,7 +189,6 @@ class _CategoryState extends State<Category> {
 Widget sourceInfo(ItemModel model, BuildContext context,
     {Color background, removeCartFunction}) {
   Size size;
-  int _itemCount = 1;
   // heightm = MediaQuery.of(context).size.height;
   return InkWell(
     onTap: () {
@@ -291,7 +290,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                   // Icon(Icons.curr),
 
                                   Text(
-                                    '\u{20B9}${model.price * _itemCount}',
+                                    '\u{20B9}${model.price}',
                                     style: TextStyle(
                                       fontSize: 20.0,
                                       color: Colors.black,
@@ -299,7 +298,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                   ),
                                   SizedBox(width: 5.0),
                                   Text(
-                                    '\u{20B9}${model.originalPrice * _itemCount}',
+                                    '\u{20B9}${model.originalPrice}',
                                     style: TextStyle(
                                       fontSize: 10.0,
                                       color: Colors.grey,
@@ -348,32 +347,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                 //     onPressed: () {
                                 //       checkItemInCart(model.shortInfo, context);
                                 //     })
-                                : Row(
-                                    children: [
-                                      _itemCount != 1
-                                          ? IconButton(
-                                              icon: Icon(
-                                                Icons.remove,
-                                                color: Color(0xff94b941),
-                                              ),
-                                              onPressed: () {
-                                                _itemCount--;
-                                              }
-                                              //  => setState(()=>_itemCount--),
-                                              )
-                                          : new Container(),
-                                      Text(_itemCount.toString()),
-                                      IconButton(
-                                          icon: Icon(
-                                            Icons.add,
-                                            color: Color(0xff94b941),
-                                          ),
-                                          onPressed: () {
-                                            _itemCount++;
-                                          }
-                                          // =>setState(()=>_itemCount++))
-                                          ),
-                                      IconButton(
+                                : IconButton(
                                           icon: Icon(
                                             Icons.delete,
                                             color: Color(0xff94b941),
@@ -381,8 +355,8 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                           onPressed: () {
                                             removeCartFunction();
                                           }),
-                                    ],
-                                  ),
+                                
+                                  
                           ],
                         ),
                         // Divider(height: 5.0, color: Colors.black),

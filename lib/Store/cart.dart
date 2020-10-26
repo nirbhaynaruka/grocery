@@ -19,6 +19,9 @@ class _CartPageState extends State<CartPage> {
   double totalAmmount;
   @override
   void initState() {
+   setState(() {
+      
+    });
     super.initState();
     totalAmmount = 0;
     Provider.of<TotalAmount>(context, listen: false).displayResult(0);

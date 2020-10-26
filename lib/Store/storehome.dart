@@ -31,7 +31,7 @@ class StoreHome extends StatefulWidget {
 class _StoreHomeState extends State<StoreHome> {
   bool logincheck = false;
   Size size;
-
+  
   @override
   void initState() {
     checklogin();
@@ -117,7 +117,7 @@ class _StoreHomeState extends State<StoreHome> {
                           Navigator.push(context, PageRouteBuilder(
     pageBuilder: (_, __, ___) => CartPage(),
     transitionDuration: Duration(seconds: 0),
-  ));
+  )).then((value) => setState(() {}));
                         } else {
                           Route route = MaterialPageRoute(
                               builder: (_) => AuthenticScreen());
