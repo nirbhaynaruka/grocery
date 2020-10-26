@@ -35,8 +35,7 @@ class _StoreHomeState extends State<StoreHome> {
   @override
   void initState() {
     checklogin();
-    setState(() {
-    });
+    setState(() {});
     super.initState();
   }
 
@@ -227,10 +226,11 @@ class _StoreHomeState extends State<StoreHome> {
 
 Widget categoryinfo(ItemModel model, BuildContext context,
     {Color: Colors.white}) {
+      String name = model.catname;
   return GestureDetector(
     onTap: () {
       Route route =
-          MaterialPageRoute(builder: (c) => Category(itemModel: model));
+          MaterialPageRoute(builder: (c) => Category(catname: name));
       Navigator.push(context, route);
     },
     child: Container(

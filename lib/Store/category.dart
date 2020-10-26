@@ -25,8 +25,9 @@ Future<void> main() async {
 }
 
 class Category extends StatefulWidget {
-  final ItemModel itemModel;
-  Category({this.itemModel});
+  // final ItemModel itemModel;
+  final String catname;
+  Category({this.catname});
   @override
   _CategoryState createState() => _CategoryState();
 }
@@ -58,7 +59,7 @@ class _CategoryState extends State<Category> {
         appBar: AppBar(
           backgroundColor: Color(0xff94b941),
           title: Text(
-            widget.itemModel.catname,
+            widget.catname,
             style: TextStyle(
               fontSize: 25.0,
               fontWeight: FontWeight.bold,
@@ -151,7 +152,7 @@ class _CategoryState extends State<Category> {
             // ),
             StreamBuilder<QuerySnapshot>(
               stream: Firestore.instance
-                  .collection(widget.itemModel.catname)
+                  .collection(widget.catname)
                   .orderBy("publishedDate", descending: true)
                   .snapshots(),
               builder: (context, dataSnapshot) {
@@ -196,7 +197,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
         Padding(
           padding: EdgeInsets.all(6.0),
           child: Container(
-            height:MediaQuery.of(context).size.height / 5,
+            height: MediaQuery.of(context).size.height / 5,
             width: width,
             child: Row(
               children: [
@@ -204,19 +205,17 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                   padding: const EdgeInsets.all(10.0),
                   child: Container(
                     decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(2.0)),
-                     boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 2,
-                      blurRadius: 2,
-                      offset: Offset(0, 3), // changes position of shadow
-                    ),
-                  ]
-                    ),
-            height:MediaQuery.of(context).size.height / 5,
-
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(2.0)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 2,
+                            blurRadius: 2,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ]),
+                    height: MediaQuery.of(context).size.height / 5,
                     child: Image.network(
                       model.thumbnailUrl,
                       width: MediaQuery.of(context).size.width * 0.33,
@@ -259,7 +258,6 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                             Expanded(
                               child: Text(
                                 model.shortInfo,
-                                
                                 style: TextStyle(
                                   color: Colors.black54,
                                   fontFamily: "Arial",
@@ -274,7 +272,6 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          
                           Padding(
                             padding: EdgeInsets.only(top: 5.0),
                             child: Row(
@@ -306,7 +303,8 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                   child: Center(
                                     child: InkWell(
                                       onTap: () {
-                                        checkItemInCart(model.shortInfo, context);
+                                        checkItemInCart(
+                                            model.shortInfo, context);
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
@@ -314,13 +312,15 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(6))),
                                         //  color: Colors.green,
-                                        width: MediaQuery.of(context).size.width *
-                                            0.20,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.20,
                                         height: 50.0,
                                         child: Center(
                                           child: Text(
                                             "Add",
-                                            style: TextStyle(color: Colors.white),
+                                            style:
+                                                TextStyle(color: Colors.white),
                                           ),
                                         ),
                                       ),
@@ -345,7 +345,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                   }),
                         ],
                       ),
-                // Divider(height: 5.0, color: Colors.black),
+                      // Divider(height: 5.0, color: Colors.black),
 
                       // Flexible(
                       //   child: Container(),
@@ -357,7 +357,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
             ),
           ),
         ),
-                Divider(height: 5.0, color: Colors.grey),
+        Divider(height: 5.0, color: Colors.grey),
       ],
     ),
   );
