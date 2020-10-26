@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery/Address/address.dart';
 import 'package:grocery/Config/config.dart';
@@ -23,6 +25,68 @@ class PaymentPage extends StatefulWidget {
 class _PaymentPageState extends State<PaymentPage> {
   final TextEditingController _controller = TextEditingController();
   Widget button = Container();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+  @override
+  Future<void> initState() {
+    super.initState();
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+// initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('assets/icons/transparent_new_white.png');
+    final IOSInitializationSettings initializationSettingsIOS =
+        IOSInitializationSettings(
+            onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    final MacOSInitializationSettings initializationSettingsMacOS =
+        MacOSInitializationSettings();
+    final InitializationSettings initializationSettings =
+        InitializationSettings(
+            android: initializationSettingsAndroid,
+            iOS: initializationSettingsIOS,
+            macOS: initializationSettingsMacOS);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: selectNotification);
+  }
+
+  Future onDidReceiveLocalNotification(
+      int id, String title, String body, String payload) async {
+    // display a dialog with the notification details, tap ok to go to another page
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: Text(title),
+        content: Text(body),
+        actions: [
+          CupertinoDialogAction(
+            isDefaultAction: true,
+            child: Text('Ok'),
+            onPressed: () async {
+              Navigator.of(context, rootNavigator: true).pop();
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SplashScreen(),
+                ),
+              );
+            },
+          )
+        ],
+      ),
+    );
+  }
+
+  Future selectNotification(String payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: $payload');
+    }
+    // await Navigator.push(
+    //   context,
+    //   MaterialPageRoute<void>(builder: (context) => SecondScreen(payload)),
+    // );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -42,7 +106,18 @@ class _PaymentPageState extends State<PaymentPage> {
           centerTitle: true,
         ),
         floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
+          onPressed: () async {
+            const AndroidNotificationDetails androidPlatformChannelSpecifics =
+                AndroidNotificationDetails('your channel id',
+                    'your channel name', 'your channel description',
+                    importance: Importance.max,
+                    priority: Priority.high,
+                    showWhen: false);
+            const NotificationDetails platformChannelSpecifics =
+                NotificationDetails(android: androidPlatformChannelSpecifics);
+            await flutterLocalNotificationsPlugin.show(
+                0, "Your Order has been Placed!","Order Address ID : "+ widget.addressID, platformChannelSpecifics,
+                payload: 'item x');
             Route route = MaterialPageRoute(builder: (c) => addOrderDetails());
             Navigator.push(context, route);
           },
@@ -69,51 +144,6 @@ class _PaymentPageState extends State<PaymentPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                // Align(
-                //   alignment: Alignment.center,
-                //   child: Padding(
-                //     padding: EdgeInsets.all(15.0),
-                //     child: Text(
-                //       "Apply Coupon Code",
-                //       style: TextStyle(
-                //         color: Colors.black,
-                //         fontWeight: FontWeight.bold,
-                //         fontSize: 20.0,
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                // Container(
-                //   padding: EdgeInsets.all(20.0),
-                //   color: Colors.amber,
-                //   child: GestureDetector(
-                //     // onTap: () {
-                //     //   setState(() {
-                //     //     button = RaisedButton(
-                //     //       onPressed: () {},
-                //     //       color: Color(0xff94b941),
-                //     //       child: Text(
-                //     //         "Apply",
-                //     //         style: TextStyle(color: Colors.black),
-                //     //       ),
-                //     //     );
-                //     //   });
-                //     // },
-                //     child: TextField(
-                //       controller: _controller,
-                //       decoration: InputDecoration.collapsed(
-                //           hintText: "Type Coupon Code"),
-                //     ),
-                //   ),
-                // ),
-                // RaisedButton(
-                //   onPressed: () {},
-                //   color: Color(0xff94b941),
-                //   child: Text(
-                //     "Apply",
-                //     style: TextStyle(color: Colors.black),
-                //   ),
-                // ),
                 Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
