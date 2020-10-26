@@ -138,7 +138,10 @@ class _DefultAddressState extends State<DefultAddress> {
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             Route route = MaterialPageRoute(builder: (c) => AddAddress());
-            Navigator.push(context, route);
+            Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => AddAddress(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
           },
           label: Text("Add New Address"),
           backgroundColor: Color(0xff94b941),

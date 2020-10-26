@@ -112,9 +112,12 @@ class _StoreHomeState extends State<StoreHome> {
                       onPressed: () {
                         // checklogin();
                         if (logincheck) {
-                          Route route =
-                              MaterialPageRoute(builder: (c) => CartPage());
-                          Navigator.push(context, route);
+                          // Route route =
+                          //     MaterialPageRoute(builder: (c) => CartPage());
+                          Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => CartPage(),
+    transitionDuration: Duration(seconds: 0),
+  ));
                         } else {
                           Route route = MaterialPageRoute(
                               builder: (_) => AuthenticScreen());
@@ -210,7 +213,10 @@ class _StoreHomeState extends State<StoreHome> {
           child: FloatingActionButton(
             onPressed: () {
               Route route = MaterialPageRoute(builder: (c) => SearchProduct());
-              Navigator.push(context, route);
+              Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => SearchProduct(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
             },
             elevation: 5,
             backgroundColor: Color(0xff94b941),
@@ -231,7 +237,10 @@ Widget categoryinfo(ItemModel model, BuildContext context,
     onTap: () {
       Route route =
           MaterialPageRoute(builder: (c) => Category(itemModel: model));
-      Navigator.push(context, route);
+      Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => Category(itemModel: model),
+    transitionDuration: Duration(seconds: 0),
+  ),);
     },
     child: Container(
         margin: EdgeInsets.all(8.0),

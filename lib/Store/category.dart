@@ -82,11 +82,17 @@ class _CategoryState extends State<Category> {
                           if (logincheck) {
                             Route route =
                                 MaterialPageRoute(builder: (c) => CartPage());
-                            Navigator.push(context, route);
+                            Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => CartPage(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
                           } else {
                             Route route = MaterialPageRoute(
                                 builder: (_) => AuthenticScreen());
-                            Navigator.push(context, route);
+                            Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => AuthenticScreen(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
                           }
                         }),
                   ),
@@ -137,7 +143,10 @@ class _CategoryState extends State<Category> {
               onPressed: () {
                 Route route =
                     MaterialPageRoute(builder: (c) => SearchProduct());
-                Navigator.push(context, route);
+                Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => SearchProduct(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
               },
               elevation: 5,
               backgroundColor: Color(0xff94b941),
@@ -186,7 +195,10 @@ Widget sourceInfo(ItemModel model, BuildContext context,
     onTap: () {
       Route route =
           MaterialPageRoute(builder: (c) => ProductPage(itemModel: model));
-      Navigator.push(context, route);
+      Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => ProductPage(itemModel: model),
+    transitionDuration: Duration(seconds: 0),
+  ),);
     },
     splashColor: Color(0xff94b941),
     child: Padding(

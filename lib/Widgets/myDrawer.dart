@@ -103,7 +103,10 @@ class _MyDrawerState extends State<MyDrawer> {
                   onTap: () {
                     Route route =
                         MaterialPageRoute(builder: (c) => StoreHome());
-                    Navigator.pushReplacement(context, route);
+                    Navigator.pushReplacement(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => StoreHome(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
                   },
                 ),
                 Divider(
@@ -128,11 +131,17 @@ class _MyDrawerState extends State<MyDrawer> {
                     if (logincheck) {
                       Route route =
                           MaterialPageRoute(builder: (c) => MyOrders());
-                      Navigator.push(context, route);
+                      Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => MyOrders(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
                     } else {
                       Route route =
                           MaterialPageRoute(builder: (_) => AuthenticScreen());
-                      Navigator.push(context, route);
+                      Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => AuthenticScreen(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
                     }
                   },
                 ),
@@ -158,11 +167,17 @@ class _MyDrawerState extends State<MyDrawer> {
                     if (logincheck) {
                       Route route =
                           MaterialPageRoute(builder: (c) => CartPage());
-                      Navigator.push(context, route);
+                      Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => CartPage(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
                     } else {
                       Route route =
                           MaterialPageRoute(builder: (_) => AuthenticScreen());
-                      Navigator.push(context, route);
+                      Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => AuthenticScreen(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
                     }
                   },
                 ),
@@ -187,7 +202,10 @@ class _MyDrawerState extends State<MyDrawer> {
                   onTap: () {
                     Route route =
                         MaterialPageRoute(builder: (c) => SearchProduct());
-                    Navigator.push(context, route);
+                    Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => SearchProduct(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
                   },
                 ),
                 Divider(
@@ -212,11 +230,17 @@ class _MyDrawerState extends State<MyDrawer> {
                     if (logincheck) {
                       Route route =
                           MaterialPageRoute(builder: (c) => DefultAddress());
-                      Navigator.push(context, route);
+                      Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => DefultAddress(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
                     } else {
                       Route route =
                           MaterialPageRoute(builder: (_) => AuthenticScreen());
-                      Navigator.push(context, route);
+                      Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => AuthenticScreen(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
                     }
                   },
                 ),
@@ -272,12 +296,18 @@ class _MyDrawerState extends State<MyDrawer> {
                             EcommerceApp.auth.signOut().then((c) {
                               Route route = MaterialPageRoute(
                                   builder: (c) => SplashScreen());
-                              Navigator.pushReplacement(context, route);
+                              Navigator.pushReplacement(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => SplashScreen(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
                             });
                           } else {
                             Route route = MaterialPageRoute(
                                 builder: (_) => AuthenticScreen());
-                            Navigator.push(context, route);
+                            Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => AuthenticScreen(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
                           }
                         },
                       ),
