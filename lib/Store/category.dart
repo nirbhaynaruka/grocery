@@ -24,6 +24,8 @@ Future<void> main() async {
   runApp(Category());
 }
 
+bool logincheck = false;
+
 class Category extends StatefulWidget {
   final ItemModel itemModel;
   // final String catname;
@@ -33,12 +35,11 @@ class Category extends StatefulWidget {
 }
 
 class _CategoryState extends State<Category> {
-  bool logincheck = false;
+  // bool logincheck = false;
 
   @override
   void initState() {
     checklogin();
-    var _itemCount;
     super.initState();
   }
 
@@ -82,17 +83,23 @@ class _CategoryState extends State<Category> {
                           if (logincheck) {
                             Route route =
                                 MaterialPageRoute(builder: (c) => CartPage());
-                            Navigator.push(context, PageRouteBuilder(
-    pageBuilder: (_, __, ___) => CartPage(),
-    transitionDuration: Duration(seconds: 0),
-  ),);
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (_, __, ___) => CartPage(),
+                                transitionDuration: Duration(seconds: 0),
+                              ),
+                            );
                           } else {
                             Route route = MaterialPageRoute(
                                 builder: (_) => AuthenticScreen());
-                            Navigator.push(context, PageRouteBuilder(
-    pageBuilder: (_, __, ___) => AuthenticScreen(),
-    transitionDuration: Duration(seconds: 0),
-  ),);
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (_, __, ___) => AuthenticScreen(),
+                                transitionDuration: Duration(seconds: 0),
+                              ),
+                            );
                           }
                         }),
                   ),
@@ -143,10 +150,13 @@ class _CategoryState extends State<Category> {
               onPressed: () {
                 Route route =
                     MaterialPageRoute(builder: (c) => SearchProduct());
-                Navigator.push(context, PageRouteBuilder(
-    pageBuilder: (_, __, ___) => SearchProduct(),
-    transitionDuration: Duration(seconds: 0),
-  ),);
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (_, __, ___) => SearchProduct(),
+                    transitionDuration: Duration(seconds: 0),
+                  ),
+                );
               },
               elevation: 5,
               backgroundColor: Color(0xff94b941),
@@ -194,10 +204,13 @@ Widget sourceInfo(ItemModel model, BuildContext context,
     onTap: () {
       Route route =
           MaterialPageRoute(builder: (c) => ProductPage(itemModel: model));
-      Navigator.push(context, PageRouteBuilder(
-    pageBuilder: (_, __, ___) => ProductPage(itemModel: model),
-    transitionDuration: Duration(seconds: 0),
-  ),);
+      Navigator.push(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (_, __, ___) => ProductPage(itemModel: model),
+          transitionDuration: Duration(seconds: 0),
+        ),
+      );
     },
     splashColor: Color(0xff94b941),
     child: Padding(
@@ -314,8 +327,10 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                     child: Center(
                                       child: InkWell(
                                         onTap: () {
-                                          checkItemInCart(
-                                              model.shortInfo, context);
+                                          logincheck
+                                              ? checkItemInCart(
+                                                  model.shortInfo, context)
+                                              : null;
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -348,15 +363,13 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                 //       checkItemInCart(model.shortInfo, context);
                                 //     })
                                 : IconButton(
-                                          icon: Icon(
-                                            Icons.delete,
-                                            color: Color(0xff94b941),
-                                          ),
-                                          onPressed: () {
-                                            removeCartFunction();
-                                          }),
-                                
-                                  
+                                    icon: Icon(
+                                      Icons.delete,
+                                      color: Color(0xff94b941),
+                                    ),
+                                    onPressed: () {
+                                      removeCartFunction();
+                                    }),
                           ],
                         ),
                         // Divider(height: 5.0, color: Colors.black),

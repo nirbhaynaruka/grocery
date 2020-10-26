@@ -79,17 +79,23 @@ class _ProductPageState extends State<ProductPage> {
                         if (logincheck) {
                           Route route =
                               MaterialPageRoute(builder: (c) => CartPage());
-                          Navigator.push(context, PageRouteBuilder(
-    pageBuilder: (_, __, ___) => CartPage(),
-    transitionDuration: Duration(seconds: 0),
-  ),);
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (_, __, ___) => CartPage(),
+                              transitionDuration: Duration(seconds: 0),
+                            ),
+                          );
                         } else {
                           Route route = MaterialPageRoute(
                               builder: (_) => AuthenticScreen());
-                          Navigator.push(context, PageRouteBuilder(
-    pageBuilder: (_, __, ___) => AuthenticScreen(),
-    transitionDuration: Duration(seconds: 0),
-  ),);
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (_, __, ___) => AuthenticScreen(),
+                              transitionDuration: Duration(seconds: 0),
+                            ),
+                          );
                         }
                       }),
                 ),
@@ -142,17 +148,18 @@ class _ProductPageState extends State<ProductPage> {
               Container(
                 height: MediaQuery.of(context).size.height * 0.35,
                 width: MediaQuery.of(context).size.width,
-                child:Padding(
+                child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Image.network(
-                      widget.itemModel.thumbnailUrl,fit: BoxFit.contain,
-                    ),
+                    widget.itemModel.thumbnailUrl,
+                    fit: BoxFit.contain,
+                  ),
                 ),
-                
               ),
-              SizedBox(height: 10.0,),
+              SizedBox(
+                height: 10.0,
+              ),
               Container(
-
                 height: MediaQuery.of(context).size.height * 0.4,
                 padding: EdgeInsets.all(20.0),
                 child: Column(
@@ -162,12 +169,13 @@ class _ProductPageState extends State<ProductPage> {
                       widget.itemModel.title,
                       style: boldTextStyle,
                     ),
-              SizedBox(height: 10.0,),
-
+                    SizedBox(
+                      height: 10.0,
+                    ),
                     Row(
                       children: [
                         Text(
-                           '\u{20B9}${widget.itemModel.price.toString()}',
+                          '\u{20B9}${widget.itemModel.price.toString()}',
                           style: TextStyle(
                             fontSize: 30.0,
                             fontWeight: FontWeight.bold,
@@ -178,22 +186,21 @@ class _ProductPageState extends State<ProductPage> {
                         ),
                         Text(
                           '\u{20B9}${widget.itemModel.originalPrice.toString()}',
-                          
                           style: TextStyle(
                             fontSize: 20.0,
                             color: Colors.grey,
-                          fontWeight: FontWeight.normal,
-
+                            fontWeight: FontWeight.normal,
                             decoration: TextDecoration.lineThrough,
                           ),
                         ),
                       ],
                     ),
-              SizedBox(height: 10.0,),
-
+                    SizedBox(
+                      height: 10.0,
+                    ),
                     Expanded(
-                                          child: SingleChildScrollView(
-                                            child: Text(
+                      child: SingleChildScrollView(
+                        child: Text(
                           widget.itemModel.longDescription,
                           style: largeTextStyle,
                         ),
@@ -207,41 +214,42 @@ class _ProductPageState extends State<ProductPage> {
               Padding(
                 padding: const EdgeInsets.all(25.0),
                 child: Container(
-                    decoration: BoxDecoration(
-                  color: Color(0xff94b941),
-                            borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                          ),
+                  decoration: BoxDecoration(
+                    color: Color(0xff94b941),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  ),
 
                   height: MediaQuery.of(context).size.height * 0.06,
                   // margin: EdgeInsets.all(20.0),
                   child: Center(
-                      child: InkWell(
-                        onTap: () {
-                          if (logincheck) {
-                            checkItemInCart(widget.itemModel.shortInfo, context);
-                          } else {
-                            Route route = MaterialPageRoute(
-                                builder: (_) => AuthenticScreen());
-                            Navigator.push(context, PageRouteBuilder(
-    pageBuilder: (_, __, ___) => AuthenticScreen(),
-    transitionDuration: Duration(seconds: 0),
-  ),);
-                          }
-                        },
-                        child: Container(
-                        
-                          width: MediaQuery.of(context).size.width - 40.0,
-                          height: 50.0,
-                          child: Center(
-                            child: Text(
-                              "Add to Cart",
-                              style: TextStyle(color: Colors.white),
+                    child: InkWell(
+                      onTap: () {
+                        if (logincheck) {
+                          checkItemInCart(widget.itemModel.shortInfo, context);
+                        } else {
+                          Route route = MaterialPageRoute(
+                              builder: (_) => AuthenticScreen());
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (_, __, ___) => AuthenticScreen(),
+                              transitionDuration: Duration(seconds: 0),
                             ),
+                          );
+                        }
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width - 40.0,
+                        height: 50.0,
+                        child: Center(
+                          child: Text(
+                            "Add to Cart",
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
                       ),
                     ),
-                  
+                  ),
                 ),
               ),
             ],
@@ -347,5 +355,7 @@ class _ProductPageState extends State<ProductPage> {
   }
 }
 
-const boldTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 30,fontFamily: "Arial Bold");
-const largeTextStyle = TextStyle(fontWeight: FontWeight.w400, fontSize: 20, fontFamily: "Arial");
+const boldTextStyle = TextStyle(
+    fontWeight: FontWeight.bold, fontSize: 30, fontFamily: "Arial Bold");
+const largeTextStyle =
+    TextStyle(fontWeight: FontWeight.w400, fontSize: 20, fontFamily: "Arial");
