@@ -119,7 +119,10 @@ class _PaymentPageState extends State<PaymentPage> {
                 0, "Your Order has been Placed!","Order Address ID : "+ widget.addressID, platformChannelSpecifics,
                 payload: 'item x');
             Route route = MaterialPageRoute(builder: (c) => addOrderDetails());
-            Navigator.push(context, route);
+            Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => addOrderDetails(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
           },
           label: Padding(
             padding: const EdgeInsets.all(1.0),

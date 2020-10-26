@@ -75,11 +75,17 @@ class _SearchProductState extends State<SearchProduct> {
                         if (logincheck) {
                           Route route =
                               MaterialPageRoute(builder: (c) => CartPage());
-                          Navigator.push(context, route);
+                          Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => CartPage(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
                         } else {
                           Route route = MaterialPageRoute(
                               builder: (_) => AuthenticScreen());
-                          Navigator.push(context, route);
+                          Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => AuthenticScreen(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
                         }
                       }),
                 ),

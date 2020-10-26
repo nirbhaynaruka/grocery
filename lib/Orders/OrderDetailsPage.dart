@@ -283,7 +283,10 @@ class ShippingDetails extends StatelessWidget {
 
     getOrderId = "";
     Route route = MaterialPageRoute(builder: (c) => SplashScreen());
-    Navigator.push(context, route);
+    Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => SplashScreen(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
 
     Fluttertoast.showToast(msg: "Order has been Received. Confirmed.");
   }

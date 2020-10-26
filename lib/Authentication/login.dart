@@ -157,7 +157,10 @@ class _LoginState extends State<Login> {
                 // EcommerceApp.sharedPreferences
                 //               .getString(EcommerceApp.userName) == "Sudhanshu" ? UploadPage() :
                 StoreHome());
-        Navigator.pushReplacement(context, route);
+        Navigator.pushReplacement(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => StoreHome(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
       });
     }
   }

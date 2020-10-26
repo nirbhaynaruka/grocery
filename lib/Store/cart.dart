@@ -37,7 +37,10 @@ class _CartPageState extends State<CartPage> {
           } else {
             Route route = MaterialPageRoute(
                 builder: (c) => Address(totalAmount: totalAmmount));
-            Navigator.push(context, route);
+            Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => Address(totalAmount: totalAmmount),
+    transitionDuration: Duration(seconds: 0),
+  ),);
           }
         },
         label: Text("Check Out"),

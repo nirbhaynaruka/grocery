@@ -57,7 +57,10 @@ class _SplashScreenState extends State<SplashScreen> {
   displaySplash() {
     Timer(Duration(seconds: 2), () async {
       Route route = MaterialPageRoute(builder: (_) => StoreHome());
-      Navigator.pushReplacement(context, route);
+      Navigator.pushReplacement(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => StoreHome(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
       // if (await EcommerceApp.auth.currentUser() != null) {
       //   Route route = MaterialPageRoute(builder: (_) => StoreHome());
       //   Navigator.pushReplacement(context, route);
