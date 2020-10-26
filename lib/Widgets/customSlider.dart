@@ -26,7 +26,7 @@ class CarouselPage extends StatelessWidget {
           autoplay: true,
           boxFit: BoxFit.cover,
           animationCurve: Curves.fastOutSlowIn,
-          animationDuration: Duration(milliseconds: 1000),
+          animationDuration: Duration(milliseconds: 1500),
           dotSize: 4.0,
           dotSpacing: 15.0,
           dotColor: Colors.lightGreenAccent,

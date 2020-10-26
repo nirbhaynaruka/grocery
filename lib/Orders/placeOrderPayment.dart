@@ -27,6 +27,7 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Color(0xfffffff8),
         appBar: AppBar(
           backgroundColor: Color(0xff94b941),
           title: Text(
@@ -62,7 +63,8 @@ class _PaymentPageState extends State<PaymentPage> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         body: SingleChildScrollView(
-          child: Container(
+          child: Card(
+            color: Colors.white,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
