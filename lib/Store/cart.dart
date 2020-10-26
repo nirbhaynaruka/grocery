@@ -194,7 +194,7 @@ class _CartPageState extends State<CartPage> {
                 color: Colors.black,
               ),
               Text("Cart is Empty!!"),
-              Text("Starting Shopping..."),
+              Text("Start Shopping..."),
             ],
           ),
         ),
