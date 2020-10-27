@@ -147,7 +147,7 @@ class _ProductPageState extends State<ProductPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                height: MediaQuery.of(context).size.height * 0.35,
+                height: MediaQuery.of(context).size.height * 0.25,
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -164,11 +164,14 @@ class _ProductPageState extends State<ProductPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      widget.itemModel.title,
-                      style: TextStyle(
-                        fontFamily: "Arial Bold",
-                        fontSize: 22.0,
+                    Container(
+                      child: Text(
+                        widget.itemModel.title,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: "Arial Bold",
+                          fontSize: 23.0,
+                        ),
                       ),
                     ),
                     SizedBox(height: 10.0),
@@ -201,7 +204,7 @@ class _ProductPageState extends State<ProductPage> {
                         child: Text(
                           widget.itemModel.longDescription,
                           style: TextStyle(
-                            fontSize: 16.0,
+                            fontSize: 18.0,
                             fontFamily: "Arial Bold",
                             fontWeight: FontWeight.w100,
                           ),

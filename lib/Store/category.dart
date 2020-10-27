@@ -59,6 +59,7 @@ class _CategoryState extends State<Category> {
     width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
+          // backgroundColor: Color(0xfffffff8),
           appBar: AppBar(
             backgroundColor: Color(0xff94b941),
             title: Text(
@@ -199,8 +200,6 @@ class _CategoryState extends State<Category> {
 
 Widget sourceInfo(ItemModel model, BuildContext context,
     {Color background, removeCartFunction}) {
-  Size size;
-  // heightm = MediaQuery.of(context).size.height;
   return InkWell(
     onTap: () {
       Route route =
@@ -221,7 +220,19 @@ Widget sourceInfo(ItemModel model, BuildContext context,
           Padding(
             padding: EdgeInsets.all(0.0),
             child: Container(
-              height: MediaQuery.of(context).size.height / 5,
+              // color: Color(0xffffffff),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, 4),
+                    blurRadius: 15,
+                    color: Color(0xFFB7B7B7).withOpacity(.5),
+                  ),
+                ],
+              ),
+              height: MediaQuery.of(context).size.height / 6,
               width: width,
               child: Row(
                 children: [
@@ -240,7 +251,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                   Offset(0, 3), // changes position of shadow
                             ),
                           ]),
-                      height: MediaQuery.of(context).size.height / 5,
+                      height: MediaQuery.of(context).size.height / 7,
                       child: Image.network(
                         model.thumbnailUrl,
                         width: MediaQuery.of(context).size.width * 0.33,
@@ -248,155 +259,158 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: 4.0,
-                  ),
+                  // SizedBox(
+                  //   width: 4.0
+                  // ),
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 15.0),
-                        Container(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  model.title,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: "Arial Bold",
-                                    fontSize: 18.0,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 5.0),
-                        Container(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  model.shortInfo,
-                                  style: TextStyle(
-                                    color: Colors.black54,
-                                    fontFamily: "Arial",
-                                    fontSize: 15.0,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 20.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(top: 5.0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    '\u{20B9}${model.price}',
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 15.0),
+                          Container(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    model.title,
                                     style: TextStyle(
-                                      fontSize: 16.0,
                                       color: Colors.black,
-                                      fontWeight: FontWeight.bold,
+                                      fontFamily: "Arial Bold",
+                                      fontSize: 18.0,
                                     ),
                                   ),
-                                  SizedBox(width: 5.0),
-                                  Text(
-                                    '\u{20B9}${model.originalPrice}',
-                                    style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: Colors.grey,
-                                      decoration: TextDecoration.lineThrough,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                            removeCartFunction == null
-                                ? Padding(
-                                    padding: EdgeInsets.only(top: 8.0),
-                                    child: Center(
-                                      child: InkWell(
-                                        onTap: () {
-                                          if (logincheck) {
-                                            checkItemInCart(
-                                                model.shortInfo, context);
-                                          } else {
-                                            Route route = MaterialPageRoute(
-                                                builder: (_) =>
-                                                    AuthenticScreen());
-                                            Navigator.push(
-                                              context,
-                                              PageRouteBuilder(
-                                                pageBuilder: (_, __, ___) =>
-                                                    AuthenticScreen(),
-                                                transitionDuration:
-                                                    Duration(seconds: 0),
+                          ),
+                          SizedBox(height: 5.0),
+                          Container(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    model.shortInfo,
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                      fontFamily: "Arial",
+                                      fontSize: 15.0,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(top: 5.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      '\u{20B9}${model.price}',
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(width: 5.0),
+                                    Text(
+                                      '\u{20B9}${model.originalPrice}',
+                                      style: TextStyle(
+                                        fontSize: 12.0,
+                                        color: Colors.grey,
+                                        decoration: TextDecoration.lineThrough,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              removeCartFunction == null
+                                  ? Padding(
+                                      padding: EdgeInsets.only(top: 8.0),
+                                      child: Center(
+                                        child: InkWell(
+                                          onTap: () {
+                                            if (logincheck) {
+                                              checkItemInCart(
+                                                  model.shortInfo, context);
+                                            } else {
+                                              Route route = MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      AuthenticScreen());
+                                              Navigator.push(
+                                                context,
+                                                PageRouteBuilder(
+                                                  pageBuilder: (_, __, ___) =>
+                                                      AuthenticScreen(),
+                                                  transitionDuration:
+                                                      Duration(seconds: 0),
+                                                ),
+                                              );
+                                            }
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                color: Color(0xff94b941),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(6))),
+                                            //  color: Colors.green,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.15,
+                                            height: 30.0,
+                                            child: Center(
+                                              child: Text(
+                                                "Add",
+                                                style: TextStyle(
+                                                    color: Colors.white),
                                               ),
-                                            );
-                                          }
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: Color(0xff94b941),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(6))),
-                                          //  color: Colors.green,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.15,
-                                          height: 30.0,
-                                          child: Center(
-                                            child: Text(
-                                              "Add",
-                                              style: TextStyle(
-                                                  color: Colors.white),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  )
-                                // IconButton(
-                                //     icon: Icon(
-                                //       Icons.add_shopping_cart,
-                                //       color: Colors.pinkAccent,
-                                //     ),
-                                //     onPressed: () {
-                                //       checkItemInCart(model.shortInfo, context);
-                                //     })
-                                : IconButton(
-                                    icon: Icon(
-                                      Icons.delete,
-                                      color: Color(0xff94b941),
-                                    ),
-                                    onPressed: () {
-                                      removeCartFunction();
-                                    }),
-                          ],
-                        ),
-                        // Divider(height: 5.0, color: Colors.black),
+                                    )
+                                  // IconButton(
+                                  //     icon: Icon(
+                                  //       Icons.add_shopping_cart,
+                                  //       color: Colors.pinkAccent,
+                                  //     ),
+                                  //     onPressed: () {
+                                  //       checkItemInCart(model.shortInfo, context);
+                                  //     })
+                                  : IconButton(
+                                      icon: Icon(
+                                        Icons.delete,
+                                        color: Color(0xff94b941),
+                                      ),
+                                      onPressed: () {
+                                        removeCartFunction();
+                                      }),
+                            ],
+                          ),
+                          // Divider(height: 5.0, color: Colors.black),
 
-                        // Flexible(
-                        //   child: Container(),
-                        // ),
-                      ],
+                          // Flexible(
+                          //   child: Container(),
+                          // ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
           ),
-          Divider(height: 5.0, color: Colors.grey),
+          // Divider(height: 5.0, color: Colors.grey),
         ],
       ),
     ),

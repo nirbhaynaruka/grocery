@@ -43,6 +43,9 @@ class _AdminSignInScreenState extends State<AdminSignInScreen> {
     double _screenWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
+        decoration: BoxDecoration(
+            color: Color(0xfffffff8),
+          ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [

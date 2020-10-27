@@ -92,6 +92,7 @@ class _StoreHomeState extends State<StoreHome> {
     size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        // backgroundColor: Color(0xfffffff8),
         appBar: AppBar(
           backgroundColor: Color(0xff94b941),
           title: Text(
