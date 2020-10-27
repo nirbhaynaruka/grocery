@@ -38,10 +38,9 @@ class _AddAddressState extends State<AddAddress> {
         appBar: AppBar(
           backgroundColor: Color(0xff94b941),
           title: Text(
-            "Nature Coop Fresh",
+            "Add New Address",
             style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
+              letterSpacing: 1.3,
               color: Colors.white,
               fontFamily: "Folks-Heavy",
             ),

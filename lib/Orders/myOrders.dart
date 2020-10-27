@@ -28,8 +28,7 @@ class _MyOrdersState extends State<MyOrders> {
           title: Text(
             "My Orders",
             style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
+              letterSpacing: 1.3,
               color: Colors.white,
               fontFamily: "Folks-Heavy",
             ),
@@ -109,10 +108,7 @@ class _MyOrdersState extends State<MyOrders> {
                               ? OrderCard(
                                   itemCount: snap.data.documents.length,
                                   data: snap.data.documents,
-                                  // orderDetails : snapshot.data.orderDetails,
-
-                                  orderId:
-                                      snapshot.data.documents[index].documentID,
+                                  orderId: snapshot.data.documents[index].documentID,
                                 )
                               : Center(
                                   child: circularProgress(),

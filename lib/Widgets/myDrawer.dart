@@ -69,7 +69,7 @@ class _MyDrawerState extends State<MyDrawer> {
                       : "Hello, User",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 25.0,
+                    fontSize: 22.0,
                     fontFamily: "Arial Bold",
                   ),
                 ),

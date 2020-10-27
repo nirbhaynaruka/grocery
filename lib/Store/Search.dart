@@ -54,10 +54,9 @@ class _SearchProductState extends State<SearchProduct> {
         appBar: AppBar(
           backgroundColor: Color(0xff94b941),
           title: Text(
-            "Nature Coop Fresh",
+            "Search Page",
             style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
+              letterSpacing: 1.3,
               color: Colors.white,
               fontFamily: "Folks-Heavy",
             ),
@@ -75,17 +74,23 @@ class _SearchProductState extends State<SearchProduct> {
                         if (logincheck) {
                           Route route =
                               MaterialPageRoute(builder: (c) => CartPage());
-                          Navigator.push(context, PageRouteBuilder(
-    pageBuilder: (_, __, ___) => CartPage(),
-    transitionDuration: Duration(seconds: 0),
-  ),);
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (_, __, ___) => CartPage(),
+                              transitionDuration: Duration(seconds: 0),
+                            ),
+                          );
                         } else {
                           Route route = MaterialPageRoute(
                               builder: (_) => AuthenticScreen());
-                          Navigator.push(context, PageRouteBuilder(
-    pageBuilder: (_, __, ___) => AuthenticScreen(),
-    transitionDuration: Duration(seconds: 0),
-  ),);
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (_, __, ___) => AuthenticScreen(),
+                              transitionDuration: Duration(seconds: 0),
+                            ),
+                          );
                         }
                       }),
                 ),
@@ -203,7 +208,7 @@ class _SearchProductState extends State<SearchProduct> {
               child: Padding(
                 padding: EdgeInsets.only(left: 8.0),
                 child: TextField(
-                  controller:  _searchTextEditingController,
+                  controller: _searchTextEditingController,
                   onChanged: (value) {
                     startSearching(value);
                   },

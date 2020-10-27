@@ -26,10 +26,11 @@ class _AddressState extends State<Address> {
         appBar: AppBar(
           backgroundColor: Color(0xff94b941),
           title: Text(
-            "Nature Coop Fresh",
+            "Address Page",
             style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
+              // fontSize: 25.0,
+              letterSpacing: 1.2,
+              // fontWeight: FontWeight.bold,
               color: Colors.white,
               fontFamily: "Folks-Heavy",
             ),
@@ -38,11 +39,16 @@ class _AddressState extends State<Address> {
           actions: [
             Stack(
               children: [
-                IconButton(
-                  icon: Icon(Icons.shopping_basket, color: Colors.white),
-                  onPressed: null,
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: IconButton(
+                    icon: Icon(Icons.shopping_basket, color: Colors.white),
+                    onPressed: null,
+                  ),
                 ),
                 Positioned(
+                  top: 5.0,
+                  right: 8.0,
                   child: Stack(
                     children: [
                       Icon(

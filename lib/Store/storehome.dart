@@ -193,7 +193,7 @@ class _StoreHomeState extends State<StoreHome> {
                 child: Text(
                   "SHOP BY CATEGORY",
                   style: TextStyle(
-                    fontSize: 21,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                     fontFamily: "Arial Bold",
                   ),

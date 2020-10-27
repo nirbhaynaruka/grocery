@@ -58,10 +58,11 @@ class _ProductPageState extends State<ProductPage> {
         appBar: AppBar(
           backgroundColor: Color(0xff94b941),
           title: Text(
-            "Nature Coop Fresh",
+            widget.itemModel.catname,
             style: TextStyle(
-              fontSize: 25.0,
+              // fontSize: 25.0,
               fontWeight: FontWeight.bold,
+              letterSpacing: 1.2,
               color: Colors.white,
               fontFamily: "Folks-Heavy",
             ),
@@ -149,35 +150,34 @@ class _ProductPageState extends State<ProductPage> {
                 height: MediaQuery.of(context).size.height * 0.35,
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Image.network(
                     widget.itemModel.thumbnailUrl,
                     fit: BoxFit.contain,
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10.0,
-              ),
+              // SizedBox(height: 10.0),
               Container(
                 height: MediaQuery.of(context).size.height * 0.4,
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       widget.itemModel.title,
-                      style: boldTextStyle,
+                      style: TextStyle(
+                        fontFamily: "Arial Bold",
+                        fontSize: 22.0,
+                      ),
                     ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
+                    SizedBox(height: 10.0),
                     Row(
                       children: [
                         Text(
                           '\u{20B9}${widget.itemModel.price.toString()}',
                           style: TextStyle(
-                            fontSize: 30.0,
+                            fontSize: 22.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -187,7 +187,7 @@ class _ProductPageState extends State<ProductPage> {
                         Text(
                           '\u{20B9}${widget.itemModel.originalPrice.toString()}',
                           style: TextStyle(
-                            fontSize: 20.0,
+                            fontSize: 18.0,
                             color: Colors.grey,
                             fontWeight: FontWeight.normal,
                             decoration: TextDecoration.lineThrough,
@@ -195,14 +195,16 @@ class _ProductPageState extends State<ProductPage> {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
+                    SizedBox(height: 10.0),
                     Expanded(
                       child: SingleChildScrollView(
                         child: Text(
                           widget.itemModel.longDescription,
-                          style: largeTextStyle,
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontFamily: "Arial Bold",
+                            fontWeight: FontWeight.w100,
+                          ),
                         ),
                       ),
                     ),
@@ -212,7 +214,7 @@ class _ProductPageState extends State<ProductPage> {
               // SizedBox(height: 10.0,),
 
               Padding(
-                padding: const EdgeInsets.all(25.0),
+                padding: const EdgeInsets.all(5.0),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Color(0xff94b941),
@@ -239,12 +241,17 @@ class _ProductPageState extends State<ProductPage> {
                         }
                       },
                       child: Container(
-                        width: MediaQuery.of(context).size.width - 40.0,
-                        height: 50.0,
+                        // width: MediaQuery.of(context).size.width *0.6,
+                        height: 40.0,
                         child: Center(
                           child: Text(
                             "Add to Cart",
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: "Arial Bold",
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),

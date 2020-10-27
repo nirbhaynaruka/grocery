@@ -300,19 +300,21 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                             Padding(
                               padding: EdgeInsets.only(top: 5.0),
                               child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
                                     '\u{20B9}${model.price}',
                                     style: TextStyle(
-                                      fontSize: 20.0,
+                                      fontSize: 16.0,
                                       color: Colors.black,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   SizedBox(width: 5.0),
                                   Text(
                                     '\u{20B9}${model.originalPrice}',
                                     style: TextStyle(
-                                      fontSize: 10.0,
+                                      fontSize: 12.0,
                                       color: Colors.grey,
                                       decoration: TextDecoration.lineThrough,
                                     ),
@@ -340,8 +342,8 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                              0.20,
-                                          height: 50.0,
+                                              0.15,
+                                          height: 30.0,
                                           child: Center(
                                             child: Text(
                                               "Add",

@@ -135,8 +135,9 @@ class _PaymentPageState extends State<PaymentPage> {
             child: Text(
               "Place Order",
               style: TextStyle(
-                fontSize: 18,
-                fontFamily: "Arial Bold",
+                // fontWeight: FontWeight.bold,
+                letterSpacing: 1.2,
+                fontFamily: "Folks-Heavy",
               ),
             ),
           ),
@@ -156,14 +157,14 @@ class _PaymentPageState extends State<PaymentPage> {
                 Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
-                    padding: EdgeInsets.all(15.0),
+                    padding: EdgeInsets.all(10.0),
                     child: Container(
                       child: Text(
                         "Order Summary",
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: 25.0,
+                          fontSize: 20.0,
                         ),
                       ),
                     ),

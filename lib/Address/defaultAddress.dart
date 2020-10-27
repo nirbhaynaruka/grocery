@@ -25,10 +25,9 @@ class _DefultAddressState extends State<DefultAddress> {
         appBar: AppBar(
           backgroundColor: Color(0xff94b941),
           title: Text(
-            "Nature Coop Fresh",
+            "Address Page",
             style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
+              letterSpacing: 1.3,
               color: Colors.white,
               fontFamily: "Folks-Heavy",
             ),
@@ -37,11 +36,16 @@ class _DefultAddressState extends State<DefultAddress> {
           actions: [
             Stack(
               children: [
-                IconButton(
-                  icon: Icon(Icons.shopping_basket, color: Colors.white),
-                  onPressed: null,
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: IconButton(
+                    icon: Icon(Icons.shopping_basket, color: Colors.white),
+                    onPressed: null,
+                  ),
                 ),
                 Positioned(
+                  top: 5.0,
+                  right: 8.0,
                   child: Stack(
                     children: [
                       Icon(

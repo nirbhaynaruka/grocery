@@ -53,10 +53,10 @@ class _CartPageState extends State<CartPage> {
       appBar: AppBar(
         backgroundColor: Color(0xff94b941),
         title: Text(
-          "Nature Coop Fresh",
+          "Cart Page",
           style: TextStyle(
-            fontSize: 25.0,
-            fontWeight: FontWeight.bold,
+            // fontWeight: FontWeight.bold,
+              letterSpacing: 1.2,
             color: Colors.white,
             fontFamily: "Folks-Heavy",
           ),

@@ -39,9 +39,9 @@ class _OrderCardState extends State<OrderCard> {
         Navigator.push(context, route);
       },
       child: Container(
-        padding: EdgeInsets.all(10.0),
-        margin: EdgeInsets.all(10.0),
-        height: widget.itemCount * 190.0,
+        padding: EdgeInsets.all(5.0),
+        margin: EdgeInsets.all(5.0),
+        height: widget.itemCount * 150.0,
         child: ListView.builder(
           itemBuilder: (c, index) {
             ItemModel model = ItemModel.fromJson(widget.data[index].data);
@@ -63,7 +63,7 @@ Widget sourceorderInfo(ItemModel model, BuildContext context, {Color background}
       // Text("data"),
       Container(
         color: Colors.green[100],
-        height: 170.0,
+        height: 130.0,
             width: width,
             child: Row(
               children: [
@@ -86,17 +86,17 @@ Widget sourceorderInfo(ItemModel model, BuildContext context, {Color background}
                         ),
                       ]
                         ),
-                height:MediaQuery.of(context).size.height / 5,
+                height:MediaQuery.of(context).size.height / 7,
 
                         child: Image.network(
                           model.thumbnailUrl,
-                          width: MediaQuery.of(context).size.width * 0.33,
+                          width: MediaQuery.of(context).size.width * 0.30,
                           // height: 140.0,
                         ),
                       ),
                     ),
                 SizedBox(
-                  width: 10.0,
+                  width: 10.0
                 ),
                 Expanded(
                   child: Column(
@@ -115,7 +115,7 @@ Widget sourceorderInfo(ItemModel model, BuildContext context, {Color background}
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: "Arial Bold",
-                                      fontSize: 25.0,
+                                      fontSize: 18.0,
                                     ),
                                   ),
                                 ),
@@ -134,7 +134,7 @@ Widget sourceorderInfo(ItemModel model, BuildContext context, {Color background}
                                     style: TextStyle(
                                       color: Colors.black54,
                                       fontFamily: "Arial",
-                                      fontSize: 20.0,
+                                      fontSize: 16.0,
                                     ),
                                   ),
                                 ),
@@ -156,7 +156,9 @@ Widget sourceorderInfo(ItemModel model, BuildContext context, {Color background}
                                      Text(
                                   '\u{20B9}${model.price}',
                                   style: TextStyle(
-                                    fontSize: 20.0,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "Arial Bold",
                                     color: Colors.black,
                                   ),
                                 ),
@@ -165,6 +167,7 @@ Widget sourceorderInfo(ItemModel model, BuildContext context, {Color background}
                                       '\u{20B9}${model.originalPrice}',
                                       style: TextStyle(
                                         fontSize: 15.0,
+                                        fontFamily: "Arial Bold",
                                         color: Colors.grey,
                                         decoration: TextDecoration.lineThrough,
                                       ),
