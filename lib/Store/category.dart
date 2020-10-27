@@ -255,9 +255,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          height: 15.0
-                        ),
+                        SizedBox(height: 15.0),
                         Container(
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -327,20 +325,22 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                       child: InkWell(
                                         onTap: () {
                                           if (logincheck) {
-                          checkItemInCart(
-                                                  model.shortInfo, context);
-                        } else {
-                          Route route = MaterialPageRoute(
-                              builder: (_) => AuthenticScreen());
-                          Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder: (_, __, ___) => AuthenticScreen(),
-                              transitionDuration: Duration(seconds: 0),
-                            ),
-                          );
-                        }
-                                          
+                                            checkItemInCart(
+                                                model.shortInfo, context);
+                                          } else {
+                                            Route route = MaterialPageRoute(
+                                                builder: (_) =>
+                                                    AuthenticScreen());
+                                            Navigator.push(
+                                              context,
+                                              PageRouteBuilder(
+                                                pageBuilder: (_, __, ___) =>
+                                                    AuthenticScreen(),
+                                                transitionDuration:
+                                                    Duration(seconds: 0),
+                                              ),
+                                            );
+                                          }
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(
