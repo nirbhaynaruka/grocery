@@ -33,12 +33,12 @@ class _LoginState extends State<Login> {
             Container(
               alignment: Alignment.bottomCenter,
               child: Image.asset(
-                "assets/icons/new_logo_white.jpg",
+                 "assets/icons/transparent_new_logo_white.png",
                 height: 220.0,
                 width: 220.0,
               ),
             ),
-            SizedBox(height: 20.0),
+            // SizedBox(height: 20.0),
             Form(
               key: _formkey,
               child: Column(
@@ -60,7 +60,7 @@ class _LoginState extends State<Login> {
                 ],
               ),
             ),
-            SizedBox(height: 40.0),
+            SizedBox(height: 20.0),
             Container(
               width: 100.0,
               height: 40.0,
@@ -88,13 +88,13 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
-            SizedBox(height: 50.0),
+            SizedBox(height: 30.0),
             Container(
               height: 4.0,
               width: _screenWidth * 0.5,
               color: Colors.grey.withOpacity(0.5),
             ),
-            SizedBox(height: 10.0),
+            // SizedBox(height: 10.0),
             FlatButton.icon(
               onPressed: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => AdminSignInPage())),

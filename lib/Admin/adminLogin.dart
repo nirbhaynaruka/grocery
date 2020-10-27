@@ -14,8 +14,7 @@ class AdminSignInPage extends StatelessWidget {
         title: Text(
           "Nature Coop Fresh",
           style: TextStyle(
-            fontSize: 25.0,
-            fontWeight: FontWeight.bold,
+            letterSpacing: 1.3,
             color: Colors.white,
             fontFamily: "Folks-Heavy",
           ),
@@ -41,8 +40,7 @@ class _AdminSignInScreenState extends State<AdminSignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double _screenWidth = MediaQuery.of(context).size.width,
-        _screenHeight = MediaQuery.of(context).size.height;
+    double _screenWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -51,24 +49,24 @@ class _AdminSignInScreenState extends State<AdminSignInScreen> {
             Container(
               alignment: Alignment.bottomCenter,
               child: Image.asset(
-                "assets/icons/new_logo_white.jpg",
-                height: 260.0,
-                width: 260.0,
+                "assets/icons/transparent_new_logo_white.png",
+                height: 220.0,
+                width: 220.0,
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(0.0),
               child: Text(
                 "Only Admins",
                 style: TextStyle(
                   color: Color(0xff94b941),
-                  fontSize: 25.0,
+                  fontSize: 23.0,
                   fontWeight: FontWeight.bold,
                   fontFamily: "Arial Bold",
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 15),
             Form(
               key: _formkey,
               child: Column(
@@ -88,9 +86,9 @@ class _AdminSignInScreenState extends State<AdminSignInScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 25.0),
+            SizedBox(height: 20.0),
             Container(
-              width: 120.0,
+              width: _screenWidth* 0.40,
               height: 40.0,
               child: RaisedButton(
                 onPressed: () {
@@ -116,13 +114,13 @@ class _AdminSignInScreenState extends State<AdminSignInScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 30.0),
+            SizedBox(height: 20.0),
             Container(
               height: 4.0,
               width: _screenWidth * 0.5,
               color: Colors.grey.withOpacity(0.5),
             ),
-            SizedBox(height: 20.0),
+            SizedBox(height: 10.0),
             FlatButton.icon(
               onPressed: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => AuthenticScreen())),
@@ -140,7 +138,7 @@ class _AdminSignInScreenState extends State<AdminSignInScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 50.0),
+            // SizedBox(height: 50.0),
           ],
         ),
       ),

@@ -19,19 +19,18 @@ class _AuthenticScreenState extends State<AuthenticScreen> {
           title: Text(
             "Nature Coop Fresh",
             style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              fontFamily: "Folks-Heavy",
+              letterSpacing: 1.3,
+            color: Colors.white,
+            fontFamily: "Folks-Heavy",
             ),
           ),
           centerTitle: true,
           bottom: TabBar(
             // unselectedLabelColor: Color(0xffb9d17f),
             labelStyle: TextStyle(
-              fontFamily: "Arial Bold",
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+              fontFamily: "Folks-Heavy",
+              letterSpacing: 1.3,
+              fontSize: 16,
             ),
             tabs: [
               // Tab(

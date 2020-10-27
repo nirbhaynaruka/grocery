@@ -37,7 +37,7 @@ class _RegisterState extends State<Register> {
             Container(
               alignment: Alignment.bottomCenter,
               child: Image.asset(
-                "assets/icons/new_logo_white.jpg",
+                "assets/icons/transparent_new_logo_white.png",
                 height: 220.0,
                 width: 220.0,
               ),
