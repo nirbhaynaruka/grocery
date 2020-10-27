@@ -47,60 +47,63 @@ class _UploadPageState extends State<UploadPage>
   }
 
   displayAdminHomeScreen() {
-    return Scaffold(
-      
-      appBar: AppBar(
-        backgroundColor: Color(0xff94b941),
-        title: Text(
-          "Nature Coop Fresh",
-          style: TextStyle(
-            fontSize: 25.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-            fontFamily: "Folks-Heavy",
+    return WillPopScope(
+      onWillPop: () async => false,
+          child: Scaffold(
+        
+        appBar: AppBar(
+          backgroundColor: Color(0xff94b941),
+          title: Text(
+            "Nature Coop Fresh",
+            style: TextStyle(
+              fontSize: 25.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontFamily: "Folks-Heavy",
+            ),
+          ),
+          centerTitle: true,
+
+          // leading: IconButton(
+          //     icon: Icon(
+          //       Icons.border_color,
+          //       color: Colors.white,
+          //     ),
+          //     onPressed: () {
+          //       Route route =
+          //           MaterialPageRoute(builder: (c) => AdminShiftOrders());
+          //       Navigator.push(context, route);
+          //     }),
+          actions: [
+            FlatButton(
+                onPressed: () {
+                  Route route = MaterialPageRoute(builder: (c) => SplashScreen());
+                  Navigator.pushReplacement(context, route);
+                },
+                child: Text(
+                  "Logout",
+                  style: TextStyle(color: Colors.pink),
+                )),
+          ],
+        ),
+        drawer: AdminDrawer(),
+        floatingActionButton: Transform.scale(
+          scale: 1.2,
+          child: FloatingActionButton(
+            onPressed: () {
+              Route route =
+                        MaterialPageRoute(builder: (c) => Edititems());
+                    Navigator.push(context, route);
+            },
+            elevation: 5,
+            backgroundColor: Color(0xff94b941),
+            splashColor: Color(0xffdde8bd),
+            child: Icon(Icons.search, size: 30),
           ),
         ),
-        centerTitle: true,
-
-        // leading: IconButton(
-        //     icon: Icon(
-        //       Icons.border_color,
-        //       color: Colors.white,
-        //     ),
-        //     onPressed: () {
-        //       Route route =
-        //           MaterialPageRoute(builder: (c) => AdminShiftOrders());
-        //       Navigator.push(context, route);
-        //     }),
-        actions: [
-          FlatButton(
-              onPressed: () {
-                Route route = MaterialPageRoute(builder: (c) => SplashScreen());
-                Navigator.pushReplacement(context, route);
-              },
-              child: Text(
-                "Logout",
-                style: TextStyle(color: Colors.pink),
-              )),
-        ],
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        body: getAdminHomeScreen(),
       ),
-      drawer: AdminDrawer(),
-      floatingActionButton: Transform.scale(
-        scale: 1.2,
-        child: FloatingActionButton(
-          onPressed: () {
-            Route route =
-                      MaterialPageRoute(builder: (c) => Edititems());
-                  Navigator.push(context, route);
-          },
-          elevation: 5,
-          backgroundColor: Color(0xff94b941),
-          splashColor: Color(0xffdde8bd),
-          child: Icon(Icons.search, size: 30),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: getAdminHomeScreen(),
     );
   }
 
