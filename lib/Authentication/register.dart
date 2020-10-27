@@ -211,10 +211,7 @@ class _RegisterState extends State<Register> {
       saveUserInfoToFireStore(firebaseUser).then((value) {
         Navigator.pop(context);
         Route route = MaterialPageRoute(builder: (c) => StoreHome());
-        Navigator.pushReplacement(context, PageRouteBuilder(
-    pageBuilder: (_, __, ___) => StoreHome(),
-    transitionDuration: Duration(seconds: 0),
-  ),);
+        Navigator.pushAndRemoveUntil(context, route, (route) => false).then((value) => setState(() {}));
       });
     }
   }

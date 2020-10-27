@@ -105,7 +105,7 @@ class _AddAddressState extends State<AddAddress> {
                 name: cName.text.trim(),
                 state: cState.text.trim(),
                 pincode: _selectedPinCode.toString(),
-                phoneNumber: cPhoneNumber.text,
+                phoneNumber: "+91"+cPhoneNumber.text,
                 flatNumber: cFlatHomeNumber.text,
                 city: cCity.text.trim(),
               ).toJson();
