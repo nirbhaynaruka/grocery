@@ -42,11 +42,13 @@ class _UploadPageState extends State<UploadPage>
 
   @override
   Widget build(BuildContext context) {
+    
     return file == null ? displayAdminHomeScreen() : displayAdminUploadScreen();
   }
 
   displayAdminHomeScreen() {
     return Scaffold(
+      
       appBar: AppBar(
         backgroundColor: Color(0xff94b941),
         title: Text(

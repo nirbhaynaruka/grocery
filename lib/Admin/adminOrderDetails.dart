@@ -269,6 +269,8 @@ class AdminShippingDetails extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       outofstock(context, getOrderId);
+                      Navigator.pop(context);
+
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -293,6 +295,8 @@ class AdminShippingDetails extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       confirmedparcelshift(context, getOrderId);
+                      Navigator.pop(context);
+
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -317,6 +321,7 @@ class AdminShippingDetails extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       confirmedparceldelivered(context, getOrderId);
+                      Navigator.pop(context);
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -374,27 +379,27 @@ class AdminShippingDetails extends StatelessWidget {
     });
   }
 
-    confirmedparcelshift(BuildContext context, String mOrderId) {
-      EcommerceApp.firestore
-          .collection(EcommerceApp.collectionOrders)
-          .document(mOrderId)
-          .updateData({"orderDetails": "order processed"});
-      print(mOrderId);
-      // print(mOrderId);
+  confirmedparcelshift(BuildContext context, String mOrderId) {
+    EcommerceApp.firestore
+        .collection(EcommerceApp.collectionOrders)
+        .document(mOrderId)
+        .updateData({"orderDetails": "order processed"});
+    print(mOrderId);
+    // print(mOrderId);
 
-      EcommerceApp.firestore
-          .collection(EcommerceApp.collectionUser)
-          .document(orderBy)
-          .collection(EcommerceApp.collectionOrders)
-          .document(mOrderId)
-          .updateData({
-        "orderDetails": "order processed",
-      });
+    EcommerceApp.firestore
+        .collection(EcommerceApp.collectionUser)
+        .document(orderBy)
+        .collection(EcommerceApp.collectionOrders)
+        .document(mOrderId)
+        .updateData({
+      "orderDetails": "order processed",
+    });
 
-      getOrderId = "";
-      Route route = MaterialPageRoute(builder: (c) => UploadPage());
-      Navigator.pushReplacement(context, route);
+    getOrderId = "";
+    Route route = MaterialPageRoute(builder: (c) => UploadPage());
+    Navigator.pushReplacement(context, route);
 
-      Fluttertoast.showToast(msg: "Parcel has been Shifted. Confirmed.");
-    }
+    Fluttertoast.showToast(msg: "Parcel has been Shifted. Confirmed.");
   }
+}
