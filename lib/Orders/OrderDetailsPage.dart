@@ -37,6 +37,7 @@ class OrderDetails extends StatelessWidget {
                         children: [
                           StatusBanner(
                             status: dataMap[EcommerceApp.isSuccess],
+                            status1: dataMap[EcommerceApp.orderDetails],
                           ),
                           SizedBox(
                             height: 10.0,
@@ -44,7 +45,7 @@ class OrderDetails extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.all(4.0),
                             child: Text(
-                              '\u{20B9}${ dataMap[EcommerceApp.totalAmount].toString()}',
+                              '\u{20B9}${dataMap[EcommerceApp.totalAmount].toString()}',
                               style: TextStyle(
                                   fontSize: 20.0, fontWeight: FontWeight.bold),
                             ),
@@ -57,10 +58,9 @@ class OrderDetails extends StatelessWidget {
                             padding: EdgeInsets.all(4.0),
                             child: Text(
                               "order at: " +
-                                  DateFormat("dd MMMM, yyyy - hh:mm aa")
-                                      .format(
-                                          DateTime.fromMillisecondsSinceEpoch(
-                                              int.parse( dataMap["orderTime"]))),
+                                  DateFormat("dd MMMM, yyyy - hh:mm aa").format(
+                                      DateTime.fromMillisecondsSinceEpoch(
+                                          int.parse(dataMap["orderTime"]))),
                               style:
                                   TextStyle(color: Colors.grey, fontSize: 16.0),
                             ),
@@ -92,7 +92,10 @@ class OrderDetails extends StatelessWidget {
                           FutureBuilder<DocumentSnapshot>(
                             builder: (c, snap) {
                               return snap.hasData
-                                  ? ShippingDetails(model: AddressModel.fromJson(snap.data.data),)
+                                  ? ShippingDetails(
+                                      model:
+                                          AddressModel.fromJson(snap.data.data),
+                                    )
                                   : Center(
                                       child: circularProgress(),
                                     );
@@ -128,52 +131,48 @@ class OrderDetails extends StatelessWidget {
 
 class StatusBanner extends StatelessWidget {
   final bool status;
-  StatusBanner({Key key, this.status}) : super(key: key);
+  final String status1;
+  StatusBanner({Key key, this.status, this.status1}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     String msg;
+    String msg1;
     IconData iconData;
-
+    status1 != null ? msg1 = status1 : msg1 = "Waiting For Confirmation";
     status ? iconData = Icons.done : iconData = Icons.cancel;
     status ? msg = "Successful" : msg = "unSuccesffull";
-
+    // status1 ? msg1 = "okok1" : msg1 = "ok";
     return Container(
       height: 40.0,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
         children: [
-          GestureDetector(
-            onTap: () {
-              SystemNavigator.pop();
-            },
-            child: Container(
-              child: Icon(
-                Icons.arrow_drop_down_circle,
-                color: Colors.white,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 20.0,
               ),
-            ),
-          ),
-          SizedBox(
-            width: 20.0,
-          ),
-          Text(
-            "order placed " + msg,
-            style: TextStyle(color: Colors.green),
-          ),
-          SizedBox(
-            width: 5.0,
-          ),
-          CircleAvatar(
-            radius: 8.0,
-            backgroundColor: Colors.grey,
-            child: Center(
-              child: Icon(
-                iconData,
-                color: Colors.white,
-                size: 14.0,
+              Text(
+                "order placed " + msg,
+                style: TextStyle(color: Colors.green),
               ),
-            ),
-          )
+              SizedBox(
+                width: 5.0,
+              ),
+              CircleAvatar(
+                radius: 8.0,
+                backgroundColor: Colors.white70,
+                child: Center(
+                  child: Icon(
+                    iconData,
+                    color: Colors.green,
+                    size: 14.0,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(child: Center(child: Text("Order " + msg1))),
         ],
       ),
     );
@@ -251,18 +250,27 @@ class ShippingDetails extends StatelessWidget {
             ],
           ),
         ),
-        Padding(
-          padding: EdgeInsets.all(10.0),
-          child: InkWell(
-            onTap: () {
-              confirmedOrderRec(context, getOrderId);
-            },
-            child: Container(
-              width: MediaQuery.of(context).size.width - 40.0,
-              child: Center(
-                child: Text(
-                  "confirmed || Item Received",
-                  style: TextStyle(color: Colors.green, fontSize: 15.0),
+        Center(
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.5,
+            height: 50.0,
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: InkWell(
+                onTap: () {
+                  confirmedOrderRec(context, getOrderId);
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Color(0xff94b941),
+                      borderRadius: BorderRadius.all(Radius.circular(2.0))),
+                  width: MediaQuery.of(context).size.width - 40.0,
+                  child: Center(
+                    child: Text(
+                      "confirmed || Item Received",
+                      style: TextStyle(color: Colors.white, fontSize: 15.0),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -279,15 +287,20 @@ class ShippingDetails extends StatelessWidget {
             EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID))
         .collection(EcommerceApp.collectionOrders)
         .document(mOrderId)
-        .delete();
+        .updateData({
+      "orderDetails": "Delivered",
+    });
 
     getOrderId = "";
-    Route route = MaterialPageRoute(builder: (c) => SplashScreen());
-    Navigator.push(context, PageRouteBuilder(
-    pageBuilder: (_, __, ___) => SplashScreen(),
-    transitionDuration: Duration(seconds: 0),
-  ),);
-
+    // Route route = MaterialPageRoute(builder: (c) => SplashScreen());
+    // Navigator.push(
+    //   context,
+    //   PageRouteBuilder(
+    //     pageBuilder: (_, __, ___) => SplashScreen(),
+    //     transitionDuration: Duration(seconds: 0),
+    //   ),
+    // );
+    Navigator.pop(context);
     Fluttertoast.showToast(msg: "Order has been Received. Confirmed.");
   }
 }

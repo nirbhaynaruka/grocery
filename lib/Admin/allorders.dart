@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../Widgets/loadingWidget.dart';
 
-class AdminShiftOrders extends StatefulWidget {
+class Allorders extends StatefulWidget {
   @override
   _MyOrdersState createState() => _MyOrdersState();
 }
 
-class _MyOrdersState extends State<AdminShiftOrders> {
+class _MyOrdersState extends State<Allorders> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -19,7 +19,7 @@ class _MyOrdersState extends State<AdminShiftOrders> {
           backgroundColor: Color(0xff94b941),
           centerTitle: true,
           title: Text(
-            "Pending Orders",
+            "Delivered Orders",
             style: TextStyle(
               fontSize: 25.0,
               // fontWeight: FontWeight.bold,
@@ -54,7 +54,7 @@ class _MyOrdersState extends State<AdminShiftOrders> {
                         builder: (c, snap) {
                           return 
                           snap.hasData
-                              ? snapshot.data.documents[index].data["orderDetails"] != "Delivered" ? AdminOrderCard(
+                              ? snapshot.data.documents[index].data["orderDetails"] == "Delivered" ? AdminOrderCard(
                                   itemCount: snap.data.documents.length,
                                   data: snap.data.documents,
                                   orderID:
