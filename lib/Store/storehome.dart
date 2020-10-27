@@ -97,8 +97,9 @@ class _StoreHomeState extends State<StoreHome> {
           title: Text(
             "Nature Coop Fresh",
             style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
+              // fontSize: 20.0,
+              // fontWeight: FontWeight.bold,
+              letterSpacing: 1.3,
               color: Colors.white,
               fontFamily: "Folks-Heavy",
             ),

@@ -64,8 +64,9 @@ class _CategoryState extends State<Category> {
             title: Text(
               widget.itemModel.catname,
               style: TextStyle(
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold,
+                // fontSize: 25.0,
+                // fontWeight: FontWeight.bold,
+                letterSpacing: 1.1,
                 color: Colors.white,
                 fontFamily: "Folks-Heavy",
               ),
@@ -214,11 +215,11 @@ Widget sourceInfo(ItemModel model, BuildContext context,
     },
     splashColor: Color(0xff94b941),
     child: Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(5.0),
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(6.0),
+            padding: EdgeInsets.all(0.0),
             child: Container(
               height: MediaQuery.of(context).size.height / 5,
               width: width,
@@ -255,7 +256,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: 15.0,
+                          height: 15.0
                         ),
                         Container(
                           child: Row(
@@ -267,7 +268,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontFamily: "Arial Bold",
-                                    fontSize: 20.0,
+                                    fontSize: 18.0,
                                   ),
                                 ),
                               ),
@@ -285,7 +286,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                   style: TextStyle(
                                     color: Colors.black54,
                                     fontFamily: "Arial",
-                                    fontSize: 20.0,
+                                    fontSize: 15.0,
                                   ),
                                 ),
                               ),

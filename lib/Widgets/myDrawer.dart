@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:grocery/Address/address.dart';
 import 'package:grocery/Address/defaultAddress.dart';
 import 'package:grocery/Authentication/authenication.dart';
 import 'package:grocery/Config/config.dart';
-import 'package:grocery/Address/addAddress.dart';
 import 'package:grocery/Store/Search.dart';
 import 'package:grocery/Store/cart.dart';
 import 'package:grocery/Orders/myOrders.dart';
@@ -96,7 +94,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     "Home",
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 20.0,
+                      fontSize: 18.0,
                       fontFamily: "Arial Bold",
                     ),
                   ),
@@ -123,7 +121,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     "My Orders",
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 20.0,
+                      fontSize: 18.0,
                       fontFamily: "Arial Bold",
                     ),
                   ),
@@ -159,7 +157,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     "My Cart",
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 20.0,
+                      fontSize: 18.0,
                       fontFamily: "Arial Bold",
                     ),
                   ),
@@ -195,7 +193,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     "Search",
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 20.0,
+                      fontSize: 18.0,
                       fontFamily: "Arial Bold",
                     ),
                   ),
@@ -222,7 +220,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     "Add New Address",
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 20.0,
+                      fontSize: 18.0,
                       fontFamily: "Arial Bold",
                     ),
                   ),
@@ -258,7 +256,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     "About",
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 20.0,
+                      fontSize: 18.0,
                       fontFamily: "Arial Bold",
                     ),
                   ),
@@ -285,7 +283,7 @@ class _MyDrawerState extends State<MyDrawer> {
                           logincheck ? "Logout" : "Login / Register",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 20.0,
+                            fontSize: 18.0,
                             fontFamily: "Arial Bold",
                             fontWeight: FontWeight.bold,
                           ),
