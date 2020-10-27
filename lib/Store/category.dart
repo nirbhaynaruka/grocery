@@ -301,8 +301,6 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                               padding: EdgeInsets.only(top: 5.0),
                               child: Row(
                                 children: [
-                                  // Icon(Icons.curr),
-
                                   Text(
                                     '\u{20B9}${model.price}',
                                     style: TextStyle(
