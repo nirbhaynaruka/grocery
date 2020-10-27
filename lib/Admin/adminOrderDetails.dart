@@ -3,6 +3,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery/Address/address.dart';
 import 'package:grocery/Admin/uploadItems.dart';
 import 'package:grocery/Config/config.dart';
+import 'package:grocery/Orders/myOrders.dart';
+import 'package:grocery/Store/category.dart';
 import 'package:grocery/Widgets/loadingWidget.dart';
 import 'package:grocery/Widgets/orderCard.dart';
 import 'package:grocery/Models/address.dart';
@@ -37,14 +39,13 @@ class AdminOrderDetails extends StatelessWidget {
               if (snapshot.hasData) {
                 dataMap = snapshot.data.data;
               }
-              return 
-              snapshot.hasData
-                  ? 
-                  Container(
+              return snapshot.hasData
+                  ? Container(
                       child: Column(
                         children: [
                           AdminStatusBanner(
                             status: dataMap[EcommerceApp.isSuccess],
+                            status1: dataMap[EcommerceApp.orderDetails],
                           ),
                           SizedBox(
                             height: 10.0,
@@ -103,7 +104,7 @@ class AdminOrderDetails extends StatelessWidget {
                                   ? AdminShippingDetails(
                                       model:
                                           AddressModel.fromJson(snap.data.data),
-                                    )
+                                      orderBy: orderBy)
                                   : Center(
                                       child: circularProgress(),
                                     );
@@ -118,8 +119,7 @@ class AdminOrderDetails extends StatelessWidget {
                         ],
                       ),
                     )
-                  : 
-                  Center(
+                  : Center(
                       child: circularProgress(),
                     );
             },
@@ -137,64 +137,66 @@ class AdminOrderDetails extends StatelessWidget {
   }
 }
 
-class 
-AdminStatusBanner extends StatelessWidget {
+class AdminStatusBanner extends StatelessWidget {
   final bool status;
-  AdminStatusBanner({Key key, this.status}) : super(key: key);
+  final String status1;
+  AdminStatusBanner({Key key, this.status, this.status1}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     String msg;
+    String msg1;
     IconData iconData;
+    status1 != null ? msg1 = status1 : msg1 = "Waiting For Confirmation";
 
     status ? iconData = Icons.done : iconData = Icons.cancel;
     status ? msg = "Successfully" : msg = "unSuccesful";
 
-    return Container(
-      height: 40.0,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-            onTap: () {
-              SystemNavigator.pop();
-            },
-            child: Container(
-              child: Icon(
-                Icons.arrow_drop_down_circle,
-                color: Colors.white,
+    return Column(
+      children: [
+        Container(
+          height: 40.0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 20.0,
               ),
-            ),
-          ),
-          SizedBox(
-            width: 20.0,
-          ),
-          Text(
-            "Order Shipped" + msg,
-            style: TextStyle(color: Colors.green),
-          ),
-          SizedBox(
-            width: 5.0,
-          ),
-          CircleAvatar(
-            radius: 8.0,
-            backgroundColor: Colors.grey,
-            child: Center(
-              child: Icon(
-                iconData,
-                color: Colors.white,
-                size: 14.0,
+              Text(
+                "Order Shipped " + msg,
+                style: TextStyle(color: Colors.green),
               ),
-            ),
-          )
-        ],
-      ),
+              SizedBox(
+                width: 5.0,
+              ),
+              CircleAvatar(
+                radius: 8.0,
+                backgroundColor: Colors.white70,
+                child: Center(
+                  child: Icon(
+                    iconData,
+                    color: Colors.green,
+                    size: 14.0,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        Container(
+          color: Color(0xff94b941),
+          child: Center(
+            child: Text(msg1),
+          ),
+        )
+      ],
     );
   }
 }
 
 class AdminShippingDetails extends StatelessWidget {
   final AddressModel model;
-  AdminShippingDetails({Key key, this.model}) : super(key: key);
+  final orderBy;
+  AdminShippingDetails({Key key, this.model, this.orderBy}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -256,37 +258,143 @@ class AdminShippingDetails extends StatelessWidget {
             ],
           ),
         ),
-        Padding(
-          padding: EdgeInsets.all(10.0),
-          child: InkWell(
-            onTap: () {
-              confirmedparcelshift(context, getOrderId);
-            },
-            child: Container(
-              width: MediaQuery.of(context).size.width - 40.0,
-              child: Center(
-                child: Text(
-                  "confirmed || Parcel Shifted",
-                  style: TextStyle(color: Colors.green, fontSize: 15.0),
+        Center(
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 0.5,
+                height: 50.0,
+                child: Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: InkWell(
+                    onTap: () {
+                      outofstock(context, getOrderId);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Color(0xff94b941),
+                          borderRadius: BorderRadius.all(Radius.circular(2.0))),
+                      width: MediaQuery.of(context).size.width - 40.0,
+                      child: Center(
+                        child: Text(
+                          "OUT OF STOCK",
+                          style: TextStyle(color: Colors.white, fontSize: 15.0),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.5,
+                height: 50.0,
+                child: Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: InkWell(
+                    onTap: () {
+                      confirmedparcelshift(context, getOrderId);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Color(0xff94b941),
+                          borderRadius: BorderRadius.all(Radius.circular(2.0))),
+                      width: MediaQuery.of(context).size.width - 40.0,
+                      child: Center(
+                        child: Text(
+                          "Parcel Shifted",
+                          style: TextStyle(color: Colors.white, fontSize: 15.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.5,
+                height: 50.0,
+                child: Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: InkWell(
+                    onTap: () {
+                      confirmedparceldelivered(context, getOrderId);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Color(0xff94b941),
+                          borderRadius: BorderRadius.all(Radius.circular(2.0))),
+                      width: MediaQuery.of(context).size.width - 40.0,
+                      child: Center(
+                        child: Text(
+                          "Parcel Delivered",
+                          style: TextStyle(color: Colors.white, fontSize: 15.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         )
       ],
     );
   }
 
-  confirmedparcelshift(BuildContext context, String mOrderId) {
+  outofstock(BuildContext context, String mOrderId) {
     EcommerceApp.firestore
         .collection(EcommerceApp.collectionOrders)
         .document(mOrderId)
-        .delete();
-
+        .updateData({"orderDetails": "Out of Stock"});
+    EcommerceApp.firestore
+        .collection(EcommerceApp.collectionUser)
+        .document(orderBy)
+        .collection(EcommerceApp.collectionOrders)
+        .document(mOrderId)
+        .updateData({
+      "orderDetails": "Out of Stock",
+    });
     getOrderId = "";
-    Route route = MaterialPageRoute(builder: (c) => UploadPage());
-    Navigator.pushReplacement(context, route);
-
-    Fluttertoast.showToast(msg: "Parcel has been Shifted. Confirmed.");
   }
-}
+
+  confirmedparceldelivered(BuildContext context, String mOrderId) {
+    EcommerceApp.firestore
+        .collection(EcommerceApp.collectionOrders)
+        .document(mOrderId)
+        .updateData({"orderDetails": "Delivered"});
+    print(mOrderId);
+    // print(mOrderId);
+
+    EcommerceApp.firestore
+        .collection(EcommerceApp.collectionUser)
+        .document(orderBy)
+        .collection(EcommerceApp.collectionOrders)
+        .document(mOrderId)
+        .updateData({
+      "orderDetails": "Delivered",
+    });
+  }
+
+    confirmedparcelshift(BuildContext context, String mOrderId) {
+      EcommerceApp.firestore
+          .collection(EcommerceApp.collectionOrders)
+          .document(mOrderId)
+          .updateData({"orderDetails": "order processed"});
+      print(mOrderId);
+      // print(mOrderId);
+
+      EcommerceApp.firestore
+          .collection(EcommerceApp.collectionUser)
+          .document(orderBy)
+          .collection(EcommerceApp.collectionOrders)
+          .document(mOrderId)
+          .updateData({
+        "orderDetails": "order processed",
+      });
+
+      getOrderId = "";
+      Route route = MaterialPageRoute(builder: (c) => UploadPage());
+      Navigator.pushReplacement(context, route);
+
+      Fluttertoast.showToast(msg: "Parcel has been Shifted. Confirmed.");
+    }
+  }

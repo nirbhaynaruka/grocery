@@ -116,13 +116,19 @@ class _PaymentPageState extends State<PaymentPage> {
             const NotificationDetails platformChannelSpecifics =
                 NotificationDetails(android: androidPlatformChannelSpecifics);
             await flutterLocalNotificationsPlugin.show(
-                0, "Your Order has been Placed!","Order Address ID : "+ widget.addressID, platformChannelSpecifics,
+                0,
+                "Your Order has been Placed!",
+                "Order Address ID : " + widget.addressID,
+                platformChannelSpecifics,
                 payload: 'item x');
             Route route = MaterialPageRoute(builder: (c) => addOrderDetails());
-            Navigator.push(context, PageRouteBuilder(
-    pageBuilder: (_, __, ___) => addOrderDetails(),
-    transitionDuration: Duration(seconds: 0),
-  ),);
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (_, __, ___) => addOrderDetails(),
+                transitionDuration: Duration(seconds: 0),
+              ),
+            );
           },
           label: Padding(
             padding: const EdgeInsets.all(1.0),
@@ -287,6 +293,7 @@ class _PaymentPageState extends State<PaymentPage> {
   }
 
   addOrderDetails() {
+    final xyz = DateTime.now().millisecondsSinceEpoch.toString();
     writeOrderDetalilsforUser({
       EcommerceApp.addressID: widget.addressID,
       EcommerceApp.totalAmount: widget.totalAmount,
@@ -294,8 +301,9 @@ class _PaymentPageState extends State<PaymentPage> {
       EcommerceApp.productID: EcommerceApp.sharedPreferences
           .getStringList(EcommerceApp.userCartList),
       EcommerceApp.paymentDetails: "Cash On delivery",
-      EcommerceApp.orderTime: DateTime.now().millisecondsSinceEpoch.toString(),
+      EcommerceApp.orderTime: xyz,
       EcommerceApp.isSuccess: true,
+      EcommerceApp.orderDetails: "Ready to ship",
     });
     writeOrderDetalilsforAdmin({
       EcommerceApp.addressID: widget.addressID,
@@ -304,8 +312,10 @@ class _PaymentPageState extends State<PaymentPage> {
       EcommerceApp.productID: EcommerceApp.sharedPreferences
           .getStringList(EcommerceApp.userCartList),
       EcommerceApp.paymentDetails: "Cash On delivery",
-      EcommerceApp.orderTime: DateTime.now().millisecondsSinceEpoch.toString(),
+      EcommerceApp.orderTime: xyz,
       EcommerceApp.isSuccess: true,
+      EcommerceApp.orderDetails: "Ready to ship",
+      // "track" : ""
     }).whenComplete(() => {emptyCartNow()});
   }
 

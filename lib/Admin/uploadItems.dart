@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:grocery/Admin/adminShiftOrders.dart';
+import 'package:grocery/Admin/admindrawer.dart';
 import 'package:grocery/Admin/edititems.dart';
 import 'package:grocery/Widgets/loadingWidget.dart';
 import 'package:grocery/main.dart';
@@ -58,16 +59,17 @@ class _UploadPageState extends State<UploadPage>
           ),
         ),
         centerTitle: true,
-        leading: IconButton(
-            icon: Icon(
-              Icons.border_color,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Route route =
-                  MaterialPageRoute(builder: (c) => AdminShiftOrders());
-              Navigator.push(context, route);
-            }),
+
+        // leading: IconButton(
+        //     icon: Icon(
+        //       Icons.border_color,
+        //       color: Colors.white,
+        //     ),
+        //     onPressed: () {
+        //       Route route =
+        //           MaterialPageRoute(builder: (c) => AdminShiftOrders());
+        //       Navigator.push(context, route);
+        //     }),
         actions: [
           FlatButton(
               onPressed: () {
@@ -80,6 +82,7 @@ class _UploadPageState extends State<UploadPage>
               )),
         ],
       ),
+      drawer: AdminDrawer(),
       floatingActionButton: Transform.scale(
         scale: 1.2,
         child: FloatingActionButton(

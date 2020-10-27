@@ -150,8 +150,6 @@ class _LoginState extends State<Login> {
     if (firebaseUser != null) {
       readData(firebaseUser).then((s) {
         Navigator.pop(context);
-        // Navigator.pop(context);
-
         Route route = MaterialPageRoute(
             builder: (c) =>
                 // EcommerceApp.sharedPreferences

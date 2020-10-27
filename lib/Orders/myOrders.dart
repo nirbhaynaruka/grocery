@@ -109,8 +109,10 @@ class _MyOrdersState extends State<MyOrders> {
                               ? OrderCard(
                                   itemCount: snap.data.documents.length,
                                   data: snap.data.documents,
+                                  // orderDetails : snapshot.data.orderDetails,
+
                                   orderId:
-                                      snapshot.data.documents[index].documentID,  
+                                      snapshot.data.documents[index].documentID,
                                 )
                               : Center(
                                   child: circularProgress(),
