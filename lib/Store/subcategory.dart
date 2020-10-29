@@ -5,6 +5,7 @@ import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:grocery/Models/item.dart';
 import 'package:grocery/Store/Search.dart';
 import 'package:grocery/Store/cart.dart';
+import 'package:grocery/Store/category.dart';
 import 'package:provider/provider.dart';
 
 class SubCategoryPage extends StatefulWidget {
@@ -215,7 +216,7 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
         Navigator.push(
           context,
           PageRouteBuilder(
-            pageBuilder: (_, __, ___) => SubCategoryPage(itemModel: model),
+            pageBuilder: (_, __, ___) => Category(itemModel: model),
             transitionDuration: Duration(seconds: 0),
           ),
         );
