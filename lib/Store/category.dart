@@ -189,7 +189,9 @@ class _CategoryState extends State<Category> {
                       itemBuilder: (context, index) {
                         ItemModel model = ItemModel.fromJson(
                             dataSnapshot.data.documents[index].data);
-                        return sourceInfo(model, context);
+                        return dataSnapshot.data.documents[index].data["subcatname"] == widget.itemModel.subcatname ? sourceInfo(model, context) : Center(
+                      child: circularProgress(),
+                    );
                       },
                     );
             },
