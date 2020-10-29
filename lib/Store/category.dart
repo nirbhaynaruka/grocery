@@ -63,7 +63,7 @@ class _CategoryState extends State<Category> {
           appBar: AppBar(
             backgroundColor: Color(0xff94b941),
             title: Text(
-              widget.itemModel.catname,
+              widget.catname,
               style: TextStyle(
                 // fontSize: 25.0,
                 // fontWeight: FontWeight.bold,
@@ -176,7 +176,7 @@ class _CategoryState extends State<Category> {
 
               StreamBuilder<QuerySnapshot>(
             stream: Firestore.instance
-                .collection(widget.itemModel.catname)
+                .collection(widget.catname)
                 .orderBy("publishedDate", descending: true)
                 .snapshots(),
             builder: (context, dataSnapshot) {

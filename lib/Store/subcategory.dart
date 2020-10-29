@@ -10,6 +10,8 @@ import 'package:grocery/Store/cart.dart';
 import 'package:grocery/Store/category.dart';
 import 'package:provider/provider.dart';
 
+import 'category.dart';
+
 class SubCategoryPage extends StatefulWidget {
   final ItemModel itemModel;
 
@@ -271,12 +273,12 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
     // String name = model.catname;
     return GestureDetector(
       onTap: () {
-        // Route route =
-        //     MaterialPageRoute(builder: (c) => Category(itemModel: model));
+        Route route =
+            MaterialPageRoute(builder: (c) => Category(itemModel: model));
         Navigator.push(
           context,
           PageRouteBuilder(
-            pageBuilder: (_, __, ___) => Category(itemModel: model,catname: catname),
+           pageBuilder: (_, __, ___) => Category(itemModel: model,catname: catname),
             transitionDuration: Duration(seconds: 0),
           ),
         );
