@@ -301,6 +301,37 @@ class _UploadPageState extends State<UploadPage>
           Divider(
             color: Colors.pink,
           ),
+          ///[for sub category]
+          
+          
+            ListTile(
+            leading: Icon(
+              Icons.perm_device_information,
+              color: Colors.pink,
+            ),
+            title: DropdownButton(
+              // value: _selectedcategory,
+              items: categories.map((val) {
+                return DropdownMenuItem(
+                  child: Text(val),
+                  value: val,
+                );
+              }).toList(),
+              hint: Text("$_selectedcategory"), // Not necessary for Option 1
+              onChanged: (val) {
+                // setState(() {
+                _selectedcategory = val;
+                // });
+                this.setState(() {});
+              },
+            ),
+          ),
+
+          ///[for sub category]
+          
+          Divider(
+            color: Colors.pink,
+          ),
           ListTile(
             leading: Icon(
               Icons.perm_device_information,
