@@ -11,6 +11,8 @@ class ItemModel {
   int originalPrice;
   String catname;
   String catthumbnail;
+ String subcatname;
+  String subcatthumbnail;
 
   ItemModel({
     this.title,
@@ -21,6 +23,8 @@ class ItemModel {
     this.status,
     this.catname,
     this.catthumbnail,
+      this.subcatname,
+    this.subcatthumbnail,
   });
 
   ItemModel.fromJson(Map<String, dynamic> json) {
@@ -34,6 +38,8 @@ class ItemModel {
     originalPrice = json['originalPrice'];
     catname = json['catname'];
     catthumbnail = json['catthumbnail'];
+     subcatname = json['subcatname'];
+    subcatthumbnail = json['subcatthumbnail'];
   }
 
   Map<String, dynamic> toJson() {
