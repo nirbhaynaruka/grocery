@@ -6,6 +6,7 @@ import 'package:grocery/Store/cart.dart';
 import 'package:grocery/Store/category.dart';
 import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:flutter/material.dart';
+import 'package:grocery/Store/subcategory.dart';
 import 'package:grocery/Widgets/customSlider.dart';
 import 'package:provider/provider.dart';
 import 'package:grocery/Config/config.dart';
@@ -251,12 +252,12 @@ Widget categoryinfo(ItemModel model, BuildContext context,
   // String name = model.catname;
   return GestureDetector(
     onTap: () {
-      Route route =
-          MaterialPageRoute(builder: (c) => Category(itemModel: model));
+      // Route route =
+      //     MaterialPageRoute(builder: (c) => Category(itemModel: model));
       Navigator.push(
         context,
         PageRouteBuilder(
-          pageBuilder: (_, __, ___) => Category(itemModel: model),
+          pageBuilder: (_, __, ___) => SubCategoryPage(itemModel: model),
           transitionDuration: Duration(seconds: 0),
         ),
       );

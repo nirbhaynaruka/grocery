@@ -35,7 +35,7 @@ class Category extends StatefulWidget {
 }
 
 class _CategoryState extends State<Category> {
-  // bool logincheck = false;
+  // bool logincheck = falsee;
 
   @override
   void initState() {
