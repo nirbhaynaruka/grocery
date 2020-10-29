@@ -19,6 +19,41 @@ class SubCategoryPage extends StatefulWidget {
 class _SubCategoryPageState extends State<SubCategoryPage> {
   bool logincheck = false;
 
+  List<ItemModel> model = [
+    ItemModel(
+      catname: "Fruits & Vegetables",
+      catthumbnail: "assets/images/FruitsandVegetables.png",
+    ),
+    ItemModel(
+      catname: "Dairy Products",
+      catthumbnail: "assets/images/DairyProducts.png",
+    ),
+    ItemModel(
+      catname: "Cleaning & Household",
+      catthumbnail: "assets/images/Cleaning_Household.png",
+    ),
+    ItemModel(
+      catname: "Beauty & Hygeine",
+      catthumbnail: "assets/images/BeautyandHygeine.png",
+    ),
+    ItemModel(
+      catname: "Beverages and Snacks",
+      catthumbnail: "assets/images/Beverage_Snacks.png",
+    ),
+    ItemModel(
+      catname: "Cooking Essentials",
+      catthumbnail: "assets/images/CookingEssentials.png",
+    ),
+    ItemModel(
+      catname: "Miscellaneous",
+      catthumbnail: "assets/images/BeautyandHygeine.png",
+    ),
+    ItemModel(
+      catname: "Packaged Foods",
+      catthumbnail: "assets/images/BeautyandHygeine.png",
+    ),
+  ];
+
   @override
   void initState() {
     checklogin();
@@ -127,6 +162,25 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
             )
           ],
         ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(top: 10.0),
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              child: GridView.count(
+                physics: NeverScrollableScrollPhysics(),
+                // shrinkWrap: true,
+                // scrollDirection: Axis.vertical,
+                crossAxisCount: 2,
+                padding: EdgeInsets.all(10.0),
+                childAspectRatio: 0.9,
+                children: model.map((model) {
+                  return categoryinfo(model, context);
+                }).toList(),
+              ),
+            ),
+          ),
+        ),
         floatingActionButton: Transform.scale(
           scale: 1.1,
           child: FloatingActionButton(
@@ -148,6 +202,65 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
+    );
+  }
+
+  Widget categoryinfo(ItemModel model, BuildContext context,
+      {Color: Colors.white}) {
+    // String name = model.catname;
+    return GestureDetector(
+      onTap: () {
+        // Route route =
+        //     MaterialPageRoute(builder: (c) => Category(itemModel: model));
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (_, __, ___) => SubCategoryPage(itemModel: model),
+            transitionDuration: Duration(seconds: 0),
+          ),
+        );
+      },
+      child: Container(
+          margin: EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(10.0),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(3.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: Offset(0, 3), // changes position of shadow
+                ),
+              ]),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                model.catthumbnail,
+                fit: BoxFit.cover,
+                height: 80.0,
+              ),
+              SizedBox(height: 30.0),
+              Text(
+                model.catname,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Arial Bold",
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          )
+          //     InkWell(
+
+          //     child: Text(model.catname),
+          // ),
+          ),
     );
   }
 }
