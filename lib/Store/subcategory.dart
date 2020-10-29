@@ -7,6 +7,7 @@ import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:grocery/Models/item.dart';
 import 'package:grocery/Store/Search.dart';
 import 'package:grocery/Store/cart.dart';
+import 'package:grocery/Store/category.dart';
 import 'package:provider/provider.dart';
 
 class SubCategoryPage extends StatefulWidget {
@@ -197,7 +198,7 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
                       itemBuilder: (context, index) {
                         ItemModel model = ItemModel.fromJson(
                             dataSnapshot.data.documents[index].data);
-                        return subcategoryinfo(model, context);
+                        return subcategoryinfo(model,widget.itemModel.catname, context);
                       },
                     );
             },
@@ -265,20 +266,20 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
     );
   }
 
-  Widget subcategoryinfo(ItemModel model, BuildContext context,
+  Widget subcategoryinfo(ItemModel model,String catname, BuildContext context,
       {Color: Colors.white}) {
     // String name = model.catname;
     return GestureDetector(
       onTap: () {
         // Route route =
         //     MaterialPageRoute(builder: (c) => Category(itemModel: model));
-        // Navigator.push(
-        //   context,
-        //   PageRouteBuilder(
-        //     pageBuilder: (_, __, ___) => Category(itemModel: model),
-        //     transitionDuration: Duration(seconds: 0),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (_, __, ___) => Category(itemModel: model,catname: catname),
+            transitionDuration: Duration(seconds: 0),
+          ),
+        );
       },
       child: Container(
           margin: EdgeInsets.all(8.0),

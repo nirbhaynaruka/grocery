@@ -28,8 +28,8 @@ bool logincheck = false;
 
 class Category extends StatefulWidget {
   final ItemModel itemModel;
-  // final String catname;
-  Category({this.itemModel});
+  final String catname;
+  Category({this.itemModel, this.catname});
   @override
   _CategoryState createState() => _CategoryState();
 }
