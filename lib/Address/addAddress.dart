@@ -210,14 +210,12 @@ class _AddAddressState extends State<AddAddress> {
                       controller: cFlatHomeNumber,
                     ),
                     Container(
-                     
                       alignment: Alignment.topLeft,
                       padding:
                           EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
                       margin:
                           EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
                       decoration: BoxDecoration(
-
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(5.0)),
                         boxShadow: [
@@ -230,14 +228,17 @@ class _AddAddressState extends State<AddAddress> {
                       ),
                       child: Row(
                         children: [
-                           Icon(
-                              Icons.edit,
-                              color: Color(0xff535c3f),
-                              size: 20,
-                            ),
-                            SizedBox(width: 10.0,),
+                          Icon(
+                            Icons.edit,
+                            color: Color(0xff535c3f),
+                            size: 20,
+                          ),
+                          SizedBox(
+                            width: 10.0,
+                          ),
                           DropdownButton(
-                            
+                            underline: Container(),
+                            isExpanded: false,
                             // value: _selectedcategory,
                             items: _selectedPinCodecat.map((val) {
                               return DropdownMenuItem(
@@ -256,12 +257,19 @@ class _AddAddressState extends State<AddAddress> {
                               );
                             }).toList(),
                             hint: Text(
-                                "$_selectedPinCode"), // Not necessary for Option 1
+                              "$_selectedPinCode",
+                              style: TextStyle(
+                                fontFamily: "Arial Bold",
+                                fontSize: 16,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ), // Not necessary for Option 1
                             onChanged: (val) {
                               // setState(() {
                               _selectedPinCode = val;
                               _user = _selectedPinCodecat.indexOf(val);
-
+                              cCity.text = _selectedCitycat[_user].single;
                               // });
                               this.setState(() {});
                             },
@@ -269,9 +277,7 @@ class _AddAddressState extends State<AddAddress> {
                         ],
                       ),
                     ),
-                    Text(
-                        _selectedCitycat[_user].single
-                      ),
+                    // Text(_selectedCitycat[_user].single),
                     // Padding(
                     //   padding: EdgeInsets.all(0.0),
                     //   child: Container(
@@ -342,7 +348,7 @@ class _AddAddressState extends State<AddAddress> {
                         child: 
                         TextFormField(
                           readOnly: true,
-                          initialValue:  _selectedCitycat[_user].single,
+                          // initialValue: _selectedCitycat[_user].single,
                           enableSuggestions: true,
                           style: TextStyle(
                             fontFamily: "Arial Bold",
@@ -350,7 +356,7 @@ class _AddAddressState extends State<AddAddress> {
                             fontWeight: FontWeight.bold,
                           ),
                           cursorColor: Color(0xff535c3f),
-                          // controller: cState,
+                          controller: cCity,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             prefixIcon: Icon(
@@ -359,7 +365,7 @@ class _AddAddressState extends State<AddAddress> {
                               size: 20,
                             ),
                             focusColor: Color(0xff535c3f),
-                            // hintText: ,
+                            hintText: "City",
                           ),
                           validator: (val) =>
                               val.isEmpty ? "Field can not be empty." : null,
