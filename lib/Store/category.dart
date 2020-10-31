@@ -182,7 +182,7 @@ class _CategoryState extends State<Category> {
             builder: (context, dataSnapshot) {
               return !dataSnapshot.hasData
                   ? Center(
-                      child: circularProgress(),
+                      child: Container(),
                     )
                   : ListView.builder(
                       itemCount: dataSnapshot.data.documents.length,
@@ -190,7 +190,7 @@ class _CategoryState extends State<Category> {
                         ItemModel model = ItemModel.fromJson(
                             dataSnapshot.data.documents[index].data);
                         return dataSnapshot.data.documents[index].data["subcatname"] == widget.itemModel.subcatname ? sourceInfo(model, context) : Center(
-                      child: circularProgress(),
+                      child: Container(),
                     );
                       },
                     );

@@ -89,7 +89,7 @@ class _MyOrdersState extends State<MyOrders> {
               .collection(EcommerceApp.collectionUser)
               .document(EcommerceApp.sharedPreferences
                   .getString(EcommerceApp.userUID))
-              .collection(EcommerceApp.collectionOrders)
+              .collection(EcommerceApp.collectionOrders).orderBy(EcommerceApp.orderTime, descending: true)
               .snapshots(),
           builder: (c, snapshot) {
             return snapshot.hasData

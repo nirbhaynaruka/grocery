@@ -2,6 +2,7 @@ import 'package:grocery/Config/config.dart';
 import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:grocery/Models/address.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class CityPincode {
@@ -199,11 +200,53 @@ class _AddAddressState extends State<AddAddress> {
                       hint: "Name",
                       controller: cName,
                     ),
-                    MyTextField(
-                      data: Icons.edit,
-                      hint: "Phone Number",
-                      controller: cPhoneNumber,
-                    ),
+                    Padding(
+      padding: EdgeInsets.all(0.0),
+      child: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 4),
+              blurRadius: 15,
+              color: Color(0xFFB7B7B7).withOpacity(.5),
+            ),
+          ],
+        ),
+        padding: EdgeInsets.all(5.0),
+        margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+        child: TextFormField(
+          keyboardType: TextInputType.number,
+          textInputAction: TextInputAction.next,
+          enableSuggestions: true,
+          style: TextStyle(
+            fontFamily: "Arial Bold",
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+          cursorColor: Color(0xff535c3f),
+          controller: cPhoneNumber,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            prefixIcon: Icon(
+              Icons.edit,
+              color: Color(0xff535c3f),
+              size: 20,
+            ),
+            focusColor: Color(0xff535c3f),
+            hintText: "Phone Number",
+          ),
+          validator: (val) => val.isEmpty ? "Field can not be empty." : null,
+        ),
+      ),
+    ),
+                    // MyTextField(
+                    //   data: Icons.edit,
+                    //   hint: "Phone Number",
+                    //   controller: cPhoneNumber,
+                    // ),
                     MyTextField(
                       data: Icons.edit,
                       hint: "Flat Number / Street Number / House Number",
@@ -347,7 +390,7 @@ class _AddAddressState extends State<AddAddress> {
                             horizontal: 10.0, vertical: 8.0),
                         child: 
                         TextFormField(
-                          readOnly: true,
+                          // readOnly: true,
                           // initialValue: _selectedCitycat[_user].single,
                           enableSuggestions: true,
                           style: TextStyle(
@@ -465,8 +508,10 @@ class MyTextField extends StatelessWidget {
         padding: EdgeInsets.all(5.0),
         margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
         child: TextFormField(
+          textInputAction: TextInputAction.next,
           enableSuggestions: true,
           style: TextStyle(
+            
             fontFamily: "Arial Bold",
             fontSize: 16,
             fontWeight: FontWeight.bold,

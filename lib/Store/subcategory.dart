@@ -8,6 +8,7 @@ import 'package:grocery/Models/item.dart';
 import 'package:grocery/Store/Search.dart';
 import 'package:grocery/Store/cart.dart';
 import 'package:grocery/Store/category.dart';
+import 'package:grocery/Widgets/loadingWidget.dart';
 import 'package:provider/provider.dart';
 
 import 'category.dart';
@@ -193,7 +194,7 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
             builder: (context, dataSnapshot) {
               return !dataSnapshot.hasData
                   ? Center(
-                      child: Text("sdf"),
+                      child: circularProgress(),
                     )
                   : ListView.builder(
                       itemCount: dataSnapshot.data.documents.length,
@@ -204,7 +205,6 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
                       },
                     );
             },
-            
         ),
       
         // StreamBuilder<QuerySnapshot>(
