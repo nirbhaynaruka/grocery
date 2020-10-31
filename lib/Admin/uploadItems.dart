@@ -130,8 +130,7 @@ class _UploadPageState extends State<UploadPage>
                   size: 20.0,
                 ),
                 onPressed: () {
-                  // Route route = MaterialPageRoute(builder: (c) => MyApp1());
-                  // Navigator.push(context, route);
+                  makesubcat();
                 }),
             Padding(
               padding: EdgeInsets.only(top: 20.0),
@@ -416,6 +415,12 @@ class _UploadPageState extends State<UploadPage>
     );
   }
 
+  makesubcat() {
+    return Scaffold(
+      
+    );
+  }
+
   clearFormInfo() {
     setState(() {
       file = null;
@@ -435,13 +440,19 @@ class _UploadPageState extends State<UploadPage>
       uploading = true;
     });
     String imageDownloadUrl = await uploadItemImage(file);
-
     saveiteminfo(imageDownloadUrl);
     // saveiteminfoitems(imageDownloadUrl);
   }
-  Future<String> makesubcat() async{
-    
-  }
+
+  // Future<String> makesubcat() async {
+  //   final subcat = await Firestore.instance
+  //       .collection("category")
+  //       .document(_selectedcategory)
+  //       .collection("subcategory");
+  //   subcat.document(_selectedsubcategory).setData(
+  //       {"catname": _selectedcategory, "subcatname": _selectedsubcategory});
+  // }
+
   Future<String> uploadItemImage(mfileImage) async {
     final StorageReference storageReference =
         FirebaseStorage.instance.ref().child("items");
