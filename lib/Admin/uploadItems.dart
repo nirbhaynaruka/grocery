@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:grocery/Admin/adminShiftOrders.dart';
 import 'package:grocery/Admin/admindrawer.dart';
 import 'package:grocery/Admin/edititems.dart';
-import 'package:grocery/Admin/ok.dart';
 import 'package:grocery/Widgets/loadingWidget.dart';
 import 'package:grocery/main.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -131,8 +130,8 @@ class _UploadPageState extends State<UploadPage>
                   size: 20.0,
                 ),
                 onPressed: () {
-                  Route route = MaterialPageRoute(builder: (c) => MyApp1());
-                  Navigator.push(context, route);
+                  // Route route = MaterialPageRoute(builder: (c) => MyApp1());
+                  // Navigator.push(context, route);
                 }),
             Padding(
               padding: EdgeInsets.only(top: 20.0),
