@@ -84,6 +84,7 @@ class AdminOrderDetails extends StatelessWidget {
                                       itemCount:
                                           dataSnapshot.data.documents.length,
                                       data: dataSnapshot.data.documents,
+                                      orderId: orderID,
                                     )
                                   : Center(
                                       child: circularProgress(),
@@ -154,7 +155,20 @@ class AdminStatusBanner extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 40.0,
+          margin: EdgeInsets.all(10.0),
+          padding: EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, 4),
+                blurRadius: 15,
+                color: Color(0xFFB7B7B7).withOpacity(.5),
+              ),
+            ],
+          ),
+          height: 60.0,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -270,7 +284,6 @@ class AdminShippingDetails extends StatelessWidget {
                     onTap: () {
                       outofstock(context, getOrderId);
                       Navigator.pop(context);
-
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -296,7 +309,6 @@ class AdminShippingDetails extends StatelessWidget {
                     onTap: () {
                       confirmedparcelshift(context, getOrderId);
                       Navigator.pop(context);
-
                     },
                     child: Container(
                       decoration: BoxDecoration(

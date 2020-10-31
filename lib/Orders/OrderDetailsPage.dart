@@ -6,8 +6,6 @@ import 'package:grocery/Widgets/loadingWidget.dart';
 import 'package:grocery/Widgets/orderCard.dart';
 import 'package:grocery/Models/address.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:grocery/main.dart';
 import 'package:intl/intl.dart';
 
 String getOrderId = "";
@@ -57,7 +55,7 @@ class OrderDetails extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.all(4.0),
                             child: Text(
-                              "order at: " +
+                              "Order Time: " +
                                   DateFormat("dd MMMM, yyyy - hh:mm aa").format(
                                       DateTime.fromMillisecondsSinceEpoch(
                                           int.parse(dataMap["orderTime"]))),
@@ -65,9 +63,7 @@ class OrderDetails extends StatelessWidget {
                                   TextStyle(color: Colors.grey, fontSize: 16.0),
                             ),
                           ),
-                          Divider(
-                            height: 2.0,
-                          ),
+                          Divider(height: 2.0),
                           FutureBuilder<QuerySnapshot>(
                             builder: (c, dataSnapshot) {
                               return dataSnapshot.hasData
@@ -75,6 +71,7 @@ class OrderDetails extends StatelessWidget {
                                       itemCount:
                                           dataSnapshot.data.documents.length,
                                       data: dataSnapshot.data.documents,
+                                      orderId: orderId,
                                     )
                                   : Center(
                                       child: circularProgress(),
@@ -143,36 +140,59 @@ class StatusBanner extends StatelessWidget {
     status ? msg = "Successful" : msg = "unSuccesffull";
     // status1 ? msg1 = "okok1" : msg1 = "ok";
     return Container(
-      height: 40.0,
+      margin: EdgeInsets.all(10.0),
+      padding: EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(0, 4),
+            blurRadius: 15,
+            color: Color(0xFFB7B7B7).withOpacity(.5),
+          ),
+        ],
+      ),
+      height: 70.0,
       child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                width: 20.0,
-              ),
+              SizedBox(width: 20.0),
               Text(
-                "order placed " + msg,
-                style: TextStyle(color: Colors.green),
+                "Order Placed " + msg,
+                style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 20,
+                    fontFamily: "Arial Bold"),
               ),
-              SizedBox(
-                width: 5.0,
-              ),
+              SizedBox(width: 5.0),
               CircleAvatar(
-                radius: 8.0,
+                radius: 10.0,
                 backgroundColor: Colors.white70,
                 child: Center(
                   child: Icon(
                     iconData,
                     color: Colors.green,
-                    size: 14.0,
+                    size: 18.0,
                   ),
                 ),
               ),
             ],
           ),
-          Container(child: Center(child: Text("Order " + msg1))),
+          SizedBox(height: 5.0),
+          Container(
+            child: Center(
+              child: Text(
+                "Order " + msg1,
+                style: TextStyle(
+                  fontFamily: "Arial Bold",
+                  fontSize: 15,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -194,57 +214,110 @@ class ShippingDetails extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(
-          height: 20.0,
-        ),
+        SizedBox(height: 20.0),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.0),
           child: Text(
             "Shipment Details:",
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              fontFamily: "Arial Bold",
+            ),
           ),
         ),
+        SizedBox(height: 10.0),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 90.0, vertical: 5.0),
+          // padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 15.0),
+          margin: EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, 4),
+                blurRadius: 15,
+                color: Color(0xFFB7B7B7).withOpacity(.5),
+              ),
+            ],
+          ),
           width: screenWidth,
           child: Table(
+            border: TableBorder.all(width: 1.0),
             children: [
               TableRow(
                 children: [
-                  KeyText(msg: "Name"),
-                  Text(model.name),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: KeyText(msg: "Name"),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text(model.name),
+                  ),
                 ],
               ),
               TableRow(
                 children: [
-                  KeyText(msg: "Phone Number"),
-                  Text(model.phoneNumber),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: KeyText(msg: "Phone Number"),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text(model.phoneNumber),
+                  ),
                 ],
               ),
               TableRow(
                 children: [
-                  KeyText(msg: "Flat Number / House Number"),
-                  Text(model.flatNumber),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: KeyText(msg: "Flat Number/ Street Number/ House Number"),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text(model.flatNumber),
+                  ),
                 ],
               ),
               TableRow(
                 children: [
-                  KeyText(msg: "City"),
-                  Text(model.city),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: KeyText(msg: "City"),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text(model.city),
+                  ),
                 ],
               ),
               TableRow(
                 children: [
-                  KeyText(msg: "State"),
-                  Text(model.state),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: KeyText(msg: "State"),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text(model.state),
+                  ),
                 ],
               ),
               TableRow(
                 children: [
-                  KeyText(msg: "Pincode"),
-                  Text(model.pincode),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: KeyText(msg: "Pincode"),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text(model.pincode),
+                  ),
                 ],
               ),
             ],
