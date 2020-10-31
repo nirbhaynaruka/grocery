@@ -4,6 +4,16 @@ import 'package:grocery/Models/address.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+class CityPincode {
+  String pincode;
+  String city;
+
+  CityPincode({
+    this.pincode,
+    this.city,
+  });
+}
+
 class AddAddress extends StatefulWidget {
   @override
   _AddAddressState createState() => _AddAddressState();
@@ -26,12 +36,21 @@ class _AddAddressState extends State<AddAddress> {
 
   final cPinCode = TextEditingController();
 
-  int _selectedPinCode;
-
-  List<int> pincode = [335001, 335002, 335003, 335004, 335005, 335006, 335007];
+  // List<int> pincode = [335001, 335002, 335003, 335004, 335005, 335006, 335007];
+  List<CityPincode> citypin = [
+    CityPincode(city: "Sriganganagar", pincode: "335001"),
+    CityPincode(city: "Sriganganagar1", pincode: "335002"),
+    CityPincode(city: "Sriganganagar2", pincode: "335003"),
+    CityPincode(city: "Sriganganagar3", pincode: "335004"),
+    CityPincode(city: "Sriganganagar4", pincode: "335005"),
+    CityPincode(city: "Sriganganagar5", pincode: "335006"),
+  ];
 
   @override
   Widget build(BuildContext context) {
+    String _selectedPinCode;
+    String _selectedCity;
+
     return SafeArea(
       child: Scaffold(
         key: scafflodKey,
@@ -102,9 +121,9 @@ class _AddAddressState extends State<AddAddress> {
             if (formKey.currentState.validate()) {
               final model = AddressModel(
                 name: cName.text.trim(),
-                state: cState.text.trim(),
+                state: "Rajasthan",
                 pincode: _selectedPinCode.toString(),
-                phoneNumber: "+91"+cPhoneNumber.text,
+                phoneNumber: "+91" + cPhoneNumber.text,
                 flatNumber: cFlatHomeNumber.text,
                 city: cCity.text.trim(),
               ).toJson();
@@ -170,92 +189,185 @@ class _AddAddressState extends State<AddAddress> {
                       hint: "Flat Number / House Number",
                       controller: cFlatHomeNumber,
                     ),
-                    MyTextField(
-                      data: Icons.edit,
-                      hint: "City",
-                      controller: cCity,
+                    Container(
+                      alignment: Alignment.topLeft,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(0, 4),
+                            blurRadius: 15,
+                            color: Color(0xFFB7B7B7).withOpacity(.5),
+                          ),
+                        ],
+                      ),
+                      child: DropdownButton(
+                        underline: Container(),
+                        isExpanded: true,
+                        // icon: Icon(Icons.edit),
+                        hint: Row(
+                          children: [
+                            new Icon(
+                              Icons.edit,
+                              color: Color(0xff535c3f),
+                              size: 20,
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              'Please choose your Pincode',
+                              style: TextStyle(
+                                fontFamily: "Arial Bold",
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                // color: Color(0xff535c3f),
+                              ),
+                            ),
+                          ],
+                        ), // Not necessary for Option 1
+                        // value: _selectedPinCode.pincode.toString() == null ? "Pincode" :  _selectedPinCode.pincode.,
+                        value: _selectedPinCode,
+                        onChanged: (newValue) {
+                          setState(() {
+                            _selectedPinCode = newValue.pincode;
+                            cCity.text = newValue.city;
+                            // _selectedCity = newValue.city;
+                          });
+                        },
+                        items: citypin.map((object) {
+                          return DropdownMenuItem<CityPincode>(
+                            child: Row(
+                              children: [
+                                new Icon(
+                                  Icons.edit,
+                                  color: Color(0xff535c3f),
+                                  size: 20,
+                                ),
+                                SizedBox(width: 10),
+                                new Text(
+                                  object.pincode,
+                                  style: TextStyle(
+                                    fontFamily: "Arial Bold",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    // color: Color(0xff535c3f),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            value: object,
+                          );
+                        }).toList(),
+                      ),
                     ),
-                    MyTextField(
-                      data: Icons.edit,
-                      hint: "State",
-                      controller: cState,
+                    Padding(
+                      padding: EdgeInsets.all(0.0),
+                      child: Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(0, 4),
+                              blurRadius: 15,
+                              color: Color(0xFFB7B7B7).withOpacity(.5),
+                            ),
+                          ],
+                        ),
+                        padding: EdgeInsets.all(5.0),
+                        margin: EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 8.0),
+                        child: TextFormField(
+                          readOnly: true,
+                          initialValue: _selectedCity,
+                          enableSuggestions: true,
+                          style: TextStyle(
+                            fontFamily: "Arial Bold",
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          cursorColor: Color(0xff535c3f),
+                          controller: cCity,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            prefixIcon: Icon(
+                              Icons.edit,
+                              color: Color(0xff535c3f),
+                              size: 20,
+                            ),
+                            focusColor: Color(0xff535c3f),
+                            hintText: "City",
+                          ),
+                          validator: (val) =>
+                              val.isEmpty ? "Field can not be empty." : null,
+                        ),
+                      ),
                     ),
+                    // MyTextField(
+                    //   data: Icons.edit,
+                    //   hint: "City",
+                    //   controller: cCity,
+                    // ),
+                    Padding(
+                      padding: EdgeInsets.all(0.0),
+                      child: Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(0, 4),
+                              blurRadius: 15,
+                              color: Color(0xFFB7B7B7).withOpacity(.5),
+                            ),
+                          ],
+                        ),
+                        padding: EdgeInsets.all(5.0),
+                        margin: EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 8.0),
+                        child: TextFormField(
+                          readOnly: true,
+                          initialValue: "Rajasthan",
+                          enableSuggestions: true,
+                          style: TextStyle(
+                            fontFamily: "Arial Bold",
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          cursorColor: Color(0xff535c3f),
+                          // controller: cState,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            prefixIcon: Icon(
+                              Icons.edit,
+                              color: Color(0xff535c3f),
+                              size: 20,
+                            ),
+                            focusColor: Color(0xff535c3f),
+                            // hintText: ,
+                          ),
+                          validator: (val) =>
+                              val.isEmpty ? "Field can not be empty." : null,
+                        ),
+                      ),
+                    ),
+                    // MyTextField(
+                    //   data: Icons.edit,
+                    //   hint: "State",
+                    //   controller: cState,
+                    // ),
                     // MyTextField(
                     //   data: Icons.edit,
                     //   hint: "Pincode",
                     //   controller: cPinCode,
                     // ),
                   ],
-                ),
-              ),
-              Container(
-                alignment: Alignment.topLeft,
-                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-                margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(0, 4),
-                      blurRadius: 15,
-                      color: Color(0xFFB7B7B7).withOpacity(.5),
-                    ),
-                  ],
-                ),
-                child: DropdownButton(
-                  underline: Container(),
-                  isExpanded: true,
-                  // icon: Icon(Icons.edit),
-                  hint: Row(
-                    children: [
-                      new Icon(
-                        Icons.edit,
-                        color: Color(0xff535c3f),
-                        size: 20,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        'Please choose a Pincode',
-                        style: TextStyle(
-                          fontFamily: "Arial Bold",
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          // color: Color(0xff535c3f),
-                        ),
-                      ),
-                    ],
-                  ), // Not necessary for Option 1
-                  value: _selectedPinCode,
-                  onChanged: (int newValue) {
-                    setState(() {
-                      _selectedPinCode = newValue;
-                    });
-                  },
-                  items: pincode.map((pincode) {
-                    return DropdownMenuItem(
-                      child: Row(
-                        children: [
-                          new Icon(
-                            Icons.edit,
-                            color: Color(0xff535c3f),
-                            size: 20,
-                          ),
-                          SizedBox(width: 10),
-                          new Text(
-                            pincode.toString(),
-                            style: TextStyle(
-                              fontFamily: "Arial Bold",
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              // color: Color(0xff535c3f),
-                            ),
-                          ),
-                        ],
-                      ),
-                      value: pincode,
-                    );
-                  }).toList(),
                 ),
               ),
             ],

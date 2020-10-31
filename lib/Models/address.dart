@@ -8,11 +8,11 @@ class AddressModel {
 
   AddressModel(
       {this.name,
-        this.phoneNumber,
-        this.flatNumber,
-        this.city,
-        this.state,
-        this.pincode});
+      this.phoneNumber,
+      this.flatNumber,
+      this.city,
+      this.state,
+      this.pincode});
 
   AddressModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -34,3 +34,5 @@ class AddressModel {
     return data;
   }
 }
+
+
