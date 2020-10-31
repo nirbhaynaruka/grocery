@@ -55,6 +55,8 @@ class ItemModel {
     data['longDescription'] = this.longDescription;
     data['status'] = this.status;
     data['catname'] = this.catname;
+    data['subcatthumbnail'] = this.subcatthumbnail;
+
 
     return data;
   }

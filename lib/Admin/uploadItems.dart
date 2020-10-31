@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:grocery/Admin/adminShiftOrders.dart';
 import 'package:grocery/Admin/admindrawer.dart';
 import 'package:grocery/Admin/edititems.dart';
+import 'package:grocery/Admin/subcat.dart';
 import 'package:grocery/Widgets/loadingWidget.dart';
 import 'package:grocery/main.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -130,7 +131,8 @@ class _UploadPageState extends State<UploadPage>
                   size: 20.0,
                 ),
                 onPressed: () {
-                  makesubcat();
+                  Route route = MaterialPageRoute(builder: (c) => Subcat());
+                  Navigator.push(context, route);
                 }),
             Padding(
               padding: EdgeInsets.only(top: 20.0),
@@ -415,12 +417,6 @@ class _UploadPageState extends State<UploadPage>
     );
   }
 
-  makesubcat() {
-    return Scaffold(
-      
-    );
-  }
-
   clearFormInfo() {
     setState(() {
       file = null;
@@ -440,19 +436,10 @@ class _UploadPageState extends State<UploadPage>
       uploading = true;
     });
     String imageDownloadUrl = await uploadItemImage(file);
+
     saveiteminfo(imageDownloadUrl);
     // saveiteminfoitems(imageDownloadUrl);
   }
-
-  // Future<String> makesubcat() async {
-  //   final subcat = await Firestore.instance
-  //       .collection("category")
-  //       .document(_selectedcategory)
-  //       .collection("subcategory");
-  //   subcat.document(_selectedsubcategory).setData(
-  //       {"catname": _selectedcategory, "subcatname": _selectedsubcategory});
-  // }
-
   Future<String> uploadItemImage(mfileImage) async {
     final StorageReference storageReference =
         FirebaseStorage.instance.ref().child("items");
