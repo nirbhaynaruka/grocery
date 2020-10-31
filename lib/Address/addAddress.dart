@@ -40,7 +40,7 @@ class _AddAddressState extends State<AddAddress> {
   int _user = 0;
   var _selectedPinCodecat = <String>[
     "243234",
-    "524",
+    "524555",
     "752",
     "2754",
     "2754",
