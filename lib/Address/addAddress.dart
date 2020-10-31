@@ -35,21 +35,41 @@ class _AddAddressState extends State<AddAddress> {
   final cState = TextEditingController();
 
   final cPinCode = TextEditingController();
-
-  // List<int> pincode = [335001, 335002, 335003, 335004, 335005, 335006, 335007];
-  List<CityPincode> citypin = [
-    CityPincode(city: "Sriganganagar", pincode: "335001"),
-    CityPincode(city: "Sriganganagar1", pincode: "335002"),
-    CityPincode(city: "Sriganganagar2", pincode: "335003"),
-    CityPincode(city: "Sriganganagar3", pincode: "335004"),
-    CityPincode(city: "Sriganganagar4", pincode: "335005"),
-    CityPincode(city: "Sriganganagar5", pincode: "335006"),
+  String _selectedPinCode = "Please select your pincode";
+  String _selectedCity = "City";
+  int _user = 0;
+  var _selectedPinCodecat = <String>[
+    "243234",
+    "524",
+    "752",
+    "2754",
+    "2754",
+    "7542",
   ];
+  static List<List<String>> _selectedCitycat = [
+    ["Sriganganagar"],
+    ["ef"],
+    ["efs"],
+    ["efsdf"],
+    ["fsd"],
+    ["gefsdf"],
+  ];
+  // List<int> pincode = [335001, 335002, 335003, 335004, 335005, 335006, 335007];
+  // List<CityPincode> citypin = [
+  //   CityPincode(city: "Sriganganagar", pincode: "335001"),
+  //   CityPincode(city: "Sriganganagar1", pincode: "335002"),
+  //   CityPincode(city: "Sriganganagar2", pincode: "335003"),
+  //   CityPincode(city: "Sriganganagar3", pincode: "335004"),
+  //   CityPincode(city: "Sriganganagar4", pincode: "335005"),
+  //   CityPincode(city: "Sriganganagar5", pincode: "335006"),
+  // ];
 
   @override
   Widget build(BuildContext context) {
-    String _selectedPinCode;
-    String _selectedCity;
+    // String _selectedPinCode;
+    // String _selectedPinCode;
+
+    // String _selectedCity;
 
     return SafeArea(
       child: Scaffold(
@@ -190,12 +210,14 @@ class _AddAddressState extends State<AddAddress> {
                       controller: cFlatHomeNumber,
                     ),
                     Container(
+                     
                       alignment: Alignment.topLeft,
                       padding:
                           EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
                       margin:
                           EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
                       decoration: BoxDecoration(
+
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(5.0)),
                         boxShadow: [
@@ -206,64 +228,99 @@ class _AddAddressState extends State<AddAddress> {
                           ),
                         ],
                       ),
-                      child: DropdownButton(
-                        underline: Container(),
-                        isExpanded: true,
-                        // icon: Icon(Icons.edit),
-                        hint: Row(
-                          children: [
-                            new Icon(
+                      child: Row(
+                        children: [
+                           Icon(
                               Icons.edit,
                               color: Color(0xff535c3f),
                               size: 20,
                             ),
-                            SizedBox(width: 10),
-                            Text(
-                              'Please choose your Pincode',
-                              style: TextStyle(
-                                fontFamily: "Arial Bold",
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                // color: Color(0xff535c3f),
-                              ),
-                            ),
-                          ],
-                        ), // Not necessary for Option 1
-                        // value: _selectedPinCode.pincode.toString() == null ? "Pincode" :  _selectedPinCode.pincode.,
-                        value: _selectedPinCode,
-                        onChanged: (newValue) {
-                          setState(() {
-                            _selectedPinCode = newValue.pincode;
-                            cCity.text = newValue.city;
-                            // _selectedCity = newValue.city;
-                          });
-                        },
-                        items: citypin.map((object) {
-                          return DropdownMenuItem<CityPincode>(
-                            child: Row(
-                              children: [
-                                new Icon(
-                                  Icons.edit,
-                                  color: Color(0xff535c3f),
-                                  size: 20,
+                            SizedBox(width: 10.0,),
+                          DropdownButton(
+                            
+                            // value: _selectedcategory,
+                            items: _selectedPinCodecat.map((val) {
+                              return DropdownMenuItem(
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.edit,
+                                      color: Color(0xff535c3f),
+                                      size: 20,
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(val),
+                                  ],
                                 ),
-                                SizedBox(width: 10),
-                                new Text(
-                                  object.pincode,
-                                  style: TextStyle(
-                                    fontFamily: "Arial Bold",
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    // color: Color(0xff535c3f),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            value: object,
-                          );
-                        }).toList(),
+                                value: val,
+                              );
+                            }).toList(),
+                            hint: Text(
+                                "$_selectedPinCode"), // Not necessary for Option 1
+                            onChanged: (val) {
+                              // setState(() {
+                              _selectedPinCode = val;
+                              _user = _selectedPinCodecat.indexOf(val);
+
+                              // });
+                              this.setState(() {});
+                            },
+                          ),
+                        ],
                       ),
                     ),
+                    Text(
+                        _selectedCitycat[_user].single
+                      ),
+                    // Padding(
+                    //   padding: EdgeInsets.all(0.0),
+                    //   child: Container(
+                    //     alignment: Alignment.center,
+                    //     decoration: BoxDecoration(
+                    //       color: Colors.white,
+                    //       borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                    //       boxShadow: [
+                    //         BoxShadow(
+                    //           offset: Offset(0, 4),
+                    //           blurRadius: 15,
+                    //           color: Color(0xFFB7B7B7).withOpacity(.5),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //     padding: EdgeInsets.all(5.0),
+                    //     margin: EdgeInsets.symmetric(
+                    //         horizontal: 10.0, vertical: 8.0),
+                    //     child: TextFormField(
+                    //       readOnly: true,
+                    //       initialValue: _selectedCity,
+                    //       enableSuggestions: true,
+                    //       style: TextStyle(
+                    //         fontFamily: "Arial Bold",
+                    //         fontSize: 16,
+                    //         fontWeight: FontWeight.bold,
+                    //       ),
+                    //       cursorColor: Color(0xff535c3f),
+                    //       controller: cCity,
+                    //       decoration: InputDecoration(
+                    //         border: InputBorder.none,
+                    //         prefixIcon: Icon(
+                    //           Icons.edit,
+                    //           color: Color(0xff535c3f),
+                    //           size: 20,
+                    //         ),
+                    //         focusColor: Color(0xff535c3f),
+                    //         hintText: "City",
+                    //       ),
+                    //       validator: (val) =>
+                    //           val.isEmpty ? "Field can not be empty." : null,
+                    //     ),
+                    //   ),
+                    // ),
+                    // MyTextField(
+                    //   data: Icons.edit,
+                    //   hint: "City",
+                    //   controller: cCity,
+                    // ),
                     Padding(
                       padding: EdgeInsets.all(0.0),
                       child: Container(
@@ -284,7 +341,7 @@ class _AddAddressState extends State<AddAddress> {
                             horizontal: 10.0, vertical: 8.0),
                         child: TextFormField(
                           readOnly: true,
-                          initialValue: _selectedCity,
+                          initialValue:  _selectedCitycat[_user].single,
                           enableSuggestions: true,
                           style: TextStyle(
                             fontFamily: "Arial Bold",
@@ -292,7 +349,7 @@ class _AddAddressState extends State<AddAddress> {
                             fontWeight: FontWeight.bold,
                           ),
                           cursorColor: Color(0xff535c3f),
-                          controller: cCity,
+                          // controller: cState,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             prefixIcon: Icon(
@@ -301,18 +358,13 @@ class _AddAddressState extends State<AddAddress> {
                               size: 20,
                             ),
                             focusColor: Color(0xff535c3f),
-                            hintText: "City",
+                            // hintText: ,
                           ),
                           validator: (val) =>
                               val.isEmpty ? "Field can not be empty." : null,
                         ),
                       ),
                     ),
-                    // MyTextField(
-                    //   data: Icons.edit,
-                    //   hint: "City",
-                    //   controller: cCity,
-                    // ),
                     Padding(
                       padding: EdgeInsets.all(0.0),
                       child: Container(
