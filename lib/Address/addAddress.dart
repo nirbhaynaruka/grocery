@@ -186,7 +186,7 @@ class _AddAddressState extends State<AddAddress> {
                     ),
                     MyTextField(
                       data: Icons.edit,
-                      hint: "Flat Number / House Number",
+                      hint: "Flat Number / Street Number / House Number",
                       controller: cFlatHomeNumber,
                     ),
                     Container(
