@@ -345,7 +345,8 @@ class _AddAddressState extends State<AddAddress> {
                         padding: EdgeInsets.all(5.0),
                         margin: EdgeInsets.symmetric(
                             horizontal: 10.0, vertical: 8.0),
-                        child: TextFormField(
+                        child: 
+                        TextFormField(
                           readOnly: true,
                           // initialValue: _selectedCitycat[_user].single,
                           enableSuggestions: true,
