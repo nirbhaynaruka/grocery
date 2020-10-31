@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:grocery/Admin/adminShiftOrders.dart';
 import 'package:grocery/Admin/admindrawer.dart';
 import 'package:grocery/Admin/edititems.dart';
+import 'package:grocery/Admin/ok.dart';
 import 'package:grocery/Widgets/loadingWidget.dart';
 import 'package:grocery/main.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -28,7 +29,8 @@ class _UploadPageState extends State<UploadPage>
   TextEditingController _shorttextEditingController = TextEditingController();
   String productId = DateTime.now().millisecondsSinceEpoch.toString();
   bool uploading = false;
-  List<String> categories = [
+  int _user = 0;
+  var categories = <String>[
     'Beauty & Hygeine',
     'Beverages and Snacks',
     'Cleaning & Household',
@@ -39,18 +41,27 @@ class _UploadPageState extends State<UploadPage>
     'Miscellaneous'
   ]; // Option 2
   String _selectedcategory = "Select a Category";
+  String _selectedsubcategory = "Select a SubCategory";
+  static List<List<String>> subcategories = [
+    ['a', 'b', 'c'],
+    ['d', 'e', 'f'],
+    ['g', 'h', 'i'],
+    ['j', 'k', 'l'],
+    ['m', 'n', 'o'],
+    ['p', 'q', 'r'],
+    ['s', 't', 'u'],
+    ['v', 'w', 'x']
+  ];
 
   @override
   Widget build(BuildContext context) {
-    
     return file == null ? displayAdminHomeScreen() : displayAdminUploadScreen();
   }
 
   displayAdminHomeScreen() {
     return WillPopScope(
       onWillPop: () async => false,
-          child: Scaffold(
-        
+      child: Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xff94b941),
           title: Text(
@@ -77,7 +88,8 @@ class _UploadPageState extends State<UploadPage>
           actions: [
             FlatButton(
                 onPressed: () {
-                  Route route = MaterialPageRoute(builder: (c) => SplashScreen());
+                  Route route =
+                      MaterialPageRoute(builder: (c) => SplashScreen());
                   Navigator.pushReplacement(context, route);
                 },
                 child: Text(
@@ -91,9 +103,8 @@ class _UploadPageState extends State<UploadPage>
           scale: 1.2,
           child: FloatingActionButton(
             onPressed: () {
-              Route route =
-                        MaterialPageRoute(builder: (c) => Edititems());
-                    Navigator.push(context, route);
+              Route route = MaterialPageRoute(builder: (c) => Edititems());
+              Navigator.push(context, route);
             },
             elevation: 5,
             backgroundColor: Color(0xff94b941),
@@ -120,9 +131,8 @@ class _UploadPageState extends State<UploadPage>
                   size: 20.0,
                 ),
                 onPressed: () {
-                  //          Route route =
-                  //     MaterialPageRoute(builder: (c) => Edititems());
-                  // Navigator.push(context, route);
+                  Route route = MaterialPageRoute(builder: (c) => MyApp1());
+                  Navigator.push(context, route);
                 }),
             Padding(
               padding: EdgeInsets.only(top: 20.0),
@@ -293,6 +303,8 @@ class _UploadPageState extends State<UploadPage>
               onChanged: (val) {
                 // setState(() {
                 _selectedcategory = val;
+                _user = categories.indexOf(val);
+
                 // });
                 this.setState(() {});
               },
@@ -301,26 +313,26 @@ class _UploadPageState extends State<UploadPage>
           Divider(
             color: Colors.pink,
           ),
+
           ///[for sub category]
-          
-          
-            ListTile(
+
+          ListTile(
             leading: Icon(
               Icons.perm_device_information,
               color: Colors.pink,
             ),
             title: DropdownButton(
               // value: _selectedcategory,
-              items: categories.map((val) {
+              items: subcategories[_user].map((subval) {
                 return DropdownMenuItem(
-                  child: Text(val),
-                  value: val,
+                  child: Text(subval),
+                  value: subval,
                 );
               }).toList(),
-              hint: Text("$_selectedcategory"), // Not necessary for Option 1
-              onChanged: (val) {
+              hint: Text("$_selectedsubcategory"),
+              onChanged: (subval) {
                 // setState(() {
-                _selectedcategory = val;
+                _selectedsubcategory = subval;
                 // });
                 this.setState(() {});
               },
@@ -328,7 +340,7 @@ class _UploadPageState extends State<UploadPage>
           ),
 
           ///[for sub category]
-          
+
           Divider(
             color: Colors.pink,
           ),
