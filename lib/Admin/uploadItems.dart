@@ -419,7 +419,9 @@ class _UploadPageState extends State<UploadPage>
   clearFormInfo() {
     setState(() {
       file = null;
+      _user = 0;
       _selectedcategory = "Select a Category";
+      _selectedsubcategory = "Select a SubCategory";
       _descriptiontextEditingController.clear();
       _originalpricetextEditingController.clear();
       _pricetextEditingController.clear();
@@ -460,6 +462,7 @@ class _UploadPageState extends State<UploadPage>
       "thumbnailUrl": downloadUrl,
       "title": _titletextEditingController.text.trim(),
       "catname": _selectedcategory,
+      "subcatname": _selectedsubcategory
     });
     final itemsRef = await Firestore.instance.collection("$_selectedcategory");
     itemsRef.document(productId).setData({
@@ -472,14 +475,15 @@ class _UploadPageState extends State<UploadPage>
       "thumbnailUrl": downloadUrl,
       "title": _titletextEditingController.text.trim(),
       "catname": _selectedcategory,
+      "subcatname": _selectedsubcategory
     });
     setState(() {
       file = null;
       _selectedcategory = "Select a Category";
+      _selectedsubcategory = "Select a SubCategory";
       uploading = false;
       productId = DateTime.now().millisecondsSinceEpoch.toString();
       _descriptiontextEditingController.clear();
-
       _originalpricetextEditingController.clear();
       _pricetextEditingController.clear();
       _shorttextEditingController.clear();
