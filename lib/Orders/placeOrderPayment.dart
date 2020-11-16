@@ -221,11 +221,12 @@ class _PaymentPageState extends State<PaymentPage> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: KeyText(msg: "Shipping(including GST):"),
+                            child: KeyText(msg: "Delivery"),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text("Rs. 0"),
+                            child: Text("*(Extra \u{20B9}${20} per km will be charged on the order price less then \u{20B9}${100})" 
+                            ),
                           ),
                         ],
                       ),
