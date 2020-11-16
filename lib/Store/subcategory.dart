@@ -305,9 +305,9 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
               Image.network(
                 model.subcatthumbnail,
                 fit: BoxFit.cover,
-                height: 80.0,
+                height: 120.0,
               ),
-              SizedBox(height: 30.0),
+              SizedBox(height: 10.0),
               Text(
                 model.subcatname,
                 style: TextStyle(
