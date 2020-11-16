@@ -22,26 +22,32 @@ class _SubcatState extends State<Subcat>
   bool uploading = false;
   int _user = 0;
   var categories = <String>[
-    'Beauty & Hygeine',
-    'Beverages and Snacks',
-    'Cleaning & Household',
+    'Fruits and Vegetables',
+    'Household Supplies',
+    'Personal Care',
     'Cooking Essentials',
-    'Dairy Products',
-    'Fruits & Vegetables',
     'Packaged Foods',
-    'Miscellaneous'
+    'Baby Products',
+    'Beverage',
+    'Pet Care',
+    'Dairy Products',
+    'Bakery',
+    'Plant Care'
   ]; // Option 2
   String _selectedcategory = "Select a Category";
   String _selectedsubcategory = "Select a SubCategory";
   static List<List<String>> subcategories = [
-    ['a', 'b', 'c'],
-    ['d', 'e', 'f'],
-    ['g', 'h', 'i'],
-    ['j', 'k', 'l'],
-    ['m', 'n', 'o'],
-    ['p', 'q', 'r'],
-    ['s', 't', 'u'],
-    ['v', 'w', 'x']
+    ['Fresh Vegetables', 'Fresh Fruits'],
+    ['Laundry Detergent', 'Household Cleaning', 'Hand Hygeinie & Masks','Kitchen Supplies','Tissues & more'],
+    ['Bath & Body', 'Hair Care', 'Skin Care','Deodrant','Makeup & accessories'],
+    ['Atta & Flour', 'Rice', 'Salt, Spices & Sugar','Oils & Ghee','Dals & Pulses','Others'],
+    ['Dry Fruits', 'Biscuits & Snacks', 'Breakfast Food','Beverages','Noodles & Pasta','Spread & Ketchup','Chocolates & Cake','Others'],
+    ['Baby Bath & Body', 'Baby Food', 'Diapers & Wipes'],
+    ['Tea', 'Coffee', 'Health Drinks','Soft Drinks','Juices'],
+    ['Pet food', 'Pet supplement', 'Pet toy & Accessories'],
+    ['Milk','Paneer','Buttermilk','Curd'],
+    ['Bread','Rusk','Paaw'],
+    ['']
   ];
 
   @override
@@ -84,7 +90,7 @@ class _SubcatState extends State<Subcat>
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(9.0)),
                 child:
-                    Text("Add New item", style: TextStyle(color: Colors.white)),
+                    Text("Add Categories Images", style: TextStyle(color: Colors.white)),
                 color: Colors.green,
               ),
             )
@@ -100,14 +106,14 @@ class _SubcatState extends State<Subcat>
         builder: (con) {
           return SimpleDialog(
             title: Text(
-              "item image",
+              "Item image",
               style: TextStyle(color: Colors.green),
             ),
             children: [
          
               SimpleDialogOption(
                 child: Text(
-                  "capture with gallery",
+                  "Select from Gallery",
                   style: TextStyle(color: Colors.green),
                 ),
                 onPressed: capturPhotoWithGallery,
@@ -136,7 +142,7 @@ class _SubcatState extends State<Subcat>
             FlatButton(
                 onPressed:
                     uploading ? null : () => uploadImageandSaveItemInfo(),
-                child: Text("add",
+                child: Text("Add",
                     style: TextStyle(
                       color: Colors.green,
                     ))),
