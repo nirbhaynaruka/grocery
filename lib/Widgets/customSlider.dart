@@ -11,17 +11,11 @@ class CarouselPage extends StatelessWidget {
         child: Carousel(
           images: [
             NetworkImage(
-                'https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
+                'https://firebasestorage.googleapis.com/v0/b/groceryapp-e9d3f.appspot.com/o/Banner%2F1.png?alt=media&token=6c8c44ef-1ca7-44e0-a977-ea58c53323a2'),
             NetworkImage(
-                'https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
+                'https://firebasestorage.googleapis.com/v0/b/groceryapp-e9d3f.appspot.com/o/Banner%2F2.png?alt=media&token=677dcdfa-fec5-44ec-8ac8-1d110643f5fb'),
             NetworkImage(
-                'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80'),
-            NetworkImage(
-                'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80'),
-            NetworkImage(
-                'https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
-            NetworkImage(
-                'https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
+                'https://firebasestorage.googleapis.com/v0/b/groceryapp-e9d3f.appspot.com/o/Banner%2F3.png?alt=media&token=a3f97a6c-2256-4b1b-a3da-79516130a472'),
           ],
           autoplay: true,
           boxFit: BoxFit.cover,
