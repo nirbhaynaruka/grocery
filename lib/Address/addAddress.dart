@@ -142,7 +142,7 @@ class _AddAddressState extends State<AddAddress> {
               final model = AddressModel(
                 name: cName.text.trim(),
                 state: "Rajasthan",
-                pincode: _selectedPinCode.toString(),
+                pincode: cPinCode.text,
                 phoneNumber: "+91" + cPhoneNumber.text,
                 flatNumber: cFlatHomeNumber.text,
                 city: cCity.text.trim(),
