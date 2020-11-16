@@ -18,8 +18,9 @@ class _SubcatState extends State<Subcat>
     with AutomaticKeepAliveClientMixin<Subcat> {
   bool get wantKeepAlive => true;
   File file;
-
+  File filebanner;
   bool uploading = false;
+   String bannerid = DateTime.now().millisecondsSinceEpoch.toString();
   int _user = 0;
   var categories = <String>[
     'Fruits and Vegetables',
@@ -52,13 +53,15 @@ class _SubcatState extends State<Subcat>
 
   @override
   Widget build(BuildContext context) {
-    return file == null ? displayAdminHomeScreen() : displayAdminUploadScreen();
+    return file == null ? (filebanner == null ? displayAdminHomeScreen() : bannerUploadScreen()): displayAdminUploadScreen();
   }
 
   displayAdminHomeScreen() {
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: Scaffold(
+    return 
+    // WillPopScope(
+    //   onWillPop: () async => false,
+    //   child: 
+      Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xff94b941),
           title: Text(
@@ -73,8 +76,8 @@ class _SubcatState extends State<Subcat>
           centerTitle: true,
         ),
         body: getAdminHomeScreen(),
-      ),
-    );
+      );
+    // );
   }
 
   getAdminHomeScreen() {
@@ -83,6 +86,17 @@ class _SubcatState extends State<Subcat>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+             Padding(
+              padding: EdgeInsets.only(top: 20.0),
+              child: RaisedButton(
+                onPressed: () => takeImageBanner(context),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(9.0)),
+                child:
+                    Text("Add Banner", style: TextStyle(color: Colors.white)),
+                color: Colors.green,
+              ),
+            ),
             Padding(
               padding: EdgeInsets.only(top: 20.0),
               child: RaisedButton(
@@ -98,6 +112,29 @@ class _SubcatState extends State<Subcat>
         ),
       ),
     );
+  }
+
+  takeImageBanner(mContext) {
+    return showDialog(
+        context: mContext,
+        builder: (con) {
+          return SimpleDialog(
+            title: Text(
+              "Banner",
+              style: TextStyle(color: Colors.green),
+            ),
+            children: [
+         
+              SimpleDialogOption(
+                child: Text(
+                  "Select from Gallery",
+                  style: TextStyle(color: Colors.green),
+                ),
+                onPressed: banner,
+              ),
+            ],
+          );
+        });
   }
 
   takeImage(mContext) {
@@ -122,6 +159,13 @@ class _SubcatState extends State<Subcat>
           );
         });
   }
+  banner() async {
+    Navigator.pop(context);
+    File imageFilebanner = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      filebanner = imageFilebanner;
+    });
+  }
 
   capturPhotoWithGallery() async {
     Navigator.pop(context);
@@ -130,7 +174,45 @@ class _SubcatState extends State<Subcat>
       file = imageFile;
     });
   }
-
+bannerUploadScreen() {
+    return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Colors.red,
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back), onPressed: clearFormInfo),
+          title: Text("New Banner", style: TextStyle(color: Colors.white)),
+          actions: [
+            FlatButton(
+                onPressed:
+                    uploading ? null : () => bannerandSaveItemInfo(),
+                child: Text("Add",
+                    style: TextStyle(
+                      color: Colors.green,
+                    ))),
+          ]),
+      body: ListView(
+        children: [
+          uploading ? linearProgress() : Text("data"),
+          Container(
+            height: 230.0,
+            width: MediaQuery.of(context).size.width * 0.8,
+            child: Center(
+              child: AspectRatio(
+                aspectRatio: 16 / 9,
+                child: Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: FileImage(filebanner), fit: BoxFit.cover)),
+                ),
+              ),
+            ),
+          ),
+          Padding(padding: EdgeInsets.only(top: 12.0)),
+        
+        ],
+      ),
+    );
+  }
   displayAdminUploadScreen() {
     return Scaffold(
       appBar: AppBar(
@@ -233,13 +315,46 @@ class _SubcatState extends State<Subcat>
   clearFormInfo() {
     setState(() {
       file = null;
+      filebanner = null;
       _user = 0;
       _selectedcategory = "Select a Category";
       _selectedsubcategory = "Select a SubCategory";
 
     });
   }
+///[]
+  bannerandSaveItemInfo() async {
+    setState(() {
+      uploading = true;
+    });
+    String bannerDownloadUrl = await uploadbannerItemImage(filebanner);
 
+    savebannerinfo(bannerDownloadUrl);
+    // saveiteminfoitems(imageDownloadUrl);
+  }
+  Future<String> uploadbannerItemImage(mfilebanner) async {
+    final StorageReference storageReferencebanner =
+        FirebaseStorage.instance.ref().child("Banner");
+    StorageUploadTask uploadTask =
+        storageReferencebanner.child("$bannerid.jpg").putFile(mfilebanner);
+    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+    String downloadUrlbanner = await taskSnapshot.ref.getDownloadURL();
+    return downloadUrlbanner;
+  }
+
+  Future savebannerinfo(String downloadUrlbanner) async {
+    final itemStore = await Firestore.instance.collection("banner");
+    itemStore.document(bannerid).setData({
+      "bannerthumbnail": downloadUrlbanner,
+    });
+    setState(() {
+      filebanner = null;
+      bannerid = DateTime.now().millisecondsSinceEpoch.toString();
+      uploading = false;
+    });
+  }
+
+///[]
   uploadImageandSaveItemInfo() async {
     setState(() {
       uploading = true;

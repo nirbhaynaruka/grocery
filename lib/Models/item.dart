@@ -13,6 +13,7 @@ class ItemModel {
   String catthumbnail;
  String subcatname;
   String subcatthumbnail;
+  String bannerthumbnail;
 
   ItemModel({
     this.title,
@@ -25,6 +26,7 @@ class ItemModel {
     this.catthumbnail,
       this.subcatname,
     this.subcatthumbnail,
+    this.bannerthumbnail,
   });
 
   ItemModel.fromJson(Map<String, dynamic> json) {
@@ -40,6 +42,7 @@ class ItemModel {
     catthumbnail = json['catthumbnail'];
      subcatname = json['subcatname'];
     subcatthumbnail = json['subcatthumbnail'];
+    bannerthumbnail = json['bannerthumbnail'];
   }
 
   Map<String, dynamic> toJson() {

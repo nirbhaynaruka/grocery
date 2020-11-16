@@ -130,17 +130,7 @@ class _UploadPageState extends State<UploadPage>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            IconButton(
-                icon: Icon(
-                  Icons.edit,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-                onPressed: () {
-                  Route route = MaterialPageRoute(builder: (c) => Subcat());
-                  Navigator.push(context, route);
-                }),
-            Padding(
+             Padding(
               padding: EdgeInsets.only(top: 20.0),
               child: RaisedButton(
                 onPressed: () => takeImage(context),
@@ -150,7 +140,22 @@ class _UploadPageState extends State<UploadPage>
                     Text("Add New item", style: TextStyle(color: Colors.white)),
                 color: Colors.green,
               ),
-            )
+            ),
+                Padding(
+              padding: EdgeInsets.only(top: 20.0),
+              child: RaisedButton(
+                 onPressed: () {
+                  Route route = MaterialPageRoute(builder: (c) => Subcat());
+                  Navigator.push(context, route);
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(9.0)),
+                child:
+                    Text("Add Banner and Thumbnail", style: TextStyle(color: Colors.white)),
+                color: Colors.green,
+              ),
+            ),
+           
           ],
         ),
       ),
