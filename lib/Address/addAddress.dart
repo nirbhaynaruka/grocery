@@ -251,74 +251,117 @@ class _AddAddressState extends State<AddAddress> {
                       hint: "Flat Number / Street Number / House Number",
                       controller: cFlatHomeNumber,
                     ),
-                    Container(
-                      alignment: Alignment.topLeft,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                        boxShadow: [
-                          BoxShadow(
-                            offset: Offset(0, 4),
-                            blurRadius: 15,
-                            color: Color(0xFFB7B7B7).withOpacity(.5),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.edit,
-                            color: Color(0xff535c3f),
-                            size: 20,
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          DropdownButton(
-                            underline: Container(),
-                            isExpanded: false,
-                            // value: _selectedcategory,
-                            items: _selectedPinCodecat.map((val) {
-                              return DropdownMenuItem(
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.edit,
-                                      color: Color(0xff535c3f),
-                                      size: 20,
-                                    ),
-                                    SizedBox(width: 10),
-                                    Text(val),
-                                  ],
-                                ),
-                                value: val,
-                              );
-                            }).toList(),
-                            hint: Text(
-                              "$_selectedPinCode",
-                              style: TextStyle(
-                                fontFamily: "Arial Bold",
-                                fontSize: 16,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ), // Not necessary for Option 1
-                            onChanged: (val) {
-                              // setState(() {
-                              _selectedPinCode = val;
-                              _user = _selectedPinCodecat.indexOf(val);
-                              cCity.text = _selectedCitycat[_user].single;
-                              // });
-                              this.setState(() {});
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
+                    Padding(
+      padding: EdgeInsets.all(0.0),
+      child: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 4),
+              blurRadius: 15,
+              color: Color(0xFFB7B7B7).withOpacity(.5),
+            ),
+          ],
+        ),
+        padding: EdgeInsets.all(5.0),
+        margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+        child: TextFormField(
+          keyboardType: TextInputType.number,
+          textInputAction: TextInputAction.next,
+          enableSuggestions: true,
+          maxLength: 6,
+          style: TextStyle(
+            fontFamily: "Arial Bold",
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+          cursorColor: Color(0xff535c3f),
+          controller: cPinCode,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            prefixIcon: Icon(
+              Icons.edit,
+              color: Color(0xff535c3f),
+              size: 20,
+            ),
+            focusColor: Color(0xff535c3f),
+            hintText: "PinCode",
+          ),
+          validator: (val) => val.isEmpty ? "Field can not be empty." : null,
+        ),
+      ),
+    ),
+                    // Container(
+                    //   alignment: Alignment.topLeft,
+                    //   padding:
+                    //       EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+                    //   margin:
+                    //       EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                    //   decoration: BoxDecoration(
+                    //     color: Colors.white,
+                    //     borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                    //     boxShadow: [
+                    //       BoxShadow(
+                    //         offset: Offset(0, 4),
+                    //         blurRadius: 15,
+                    //         color: Color(0xFFB7B7B7).withOpacity(.5),
+                    //       ),
+                    //     ],
+                    //   ),
+                    //   child: Row(
+                    //     children: [
+                    //       Icon(
+                    //         Icons.edit,
+                    //         color: Color(0xff535c3f),
+                    //         size: 20,
+                    //       ),
+                    //       SizedBox(
+                    //         width: 10.0,
+                    //       ),
+                    //       DropdownButton(
+                    //         underline: Container(),
+                    //         isExpanded: false,
+                    //         // value: _selectedcategory,
+                    //         items: _selectedPinCodecat.map((val) {
+                    //           return DropdownMenuItem(
+                    //             child: Row(
+                    //               children: [
+                    //                 Icon(
+                    //                   Icons.edit,
+                    //                   color: Color(0xff535c3f),
+                    //                   size: 20,
+                    //                 ),
+                    //                 SizedBox(width: 10),
+                    //                 Text(val),
+                    //               ],
+                    //             ),
+                    //             value: val,
+                    //           );
+                    //         }).toList(),
+                    //         hint: Text(
+                    //           "$_selectedPinCode",
+                    //           style: TextStyle(
+                    //             fontFamily: "Arial Bold",
+                    //             fontSize: 16,
+                    //             color: Colors.black,
+                    //             fontWeight: FontWeight.bold,
+                    //           ),
+                    //         ), // Not necessary for Option 1
+                    //         onChanged: (val) {
+                    //           // setState(() {
+                    //           _selectedPinCode = val;
+                    //           _user = _selectedPinCodecat.indexOf(val);
+                    //           cCity.text = _selectedCitycat[_user].single;
+                    //           // });
+                    //           this.setState(() {});
+                    //         },
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                     // Text(_selectedCitycat[_user].single),
                     // Padding(
                     //   padding: EdgeInsets.all(0.0),
@@ -369,6 +412,7 @@ class _AddAddressState extends State<AddAddress> {
                     //   hint: "City",
                     //   controller: cCity,
                     // ),
+
                     Padding(
                       padding: EdgeInsets.all(0.0),
                       child: Container(
