@@ -56,35 +56,47 @@ class _StoreHomeState extends State<StoreHome> {
 
   List<ItemModel> model = [
     ItemModel(
-      catname: "Fruits & Vegetables",
+      catname: "Fruits and Vegetables",
       catthumbnail: "assets/images/FruitsandVegetables.png",
     ),
     ItemModel(
-      catname: "Dairy Products",
+      catname: "Household Supplies",
       catthumbnail: "assets/images/DairyProducts.png",
     ),
     ItemModel(
-      catname: "Cleaning & Household",
+      catname: "Personal Care",
       catthumbnail: "assets/images/Cleaning_Household.png",
     ),
     ItemModel(
-      catname: "Beauty & Hygeine",
-      catthumbnail: "assets/images/BeautyandHygeine.png",
-    ),
-    ItemModel(
-      catname: "Beverages and Snacks",
-      catthumbnail: "assets/images/Beverage_Snacks.png",
-    ),
-    ItemModel(
       catname: "Cooking Essentials",
-      catthumbnail: "assets/images/CookingEssentials.png",
-    ),
-    ItemModel(
-      catname: "Miscellaneous",
       catthumbnail: "assets/images/BeautyandHygeine.png",
     ),
     ItemModel(
       catname: "Packaged Foods",
+      catthumbnail: "assets/images/Beverage_Snacks.png",
+    ),
+    ItemModel(
+      catname: "Baby Products",
+      catthumbnail: "assets/images/CookingEssentials.png",
+    ),
+    ItemModel(
+      catname: "Beverage",
+      catthumbnail: "assets/images/BeautyandHygeine.png",
+    ),
+    ItemModel(
+      catname: "Pet Care",
+      catthumbnail: "assets/images/BeautyandHygeine.png",
+    ),
+    ItemModel(
+      catname: "Dairy Products",
+      catthumbnail: "assets/images/BeautyandHygeine.png",
+    ),
+    ItemModel(
+      catname: "Bakery",
+      catthumbnail: "assets/images/BeautyandHygeine.png",
+    ),
+    ItemModel(
+      catname: "Plant Care",
       catthumbnail: "assets/images/BeautyandHygeine.png",
     ),
   ];

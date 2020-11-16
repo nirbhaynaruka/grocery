@@ -31,26 +31,32 @@ class _UploadPageState extends State<UploadPage>
   bool uploading = false;
   int _user = 0;
   var categories = <String>[
-    'Beauty & Hygeine',
-    'Beverages and Snacks',
-    'Cleaning & Household',
+    'Fruits and Vegetables',
+    'Household Supplies',
+    'Personal Care',
     'Cooking Essentials',
-    'Dairy Products',
-    'Fruits & Vegetables',
     'Packaged Foods',
-    'Miscellaneous'
+    'Baby Products',
+    'Beverage',
+    'Pet Care',
+    'Dairy Products',
+    'Dairy Products',
+    'Plant Care'
   ]; // Option 2
   String _selectedcategory = "Select a Category";
   String _selectedsubcategory = "Select a SubCategory";
   static List<List<String>> subcategories = [
-    ['a', 'b', 'c'],
-    ['d', 'e', 'f'],
-    ['g', 'h', 'i'],
-    ['j', 'k', 'l'],
-    ['m', 'n', 'o'],
-    ['p', 'q', 'r'],
-    ['s', 't', 'u'],
-    ['v', 'w', 'x']
+   ['Fresh Vegetables', 'Fresh Fruits'],
+    ['Laundry Detergent', 'Household Cleaning', 'Hand Hygeinie & Masks','Kitchen Supplies','Tissues & more'],
+    ['Bath & Body', 'Hair Care', 'Skin Care','Deodrant','Makeup & accessories'],
+    ['Atta & Flour', 'Rice', 'Salt, Spices & Sugar','Oils & Ghee','Dals & Pulses','Others'],
+    ['Dry Fruits', 'Biscuits & Snacks', 'Breakfast Food','Beverages','Noodles & Pasta','Spread & Ketchup','Chocolates & Cake','Others'],
+    ['Baby Bath & Body', 'Baby Food', 'Diapers & Wipes'],
+    ['Tea', 'Coffee', 'Health Drinks','Soft Drinks','Juices'],
+    ['Pet food', 'Pet supplement', 'Pet toy & Accessories'],
+    ['Milk','Paneer','Buttermilk','Curd'],
+    ['Bread','Rusk','Paaw'],
+    ['']
   ];
 
   @override
