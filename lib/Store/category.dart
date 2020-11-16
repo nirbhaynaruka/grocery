@@ -341,23 +341,23 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                       child: Center(
                                         child: InkWell(
                                           onTap: () {
-                                            if (logincheck) {
+                                            // if (logincheck) {
                                               checkItemInCart(
                                                   model.shortInfo, context);
-                                            } else {
-                                              Route route = MaterialPageRoute(
-                                                  builder: (_) =>
-                                                      AuthenticScreen());
-                                              Navigator.push(
-                                                context,
-                                                PageRouteBuilder(
-                                                  pageBuilder: (_, __, ___) =>
-                                                      AuthenticScreen(),
-                                                  transitionDuration:
-                                                      Duration(seconds: 0),
-                                                ),
-                                              );
-                                            }
+                                            // } else {
+                                            //   Route route = MaterialPageRoute(
+                                            //       builder: (_) =>
+                                            //           AuthenticScreen());
+                                            //   Navigator.push(
+                                            //     context,
+                                            //     PageRouteBuilder(
+                                            //       pageBuilder: (_, __, ___) =>
+                                            //           AuthenticScreen(),
+                                            //       transitionDuration:
+                                            //           Duration(seconds: 0),
+                                            //     ),
+                                            //   );
+                                            // }
                                           },
                                           child: Container(
                                             decoration: BoxDecoration(
