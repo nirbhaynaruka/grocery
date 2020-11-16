@@ -325,8 +325,8 @@ class ShippingDetails extends StatelessWidget {
         ),
         Center(
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.5,
-            height: 50.0,
+            // width: MediaQuery.of(context).size.width * 0.5,
+            // height: 50.0,
             child: Padding(
               padding: EdgeInsets.all(10.0),
               child: InkWell(
@@ -334,15 +334,24 @@ class ShippingDetails extends StatelessWidget {
                   confirmedOrderRec(context, getOrderId);
                 },
                 child: Container(
+                  padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                       color: Color(0xff94b941),
-                      borderRadius: BorderRadius.all(Radius.circular(2.0))),
+                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
                   width: MediaQuery.of(context).size.width - 40.0,
-                  child: Center(
-                    child: Text(
-                      "confirmed || Item Received",
-                      style: TextStyle(color: Colors.white, fontSize: 15.0),
-                    ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.done_all, color: Colors.white, size: 30),
+                      SizedBox(width: 10),
+                      Center(
+                        child: Text(
+                          "Confirmed || Item Received",
+                          style: TextStyle(color: Colors.white, fontSize: 15.0, fontFamily: "Arial Bold"),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

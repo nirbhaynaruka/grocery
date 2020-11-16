@@ -215,7 +215,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
       );
     },
     splashColor: Color(0xff94b941),
-    child: Padding(
+    child: Container(
       padding: const EdgeInsets.all(5.0),
       child: Column(
         children: [
@@ -234,7 +234,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                   ),
                 ],
               ),
-              height: MediaQuery.of(context).size.height / 6,
+              // height: MediaQuery.of(context).size.height / 6,
               width: width,
               child: Row(
                 children: [
