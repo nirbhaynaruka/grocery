@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:grocery/Authentication/authenication.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:grocery/Counters/cartitemcounter.dart';
@@ -570,8 +571,8 @@ class _EdititemsState extends State<Edititems> {
                                             .collection(model.catname)
                                             .document(pid)
                                             .delete();
-                                        setState(() {
-                                        });
+                                        // deleteFireBaseStorageItem(model.thumbnailUrl);
+                                        setState(() {});
                                       }),
                                   IconButton(
                                     icon: Icon(
@@ -644,6 +645,23 @@ class _EdititemsState extends State<Edititems> {
       ),
     );
   }
+
+  // static void deleteFireBaseStorageItem(fileUrl) {
+  //   String filePath = fileUrl
+  //                 .replaceAll(new 
+  //                 RegExp(r'https://firebasestorage.googleapis.com/v0/b/dial-in-2345.appspot.com/o/'), '');
+  //   // filePath = filePath.replaceAll(new RegExp(r'%2F'), '/');
+
+  //   // filePath = filePath.replaceAll(new RegExp(r'(\?alt).*'), '');
+
+  //   print(filePath);
+  //   StorageReference storageReferance = FirebaseStorage.instance.ref();
+
+  //   storageReferance
+  //       .child("items/$filePath")
+  //       .delete()
+  //       .then((_) => print('Successfully deleted $filePath storage item'));
+  // }
 
   Future startSearching(String query) async {
     docList = Firestore.instance
