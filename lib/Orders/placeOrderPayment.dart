@@ -225,7 +225,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text("*(Extra \u{20B9}${20} per km will be charged on the order price less then \u{20B9}${100})" 
+                            child: Text("*(Extra \u{20B9}${20} per km will be charged on the order price less then \u{20B9}${200})" 
                             ),
                           ),
                         ],
