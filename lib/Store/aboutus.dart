@@ -49,7 +49,7 @@ class _AboutusState extends State<Aboutus> {
                       new Expanded(
                         flex: 2,
                         child: WideButton(
-                        message: "9799120841",
+                        message: "Call - 1",
                         onPressed: () => UrlLauncher.launch("tel://9799120841"),
                       ),
                       ),
@@ -60,7 +60,7 @@ class _AboutusState extends State<Aboutus> {
                       new Expanded(
                         flex: 2,
                         child:WideButton(
-                        message: "9358965687",
+                        message: "Call - 2",
                         onPressed: () => UrlLauncher.launch("tel://9358965687"),
                       ),
                       ),
@@ -71,7 +71,7 @@ class _AboutusState extends State<Aboutus> {
                        new Expanded(
                         flex: 2,
                         child:WideButton(
-                        message: "7073237761",
+                        message: "Call - 3",
                         onPressed: () => UrlLauncher.launch("tel://7073237761"),
                       ),
                       ),
@@ -92,7 +92,13 @@ class _AboutusState extends State<Aboutus> {
               Expanded(
                 flex: 1,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Text("Designed and Developed By :",
+                  style: TextStyle(
+                    fontWeight:FontWeight.bold),
+                    ),
                   Image.asset(
                     "assets/icons/twp.jpeg",
                     height: 220.0,
