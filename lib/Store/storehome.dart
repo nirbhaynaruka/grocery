@@ -61,15 +61,15 @@ class _StoreHomeState extends State<StoreHome> {
     ),
     ItemModel(
       catname: "Household Supplies",
-      catthumbnail: "assets/images/DairyProducts.png",
-    ),
-    ItemModel(
-      catname: "Personal Care",
       catthumbnail: "assets/images/Cleaning_Household.png",
     ),
     ItemModel(
+      catname: "Personal Care",
+      catthumbnail: "assets/images/personal.png",
+    ),
+    ItemModel(
       catname: "Cooking Essentials",
-      catthumbnail: "assets/images/BeautyandHygeine.png",
+      catthumbnail: "assets/images/cooking.png",
     ),
     ItemModel(
       catname: "Packaged Foods",
@@ -77,27 +77,27 @@ class _StoreHomeState extends State<StoreHome> {
     ),
     ItemModel(
       catname: "Baby Products",
-      catthumbnail: "assets/images/CookingEssentials.png",
+      catthumbnail: "assets/images/baby.jpg",
     ),
     ItemModel(
       catname: "Beverage",
-      catthumbnail: "assets/images/BeautyandHygeine.png",
+      catthumbnail: "assets/images/beverages.jpeg",
     ),
     ItemModel(
       catname: "Pet Care",
-      catthumbnail: "assets/images/BeautyandHygeine.png",
+      catthumbnail: "assets/images/petcare.jpeg",
     ),
     ItemModel(
       catname: "Dairy Products",
-      catthumbnail: "assets/images/BeautyandHygeine.png",
+      catthumbnail: "assets/images/DairyProducts.png",
     ),
     ItemModel(
       catname: "Bakery",
-      catthumbnail: "assets/images/BeautyandHygeine.png",
+      catthumbnail: "assets/images/bakery.jpg",
     ),
     ItemModel(
       catname: "Plant Care",
-      catthumbnail: "assets/images/BeautyandHygeine.png",
+      catthumbnail: "assets/images/plantcare.jpg",
     ),
   ];
   Widget build(BuildContext context) {
