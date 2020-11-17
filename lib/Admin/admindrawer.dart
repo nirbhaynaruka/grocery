@@ -1,20 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:grocery/Address/address.dart';
-import 'package:grocery/Address/defaultAddress.dart';
+
 import 'package:grocery/Admin/adminShiftOrders.dart';
 import 'package:grocery/Admin/allorders.dart';
-import 'package:grocery/Authentication/authenication.dart';
 import 'package:grocery/Config/config.dart';
-import 'package:grocery/Address/addAddress.dart';
-import 'package:grocery/Store/Search.dart';
-import 'package:grocery/Store/cart.dart';
-import 'package:grocery/Orders/myOrders.dart';
-import 'package:grocery/Store/storehome.dart';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../main.dart';
+// import '../main.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

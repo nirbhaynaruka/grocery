@@ -4,6 +4,7 @@ import 'package:grocery/Address/defaultAddress.dart';
 import 'package:grocery/Authentication/authenication.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:grocery/Store/Search.dart';
+import 'package:grocery/Store/aboutus.dart';
 import 'package:grocery/Store/cart.dart';
 import 'package:grocery/Orders/myOrders.dart';
 import 'package:grocery/Store/storehome.dart';
@@ -260,7 +261,14 @@ class _MyDrawerState extends State<MyDrawer> {
                       fontFamily: "Arial Bold",
                     ),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                     Route route =
+                          MaterialPageRoute(builder: (c) => Aboutus());
+                      Navigator.push(context, PageRouteBuilder(
+    pageBuilder: (_, __, ___) => Aboutus(),
+    transitionDuration: Duration(seconds: 0),
+  ),);
+                  },
                 ),
                 Expanded(
                   child: Align(

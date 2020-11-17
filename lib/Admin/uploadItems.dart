@@ -56,7 +56,7 @@ class _UploadPageState extends State<UploadPage>
     ['Pet food', 'Pet supplement', 'Pet toy & Accessories'],
     ['Milk','Paneer','Buttermilk','Curd'],
     ['Bread','Rusk','Paaw'],
-    ['']
+    ['Plant Care']
   ];
 
   @override

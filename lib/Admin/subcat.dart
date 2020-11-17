@@ -48,7 +48,7 @@ class _SubcatState extends State<Subcat>
     ['Pet food', 'Pet supplement', 'Pet toy & Accessories'],
     ['Milk','Paneer','Buttermilk','Curd'],
     ['Bread','Rusk','Paaw'],
-    ['']
+    ['Plant Care']
   ];
 
   @override
