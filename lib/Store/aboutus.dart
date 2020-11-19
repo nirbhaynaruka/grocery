@@ -32,85 +32,105 @@ class _AboutusState extends State<Aboutus> {
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                flex: 1,
+                  flex: 1,
                   child: Column(
-                children: [
-                  Image.asset(
-                    "assets/icons/new_logo_white.jpg",
-                    height: 220.0,
-                    width: 220.0,
-                  ),
-                  Row(
-                    children: <Widget>[
-                       Expanded(
-                        flex:1,
-                        child:SizedBox(width: 10.0,),
+                    children: [
+                      Image.asset(
+                        "assets/icons/new_logo_white.jpg",
+                        height: 220.0,
+                        width: 220.0,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            flex: 1,
+                            child: SizedBox(
+                              width: 10.0,
+                            ),
+                          ),
+                          new Expanded(
+                            flex: 2,
+                            child: WideButton(
+                              message: "Call - 1",
+                              onPressed: () =>
+                                  UrlLauncher.launch("tel://9799120841"),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: SizedBox(
+                              width: 10.0,
+                            ),
+                          ),
+                          new Expanded(
+                            flex: 2,
+                            child: WideButton(
+                              message: "Call - 2",
+                              onPressed: () =>
+                                  UrlLauncher.launch("tel://9358965687"),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: SizedBox(
+                              width: 10.0,
+                            ),
+                          ),
+                          new Expanded(
+                            flex: 2,
+                            child: WideButton(
+                              message: "Call - 3",
+                              onPressed: () =>
+                                  UrlLauncher.launch("tel://7073237761"),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: SizedBox(
+                              width: 10.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      WideButton(
+                        message: "Mail Us",
+                        onPressed: () => UrlLauncher.launch(
+                            "mailto:naturecoopfresh2020@gmail.com?subject=To Nature Coop Fresh&body= Hello,"),
+                      ),
+                    ],
+                  )),
+              Divider(color: Colors.black),
+              Expanded(
+                  flex: 1,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Designed and Developed By :",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Image.asset(
+                        "assets/icons/twp.jpeg",
+                        height: 200.0,
+                        width: 200.0,
                       ),
                       new Expanded(
                         flex: 2,
                         child: WideButton(
-                        message: "Call - 1",
-                        onPressed: () => UrlLauncher.launch("tel://9799120841"),
+                          message: "Call - Developer",
+                          onPressed: () =>
+                              UrlLauncher.launch("tel://9799120841"),
+                        ),
                       ),
+                      WideButton(
+                        message: "Mail Us",
+                        onPressed: () => UrlLauncher.launch(
+                            "mailto:heywhitepage@gmail.com?subject=To The White Page&body= Hello,"),
                       ),
-                      Expanded(
-                        flex:1,
-                        child:SizedBox(width: 10.0,),
-                      ),
-                      new Expanded(
-                        flex: 2,
-                        child:WideButton(
-                        message: "Call - 2",
-                        onPressed: () => UrlLauncher.launch("tel://9358965687"),
-                      ),
-                      ),
-                       Expanded(
-                        flex:1,
-                        child:SizedBox(width: 10.0,),
-                      ),
-                       new Expanded(
-                        flex: 2,
-                        child:WideButton(
-                        message: "Call - 3",
-                        onPressed: () => UrlLauncher.launch("tel://7073237761"),
-                      ),
-                      ),
-                       Expanded(
-                        flex:1,
-                        child:SizedBox(width: 10.0,),
-                      ),
+                      
                     ],
-                  ),
-                  WideButton(
-                    message: "Mail Us",
-                    onPressed: () => UrlLauncher.launch(
-                        "mailto:naturecoopfresh2020@gmail.com?subject=To Nature Coop Fresh&body= Hello,"),
-                  ),
-                ],
-              )),
-              Divider(color: Colors.black),
-              Expanded(
-                flex: 1,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Designed and Developed By :",
-                  style: TextStyle(
-                    fontWeight:FontWeight.bold),
-                    ),
-                  Image.asset(
-                    "assets/icons/twp.jpeg",
-                    height: 220.0,
-                    width: 220.0,
-                  ),
-                  WideButton(
-                    message: "Mail Us",
-                    onPressed: () => UrlLauncher.launch(
-                        "mailto:heywhitepage@gmail.com?subject=To The White Page&body= Hello,"),
-                  ),
-                ],
-              )),
+                  )),
             ],
           ),
         ),
