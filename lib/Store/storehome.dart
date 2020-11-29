@@ -216,7 +216,7 @@ class _StoreHomeState extends State<StoreHome> {
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
                 child: Container(
-                  height: MediaQuery.of(context).size.height*1.7,
+                  height: MediaQuery.of(context).size.height + MediaQuery.of(context).size.height*0.5,
                   child: GridView.count(
                     physics: NeverScrollableScrollPhysics(),
                     // shrinkWrap: true,
