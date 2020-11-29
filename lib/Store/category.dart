@@ -187,9 +187,13 @@ class _CategoryState extends State<Category> {
                       itemBuilder: (context, index) {
                         ItemModel model = ItemModel.fromJson(
                             dataSnapshot.data.documents[index].data);
-                        return dataSnapshot.data.documents[index].data["subcatname"] == widget.itemModel.subcatname ? sourceInfo(model, context) : Center(
-                      child: Container(),
-                    );
+                        return dataSnapshot
+                                    .data.documents[index].data["subcatname"] ==
+                                widget.itemModel.subcatname
+                            ? sourceInfo(model, context)
+                            : Center(
+                                child: Container(),
+                              );
                       },
                     );
             },
@@ -339,9 +343,11 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                       child: Center(
                                         child: InkWell(
                                           onTap: () {
+                                            print(model.productId.toString());
                                             // if (logincheck) {
-                                              checkItemInCart(
-                                                  model.productId, context);
+                                            checkItemInCart(
+                                                model.productId.toString(),
+                                                context);
                                             // } else {
                                             //   Route route = MaterialPageRoute(
                                             //       builder: (_) =>

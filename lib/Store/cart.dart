@@ -174,7 +174,7 @@ class _CartPageState extends State<CartPage> {
                               }
                               return sourceInfo(model, context,
                                   removeCartFunction: () =>
-                                      removeItemFromUserCart(model.shortInfo));
+                                      removeItemFromUserCart(model.productId));
                             },
                             childCount: snapshot.hasData
                                 ? snapshot.data.documents.length

@@ -45,7 +45,7 @@ class ItemModel {
     subcatname = json['subcatname'];
     subcatthumbnail = json['subcatthumbnail'];
     bannerthumbnail = json['bannerthumbnail'];
-    productId = json['title'];
+    productId = json['productId'];
   }
 
   Map<String, dynamic> toJson() {
