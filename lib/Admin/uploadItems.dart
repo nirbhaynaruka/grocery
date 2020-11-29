@@ -258,15 +258,15 @@ class _UploadPageState extends State<UploadPage>
                 onPressed:
 
                     ///[]
-                    _shorttextEditingController == null
+                   _shorttextEditingController.text.trim() == null
                         ? Fluttertoast.showToast(
                             msg: "Order has been Received. Confirmed.")
                         : (uploading
                             ? null
                             : () => uploadImageandSaveItemInfo()),
-                child: Text("add",
+                child: Text("Add",
                     style: TextStyle(
-                      color: Colors.green,
+                      color: Colors.white,
                     ))),
           ]),
       body: ListView(
