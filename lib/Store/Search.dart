@@ -232,6 +232,7 @@ class _SearchProductState extends State<SearchProduct> {
     docList = Firestore.instance
         .collection("items")
         .where("shortInfo", isGreaterThanOrEqualTo: query)
+        .where("shortInfo", isLessThan: query + 'z')
         .getDocuments();
   }
 }
