@@ -19,9 +19,7 @@ class _CartPageState extends State<CartPage> {
   double totalAmmount;
   @override
   void initState() {
-   setState(() {
-      
-    });
+    setState(() {});
     super.initState();
     totalAmmount = 0;
     Provider.of<TotalAmount>(context, listen: false).displayResult(0);
@@ -40,10 +38,13 @@ class _CartPageState extends State<CartPage> {
           } else {
             Route route = MaterialPageRoute(
                 builder: (c) => Address(totalAmount: totalAmmount));
-            Navigator.push(context, PageRouteBuilder(
-    pageBuilder: (_, __, ___) => Address(totalAmount: totalAmmount),
-    transitionDuration: Duration(seconds: 0),
-  ),);
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (_, __, ___) => Address(totalAmount: totalAmmount),
+                transitionDuration: Duration(seconds: 0),
+              ),
+            );
           }
         },
         label: Text("Check Out"),
@@ -56,7 +57,7 @@ class _CartPageState extends State<CartPage> {
           "Cart Page",
           style: TextStyle(
             // fontWeight: FontWeight.bold,
-              letterSpacing: 1.2,
+            letterSpacing: 1.2,
             color: Colors.white,
             fontFamily: "Folks-Heavy",
           ),
@@ -122,16 +123,16 @@ class _CartPageState extends State<CartPage> {
                 padding: EdgeInsets.all(8.0),
                 child: Center(
                   // child: cartProvider.count == 0
-                      // ? 
-                      // Container()
-                      // :
-                      child: Text(
-                          "Total Price: Rs ${amountProvider.totalAmount.toString()}",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.w500),
-                        ),
+                  // ?
+                  // Container()
+                  // :
+                  child: Text(
+                    "Total Price: Rs ${amountProvider.totalAmount.toString()}",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w500),
+                  ),
                 ),
               );
             }),
@@ -139,7 +140,7 @@ class _CartPageState extends State<CartPage> {
           StreamBuilder<QuerySnapshot>(
             stream: EcommerceApp.firestore
                 .collection("items")
-                .where("shortInfo",
+                .where("productId",
                     whereIn: EcommerceApp.sharedPreferences
                         .getStringList(EcommerceApp.userCartList))
                 .snapshots(),
@@ -157,6 +158,7 @@ class _CartPageState extends State<CartPage> {
                             (context, index) {
                               ItemModel model = ItemModel.fromJson(
                                   snapshot.data.documents[index].data);
+                              print(model.productId.toString());
                               if (index == 0) {
                                 totalAmmount = 0;
                                 totalAmmount = model.price + totalAmmount;
@@ -222,8 +224,9 @@ class _CartPageState extends State<CartPage> {
         .updateData({
       EcommerceApp.userCartList: tempCartList,
     }).then((v) {
-        Navigator.pop(context);
-      Fluttertoast.showToast(msg: "Item Removed Successfully. Continue Shopping");
+      Navigator.pop(context);
+      Fluttertoast.showToast(
+          msg: "Item Removed Successfully. Continue Shopping");
 
       EcommerceApp.sharedPreferences
           .setStringList(EcommerceApp.userCartList, tempCartList);
