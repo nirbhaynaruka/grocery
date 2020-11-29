@@ -229,10 +229,10 @@ class _SearchProductState extends State<SearchProduct> {
   }
 
   Future startSearching(String query) async {
+    var query1 = query.toUpperCase();
     docList = Firestore.instance
         .collection("items")
-        .where("shortInfo", isGreaterThanOrEqualTo: query)
-        .where("shortInfo", isLessThan: query + 'z')
+        .where("shortInfo", isGreaterThanOrEqualTo: query1)
         .getDocuments();
   }
 }
