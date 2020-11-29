@@ -3,13 +3,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery/Address/address.dart';
 import 'package:grocery/Admin/uploadItems.dart';
 import 'package:grocery/Config/config.dart';
-import 'package:grocery/Orders/myOrders.dart';
-import 'package:grocery/Store/category.dart';
 import 'package:grocery/Widgets/loadingWidget.dart';
 import 'package:grocery/Widgets/orderCard.dart';
 import 'package:grocery/Models/address.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 String getOrderId = "";
@@ -92,7 +89,7 @@ class AdminOrderDetails extends StatelessWidget {
                             },
                             future: EcommerceApp.firestore
                                 .collection("items")
-                                .where("shortInfo",
+                                .where("productId",
                                     whereIn: dataMap[EcommerceApp.productID])
                                 .getDocuments(),
                           ),
@@ -395,7 +392,7 @@ class AdminShippingDetails extends StatelessWidget {
     EcommerceApp.firestore
         .collection(EcommerceApp.collectionOrders)
         .document(mOrderId)
-        .updateData({"orderDetails": "order processed"});
+        .updateData({"orderDetails": "Order Processed"});
     print(mOrderId);
     // print(mOrderId);
 
@@ -405,7 +402,7 @@ class AdminShippingDetails extends StatelessWidget {
         .collection(EcommerceApp.collectionOrders)
         .document(mOrderId)
         .updateData({
-      "orderDetails": "order processed",
+      "orderDetails": "Order Processed",
     });
 
     getOrderId = "";
