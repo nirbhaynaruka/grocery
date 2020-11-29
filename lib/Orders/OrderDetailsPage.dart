@@ -79,7 +79,7 @@ class OrderDetails extends StatelessWidget {
                             },
                             future: EcommerceApp.firestore
                                 .collection("items")
-                                .where("shortInfo",
+                                .where("productId",
                                     whereIn: dataMap[EcommerceApp.productID])
                                 .getDocuments(),
                           ),
