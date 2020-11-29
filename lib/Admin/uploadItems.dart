@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery/Admin/adminShiftOrders.dart';
 import 'package:grocery/Admin/admindrawer.dart';
 import 'package:grocery/Admin/edititems.dart';
@@ -46,20 +47,49 @@ class _UploadPageState extends State<UploadPage>
   String _selectedcategory = "Select a Category";
   String _selectedsubcategory = "Select a SubCategory";
   static List<List<String>> subcategories = [
-   ['Fresh Vegetables', 'Fresh Fruits'],
-    ['Laundry Detergent', 'Household Cleaning', 'Hand Hygeinie & Masks','Kitchen Supplies','Tissues & more'],
-    ['Bath & Body', 'Hair Care', 'Skin Care','Deodrant','Makeup & accessories'],
-    ['Atta & Flour', 'Rice', 'Salt, Spices & Sugar','Oils & Ghee','Dals & Pulses','Others'],
-    ['Dry Fruits', 'Biscuits & Snacks', 'Breakfast Food','Beverages','Noodles & Pasta','Spread & Ketchup','Chocolates & Cake','Others'],
+    ['Fresh Vegetables', 'Fresh Fruits'],
+    [
+      'Laundry Detergent',
+      'Household Cleaning',
+      'Hand Hygeinie & Masks',
+      'Kitchen Supplies',
+      'Tissues & more'
+    ],
+    [
+      'Bath & Body',
+      'Hair Care',
+      'Skin Care',
+      'Deodrant',
+      'Makeup & accessories'
+    ],
+    [
+      'Atta & Flour',
+      'Rice',
+      'Salt, Spices & Sugar',
+      'Oils & Ghee',
+      'Dals & Pulses',
+      'Others'
+    ],
+    [
+      'Dry Fruits',
+      'Biscuits & Snacks',
+      'Breakfast Food',
+      'Beverages',
+      'Noodles & Pasta',
+      'Spread & Ketchup',
+      'Chocolates & Cake',
+      'Others'
+    ],
     ['Baby Bath & Body', 'Baby Food', 'Diapers & Wipes'],
-    ['Tea', 'Coffee', 'Health Drinks','Soft Drinks','Juices'],
+    ['Tea', 'Coffee', 'Health Drinks', 'Soft Drinks', 'Juices'],
     ['Pet food', 'Pet supplement', 'Pet toy & Accessories'],
-    ['Milk','Paneer','Buttermilk','Curd'],
-    ['Bread','Rusk','Paaw'],
+    ['Milk', 'Paneer', 'Buttermilk', 'Curd'],
+    ['Bread', 'Rusk', 'Paaw'],
     ['Plant Care']
   ];
 
   @override
+  
   Widget build(BuildContext context) {
     return file == null ? displayAdminHomeScreen() : displayAdminUploadScreen();
   }
@@ -130,7 +160,7 @@ class _UploadPageState extends State<UploadPage>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Padding(
+            Padding(
               padding: EdgeInsets.only(top: 20.0),
               child: RaisedButton(
                 onPressed: () => takeImage(context),
@@ -141,21 +171,20 @@ class _UploadPageState extends State<UploadPage>
                 color: Colors.green,
               ),
             ),
-                Padding(
+            Padding(
               padding: EdgeInsets.only(top: 20.0),
               child: RaisedButton(
-                 onPressed: () {
+                onPressed: () {
                   Route route = MaterialPageRoute(builder: (c) => Subcat());
                   Navigator.push(context, route);
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(9.0)),
-                child:
-                    Text("Add Banner and Thumbnail", style: TextStyle(color: Colors.white)),
+                child: Text("Add Banner and Thumbnail",
+                    style: TextStyle(color: Colors.white)),
                 color: Colors.green,
               ),
             ),
-           
           ],
         ),
       ),
@@ -227,7 +256,14 @@ class _UploadPageState extends State<UploadPage>
           actions: [
             FlatButton(
                 onPressed:
-                    uploading ? null : () => uploadImageandSaveItemInfo(),
+
+                    ///[]
+                    _shorttextEditingController == null
+                        ? Fluttertoast.showToast(
+                            msg: "Order has been Received. Confirmed.")
+                        : (uploading
+                            ? null
+                            : () => uploadImageandSaveItemInfo()),
                 child: Text("add",
                     style: TextStyle(
                       color: Colors.green,
@@ -451,6 +487,7 @@ class _UploadPageState extends State<UploadPage>
     saveiteminfo(imageDownloadUrl);
     // saveiteminfoitems(imageDownloadUrl);
   }
+
   Future<String> uploadItemImage(mfileImage) async {
     final StorageReference storageReference =
         FirebaseStorage.instance.ref().child("items");
