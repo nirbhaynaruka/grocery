@@ -265,7 +265,7 @@ class _UploadPageState extends State<UploadPage>
                   ),
                   controller: _shorttextEditingController,
                   decoration: InputDecoration(
-                    hintText: "short",
+                    hintText: "Short-Info",
                     hintStyle: TextStyle(color: Colors.deepPurpleAccent),
                     border: InputBorder.none,
                   ),
@@ -464,6 +464,7 @@ class _UploadPageState extends State<UploadPage>
   Future saveiteminfo(String downloadUrl) async {
     final itemStore = await Firestore.instance.collection("items");
     itemStore.document(productId).setData({
+      "productId": productId.toString(),
       "shortInfo": _shorttextEditingController.text.trim(),
       "longDescription": _descriptiontextEditingController.text.trim(),
       "originalPrice": int.parse(_originalpricetextEditingController.text),
@@ -477,6 +478,7 @@ class _UploadPageState extends State<UploadPage>
     });
     final itemsRef = await Firestore.instance.collection("$_selectedcategory");
     itemsRef.document(productId).setData({
+      "productId": productId.toString(),
       "shortInfo": _shorttextEditingController.text.trim(),
       "longDescription": _descriptiontextEditingController.text.trim(),
       "originalPrice": int.parse(_originalpricetextEditingController.text),

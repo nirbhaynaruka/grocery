@@ -6,12 +6,10 @@ import 'package:grocery/Store/cart.dart';
 import 'package:grocery/Store/product_page.dart';
 import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../Widgets/loadingWidget.dart';
 import '../Models/item.dart';
 
 double width;
@@ -343,7 +341,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                           onTap: () {
                                             // if (logincheck) {
                                               checkItemInCart(
-                                                  model.shortInfo, context);
+                                                  model.productId, context);
                                             // } else {
                                             //   Route route = MaterialPageRoute(
                                             //       builder: (_) =>

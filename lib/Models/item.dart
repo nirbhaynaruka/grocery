@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ItemModel {
+  String productId;
   String title;
   String shortInfo;
   Timestamp publishedDate;
@@ -11,11 +12,12 @@ class ItemModel {
   int originalPrice;
   String catname;
   String catthumbnail;
- String subcatname;
+  String subcatname;
   String subcatthumbnail;
   String bannerthumbnail;
 
   ItemModel({
+    this.productId,
     this.title,
     this.shortInfo,
     this.publishedDate,
@@ -24,7 +26,7 @@ class ItemModel {
     this.status,
     this.catname,
     this.catthumbnail,
-      this.subcatname,
+    this.subcatname,
     this.subcatthumbnail,
     this.bannerthumbnail,
   });
@@ -40,9 +42,10 @@ class ItemModel {
     originalPrice = json['originalPrice'];
     catname = json['catname'];
     catthumbnail = json['catthumbnail'];
-     subcatname = json['subcatname'];
+    subcatname = json['subcatname'];
     subcatthumbnail = json['subcatthumbnail'];
     bannerthumbnail = json['bannerthumbnail'];
+    productId = json['title'];
   }
 
   Map<String, dynamic> toJson() {
@@ -59,7 +62,7 @@ class ItemModel {
     data['status'] = this.status;
     data['catname'] = this.catname;
     data['subcatthumbnail'] = this.subcatthumbnail;
-
+    data['productId'] = this.productId;
 
     return data;
   }
