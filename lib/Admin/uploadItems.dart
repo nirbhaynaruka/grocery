@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:grocery/Admin/adminShiftOrders.dart';
 import 'package:grocery/Admin/admindrawer.dart';
 import 'package:grocery/Admin/edititems.dart';
 import 'package:grocery/Admin/subcat.dart';
@@ -511,7 +510,8 @@ class _UploadPageState extends State<UploadPage>
       "thumbnailUrl": downloadUrl,
       "title": _titletextEditingController.text.trim(),
       "catname": _selectedcategory,
-      "subcatname": _selectedsubcategory
+      "subcatname": _selectedsubcategory,
+      "searchArray": setSearchParam(_shorttextEditingController.text.trim().toLowerCase()),
     });
     final itemsRef = await Firestore.instance.collection("$_selectedcategory");
     itemsRef.document(productId).setData({
@@ -525,7 +525,8 @@ class _UploadPageState extends State<UploadPage>
       "thumbnailUrl": downloadUrl,
       "title": _titletextEditingController.text.trim(),
       "catname": _selectedcategory,
-      "subcatname": _selectedsubcategory
+      "subcatname": _selectedsubcategory,
+      "searchArray": setSearchParam(_shorttextEditingController.text.trim().toLowerCase()),
     });
     setState(() {
       file = null;
@@ -540,6 +541,16 @@ class _UploadPageState extends State<UploadPage>
       _titletextEditingController.clear();
     });
   }
+
+  setSearchParam(String caseNumber) {
+  List<String> caseSearchList = List();
+  String temp = "";
+  for (int i = 0; i < caseNumber.length; i++) {
+    temp = temp + caseNumber[i];
+    caseSearchList.add(temp);
+  }
+  return caseSearchList;
+}
 
   // saveiteminfoitems(String downloadUrl) {
   //   final itemsRef = Firestore.instance.collection("items");
