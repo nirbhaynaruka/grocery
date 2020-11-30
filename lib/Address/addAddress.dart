@@ -35,25 +35,25 @@ class _AddAddressState extends State<AddAddress> {
   final cState = TextEditingController();
 
   final cPinCode = TextEditingController();
-  String _selectedPinCode = "Please select your pincode";
-  String _selectedCity = "City";
-  int _user = 0;
-  var _selectedPinCodecat = <String>[
-    "243234",
-    "524555",
-    "752",
-    "2754",
-    "2754",
-    "7542",
-  ];
-  static List<List<String>> _selectedCitycat = [
-    ["Sriganganagar"],
-    ["ef"],
-    ["efs"],
-    ["efsdf"],
-    ["fsd"],
-    ["gefsdf"],
-  ];
+  // String _selectedPinCode = "Please select your pincode";
+  // String _selectedCity = "City";
+  // int _user = 0;
+  // var _selectedPinCodecat = <String>[
+  //   "243234",
+  //   "524555",
+  //   "752",
+  //   "2754",
+  //   "2754",
+  //   "7542",
+  // ];
+  // static List<List<String>> _selectedCitycat = [
+  //   ["Sriganganagar"],
+  //   ["ef"],
+  //   ["efs"],
+  //   ["efsdf"],
+  //   ["fsd"],
+  //   ["gefsdf"],
+  // ];
   // List<int> pincode = [335001, 335002, 335003, 335004, 335005, 335006, 335007];
   // List<CityPincode> citypin = [
   //   CityPincode(city: "Sriganganagar", pincode: "335001"),

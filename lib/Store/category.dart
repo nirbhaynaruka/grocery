@@ -204,6 +204,9 @@ class _CategoryState extends State<Category> {
 
 Widget sourceInfo(ItemModel model, BuildContext context,
     {Color background, removeCartFunction}) {
+  List<int> _quantity = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  int _quantityCounter = 0;
+
   return InkWell(
     onTap: () {
       Route route =
@@ -393,14 +396,86 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                   //     onPressed: () {
                                   //       checkItemInCart(model.shortInfo, context);
                                   //     })
-                                  : IconButton(
-                                      icon: Icon(
-                                        Icons.delete,
-                                        color: Color(0xff94b941),
+                                  : Container(
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            alignment: Alignment.topLeft,
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 5.0, vertical: 0.0),
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: 0.0, vertical: 5.0),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  offset: Offset(0, 4),
+                                                  blurRadius: 15,
+                                                  color: Color(0xFFB7B7B7)
+                                                      .withOpacity(.5),
+                                                ),
+                                              ],
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  "Qty: ",
+                                                  style: TextStyle(
+                                                    fontFamily: "Arial Bold",
+                                                    fontSize: 16,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                DropdownButton(
+                                                  
+                                                  underline: Container(),
+                                                  isExpanded: false,
+                                                  // value: _selectedcategory,
+                                                  items: _quantity.map((val) {
+                                                    return DropdownMenuItem(
+                                                      child:
+                                                          Text(val.toString()),
+                                                      value: val,
+                                                    );
+                                                  }).toList(),
+                                                  hint: Text(
+                                                    "$_quantityCounter",
+                                                    style: TextStyle(
+                                                      fontFamily: "Arial Bold",
+                                                      fontSize: 16,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ), // Not necessary for Option 1
+                                                  // onChanged: (val) {
+                                                  //   // setState(() {
+                                                  //   _selectedPinCode = val;
+                                                  //   _user = _selectedPinCodecat
+                                                  //       .indexOf(val);
+                                                  //   cCity.text =
+                                                  //       _selectedCitycat[_user]
+                                                  //           .single;
+                                                  //   // });
+                                                  //   this.setState(() {});
+                                                  // },
+                                                  onChanged: (val) {},
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          IconButton(
+                                              icon: Icon(
+                                                Icons.delete,
+                                                color: Color(0xff94b941),
+                                              ),
+                                              onPressed: () {
+                                                removeCartFunction();
+                                              }),
+                                        ],
                                       ),
-                                      onPressed: () {
-                                        removeCartFunction();
-                                      }),
+                                    ),
                             ],
                           ),
                           // Divider(height: 5.0, color: Colors.black),
