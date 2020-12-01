@@ -230,7 +230,7 @@ class _ProductPageState extends State<ProductPage> {
                     child: InkWell(
                       onTap: () {
                         if (logincheck) {
-                          checkItemInCart(widget.itemModel.shortInfo, context);
+                          checkItemInCart(widget.itemModel.productId, widget.itemModel.quantity.toString(),  context);
                         } else {
                           Route route = MaterialPageRoute(
                               builder: (_) => AuthenticScreen());

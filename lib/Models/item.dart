@@ -15,6 +15,8 @@ class ItemModel {
   String subcatname;
   String subcatthumbnail;
   String bannerthumbnail;
+  int quantity;
+  int newPrice;
 
   ItemModel({
     this.productId,
@@ -29,6 +31,8 @@ class ItemModel {
     this.subcatname,
     this.subcatthumbnail,
     this.bannerthumbnail,
+    this.quantity,
+    this.newPrice,
   });
 
   ItemModel.fromJson(Map<String, dynamic> json) {
@@ -46,6 +50,8 @@ class ItemModel {
     subcatthumbnail = json['subcatthumbnail'];
     bannerthumbnail = json['bannerthumbnail'];
     productId = json['productId'];
+    quantity = json['quantity'];
+    newPrice = json['newPrice'];
   }
 
   Map<String, dynamic> toJson() {
@@ -63,6 +69,8 @@ class ItemModel {
     data['catname'] = this.catname;
     data['subcatthumbnail'] = this.subcatthumbnail;
     data['productId'] = this.productId;
+    data['quantity'] = this.quantity;
+    data['newPrice'] = this.newPrice;
 
     return data;
   }

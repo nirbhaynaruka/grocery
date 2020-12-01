@@ -205,7 +205,8 @@ class _CategoryState extends State<Category> {
 Widget sourceInfo(ItemModel model, BuildContext context,
     {Color background, removeCartFunction}) {
   List<int> _quantity = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  int _quantityCounter = 0;
+  int _quantityCounter = 1;
+  // int newPrice = model.
 
   return InkWell(
     onTap: () {
@@ -349,7 +350,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                             print(model.productId.toString());
                                             // if (logincheck) {
                                             checkItemInCart(
-                                                model.productId.toString(),
+                                                model.productId, model.quantity.toString(),
                                                 context);
                                             // } else {
                                             //   Route route = MaterialPageRoute(
@@ -430,7 +431,6 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                                   ),
                                                 ),
                                                 DropdownButton(
-                                                  
                                                   underline: Container(),
                                                   isExpanded: false,
                                                   // value: _selectedcategory,
@@ -460,7 +460,11 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                                   //   // });
                                                   //   this.setState(() {});
                                                   // },
-                                                  onChanged: (val) {},
+                                                  onChanged: (val) {
+                                                    _quantityCounter = val;
+                                                    print(model.title);
+                                                    print(val);
+                                                  },
                                                 ),
                                               ],
                                             ),
@@ -521,15 +525,15 @@ Widget card({Color primaryColor = Colors.redAccent, String imgPath}) {
   );
 }
 
-void checkItemInCart(String productID, BuildContext context) {
+void checkItemInCart(String productID, String quantity, BuildContext context) {
   EcommerceApp.sharedPreferences
           .getStringList(EcommerceApp.userCartList)
           .contains(productID)
       ? Fluttertoast.showToast(msg: "Item is Already in the Cart!")
-      : addItemToCart(productID, context);
+      : addItemToCart(productID, quantity, context);
 }
 
-addItemToCart(String productID, BuildContext context) {
+addItemToCart(String productID, String quantity, BuildContext context) {
   List tempCartList =
       EcommerceApp.sharedPreferences.getStringList(EcommerceApp.userCartList);
   tempCartList.add(productID);
