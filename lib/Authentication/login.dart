@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:grocery/Admin/adminLogin.dart';
+import 'package:grocery/Authentication/forgotpass.dart';
 import 'package:grocery/Widgets/customTextField.dart';
 import 'package:grocery/DialogBox/errorDialog.dart';
 import 'package:grocery/DialogBox/loadingDialog.dart';
@@ -88,7 +89,16 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
-            SizedBox(height: 30.0),
+            SizedBox(height: 15.0),
+            GestureDetector(
+              
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ForgotPass())),
+                child: Text("Forgot Password ?",style: TextStyle(color:  Color(0xff94b941),),
+              ),
+            ),
+          
+            SizedBox(height: 15.0),
             Container(
               height: 4.0,
               width: _screenWidth * 0.5,
