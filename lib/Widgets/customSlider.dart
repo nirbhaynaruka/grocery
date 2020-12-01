@@ -31,7 +31,7 @@ class _CarouselPageState extends State<CarouselPage> {
                   //Create for loop and store the urls in the list
                   for (int i = 0; i < snapshot.data.length; i++) {
                     debugPrint(snapshot.data.length.toString());
-                  var url = snapshot.data[idx].data["bannerthumbnail"];
+                  // var url = snapshot.data[idx].data["bannerthumbnail"];
                     list.add(NetworkImage(
                         snapshot.data[idx].data["bannerthumbnail"]));
                     idx++;
@@ -42,7 +42,7 @@ class _CarouselPageState extends State<CarouselPage> {
                       width: MediaQuery.of(context).size.width - 10,
                       child: new Carousel(
                         boxFit: BoxFit.cover,
-                        images: snapshot.data[idx].data["bannerthumbnail"],
+                        images: list,
                         autoplay: true,
                         borderRadius: false,
                         dotSize: 4.0,
