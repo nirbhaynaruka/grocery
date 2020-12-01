@@ -244,7 +244,7 @@ class _UploadPageState extends State<UploadPage>
       file = imageFile;
     });
   }
-
+  
   displayAdminUploadScreen() {
     return Scaffold(
       appBar: AppBar(
@@ -253,13 +253,12 @@ class _UploadPageState extends State<UploadPage>
               icon: Icon(Icons.arrow_back), onPressed: clearFormInfo),
           title: Text("New product", style: TextStyle(color: Colors.white)),
           actions: [
+            // _shorttextEditingController.text.isEmpty ? Text("wfs") : Text(_shorttextEditingController.text)
             FlatButton(
                 onPressed:
-
                     ///[]
-                   _shorttextEditingController.text.trim() == null
-                        ? Fluttertoast.showToast(
-                            msg: "Order has been Received. Confirmed.")
+                    _shorttextEditingController.text.isEmpty
+                        ? error()
                         : (uploading
                             ? null
                             : () => uploadImageandSaveItemInfo()),
@@ -461,8 +460,11 @@ class _UploadPageState extends State<UploadPage>
         ],
       ),
     );
+    
   }
-
+error(){
+    Fluttertoast.showToast(msg: "Please Write Short Info");
+  }
   clearFormInfo() {
     setState(() {
       file = null;
