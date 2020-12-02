@@ -1,6 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:grocery/Authentication/authenication.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:grocery/Counters/cartitemcounter.dart';
@@ -188,25 +188,29 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: 
-           StreamBuilder<QuerySnapshot>(
-            stream:Firestore.instance.collection("category").document(widget.itemModel.catname).collection("subcategory").snapshots(),
-            builder: (context, dataSnapshot) {
-              return !dataSnapshot.hasData
-                  ? Center(
-                      child: circularProgress(),
-                    )
-                  : ListView.builder(
-                      itemCount: dataSnapshot.data.documents.length,
-                      itemBuilder: (context, index) {
-                        ItemModel model = ItemModel.fromJson(
-                            dataSnapshot.data.documents[index].data);
-                        return subcategoryinfo(model,widget.itemModel.catname, context);
-                      },
-                    );
-            },
+        body: StreamBuilder<QuerySnapshot>(
+          stream: Firestore.instance
+              .collection("category")
+              .document(widget.itemModel.catname)
+              .collection("subcategory")
+              .snapshots(),
+          builder: (context, dataSnapshot) {
+            return !dataSnapshot.hasData
+                ? Center(
+                    child: circularProgress(),
+                  )
+                : ListView.builder(
+                    itemCount: dataSnapshot.data.documents.length,
+                    itemBuilder: (context, index) {
+                      ItemModel model = ItemModel.fromJson(
+                          dataSnapshot.data.documents[index].data);
+                      return subcategoryinfo(
+                          model, widget.itemModel.catname, context);
+                    },
+                  );
+          },
         ),
-      
+
         // StreamBuilder<QuerySnapshot>(
         //   stream: EcommerceApp.firestore
         //       .collection("category")
@@ -244,31 +248,30 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
         //           );
         //   },
 
-          //  SingleChildScrollView(
-          //   child: Padding(
-          //     padding: EdgeInsets.only(top: 10.0),
-          //     child: Container(
-          //       height: MediaQuery.of(context).size.height,
-          //       child: GridView.count(
-          //         physics: NeverScrollableScrollPhysics(),
-          //         // shrinkWrap: true,
-          //         // scrollDirection: Axis.vertical,
-          //         crossAxisCount: 2,
-          //         padding: EdgeInsets.all(10.0),
-          //         childAspectRatio: 0.9,
-          //         children: model.map((model) {
-          //           return categoryinfo(model, context);
-          //         }).toList(),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-        
+        //  SingleChildScrollView(
+        //   child: Padding(
+        //     padding: EdgeInsets.only(top: 10.0),
+        //     child: Container(
+        //       height: MediaQuery.of(context).size.height,
+        //       child: GridView.count(
+        //         physics: NeverScrollableScrollPhysics(),
+        //         // shrinkWrap: true,
+        //         // scrollDirection: Axis.vertical,
+        //         crossAxisCount: 2,
+        //         padding: EdgeInsets.all(10.0),
+        //         childAspectRatio: 0.9,
+        //         children: model.map((model) {
+        //           return categoryinfo(model, context);
+        //         }).toList(),
+        //       ),
+        //     ),
+        //   ),
+        // ),
       ),
     );
   }
 
-  Widget subcategoryinfo(ItemModel model,String catname, BuildContext context,
+  Widget subcategoryinfo(ItemModel model, String catname, BuildContext context,
       {Color: Colors.white}) {
     // String name = model.catname;
     return GestureDetector(
@@ -278,7 +281,8 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
         Navigator.push(
           context,
           PageRouteBuilder(
-           pageBuilder: (_, __, ___) => Category(itemModel: model,catname: catname),
+            pageBuilder: (_, __, ___) =>
+                Category(itemModel: model, catname: catname),
             transitionDuration: Duration(seconds: 0),
           ),
         );
@@ -302,10 +306,11 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.network(
-                model.subcatthumbnail,
-                fit: BoxFit.cover,
-                height: 120.0,
+              CachedNetworkImage(
+                imageUrl: model.subcatthumbnail,
+                // placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+                width: MediaQuery.of(context).size.width * 0.40,
               ),
               SizedBox(height: 10.0),
               Text(

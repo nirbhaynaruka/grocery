@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grocery/Authentication/authenication.dart';
@@ -260,11 +261,20 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                             ),
                           ]),
                       height: MediaQuery.of(context).size.height / 7,
-                      child: Image.network(
-                        model.thumbnailUrl,
+                      child: CachedNetworkImage(
                         width: MediaQuery.of(context).size.width * 0.33,
-                        // height: 140.0,
+                        imageUrl: model.thumbnailUrl,
+                        // placeholder: (context, url) =>
+                        //     CircularProgressIndicator(
+                        //       valueColor: s,
+                        //     ),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
+                      // Image.network(
+                      //   model.thumbnailUrl,
+                      //   width: MediaQuery.of(context).size.width * 0.33,
+                      //   // height: 140.0,
+                      // ),
                     ),
                   ),
                   // SizedBox(
@@ -350,7 +360,8 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                             print(model.productId.toString());
                                             // if (logincheck) {
                                             checkItemInCart(
-                                                model.productId, model.quantity.toString(),
+                                                model.productId,
+                                                model.quantity.toString(),
                                                 context);
                                             // } else {
                                             //   Route route = MaterialPageRoute(

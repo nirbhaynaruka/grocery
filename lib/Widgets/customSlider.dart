@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
@@ -21,7 +22,7 @@ class _CarouselPageState extends State<CarouselPage> {
         child: FutureBuilder(
             future: getCarouselWidget(),
             builder: (context, AsyncSnapshot snapshot) {
-              List<NetworkImage> list = new List<NetworkImage>();
+              List<CachedNetworkImage> list = new List<CachedNetworkImage>();
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return new CircularProgressIndicator();
               } else {
@@ -31,9 +32,14 @@ class _CarouselPageState extends State<CarouselPage> {
                   //Create for loop and store the urls in the list
                   for (int i = 0; i < snapshot.data.length; i++) {
                     debugPrint(snapshot.data.length.toString());
-                  // var url = snapshot.data[idx].data["bannerthumbnail"];
-                    list.add(NetworkImage(
-                        snapshot.data[idx].data["bannerthumbnail"]));
+                    // var url = snapshot.data[idx].data["bannerthumbnail"];
+                    list.add(
+                      CachedNetworkImage(
+                        imageUrl: snapshot.data[idx].data["bannerthumbnail"],
+                        // placeholder: (context, url) => CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
+                    );
                     idx++;
                   }
                   return Center(
