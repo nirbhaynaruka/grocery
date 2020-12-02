@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:grocery/Orders/OrderDetailsPage.dart';
 import 'package:grocery/Models/item.dart';
@@ -95,11 +96,13 @@ Widget sourceorderInfo(ItemModel model, BuildContext context,
                       ),
                     ]),
                 height: MediaQuery.of(context).size.height / 7,
-                child: Image.network(
-                  model.thumbnailUrl,
-                  width: MediaQuery.of(context).size.width * 0.30,
-                  // height: 140.0,
-                ),
+                child: CachedNetworkImage(
+                imageUrl: model.thumbnailUrl,
+                // placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+                width: MediaQuery.of(context).size.width * 0.33,
+              ),
+                
               ),
             ),
             SizedBox(width: 10.0),
