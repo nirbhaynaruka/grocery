@@ -470,10 +470,6 @@ class _EdititemsState extends State<Edititems> {
           });
     }
 
-    
-    error() {
-      Fluttertoast.showToast(msg: "Please fill all the Fields");
-    }
     ///[.]
     // heightm = MediaQuery.of(context).size.height;
     return InkWell(
