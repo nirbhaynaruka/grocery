@@ -339,7 +339,7 @@ class _EdititemsState extends State<Edititems> {
                   ]),
               body: ListView(
                 children: [
-                  Padding(padding: EdgeInsets.only(top: 12.0)),
+                  Padding(padding: EdgeInsets.only(top: 0.0)),
                   ListTile(
                     leading: Icon(
                       Icons.edit,
@@ -478,7 +478,7 @@ class _EdititemsState extends State<Edititems> {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(6.0),
+            padding: EdgeInsets.all(5.0),
             child: Container(
               height: MediaQuery.of(context).size.height / 5,
               width: width,
@@ -515,7 +515,7 @@ class _EdititemsState extends State<Edititems> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: 15.0,
+                          height: 10.0,
                         ),
                         Container(
                           child: Row(
@@ -527,14 +527,14 @@ class _EdititemsState extends State<Edititems> {
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontFamily: "Arial Bold",
-                                    fontSize: 25.0,
+                                    fontSize: 20.0,
                                   ),
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(height: 5.0),
+                        // SizedBox(height: 5.0),
                         Container(
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -545,14 +545,14 @@ class _EdititemsState extends State<Edititems> {
                                   style: TextStyle(
                                     color: Colors.black54,
                                     fontFamily: "Arial",
-                                    fontSize: 20.0,
+                                    fontSize: 17.0,
                                   ),
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(height: 20.0),
+                        // SizedBox(height: 20.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
