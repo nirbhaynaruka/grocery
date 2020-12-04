@@ -102,8 +102,8 @@ class _UploadPageState extends State<UploadPage>
           title: Text(
             "Nature Coop Fresh",
             style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
+              fontSize: 19.0,
+              // fontWeight: FontWeight.bold,
               color: Colors.white,
               fontFamily: "Folks-Heavy",
             ),
@@ -127,10 +127,8 @@ class _UploadPageState extends State<UploadPage>
                       MaterialPageRoute(builder: (c) => SplashScreen());
                   Navigator.pushReplacement(context, route);
                 },
-                child: Text(
-                  "Logout",
-                  style: TextStyle(color: Colors.pink),
-                )),
+                child: Icon(Icons.logout, color: Colors.white,),
+            ),
           ],
         ),
         drawer: AdminDrawer(),
