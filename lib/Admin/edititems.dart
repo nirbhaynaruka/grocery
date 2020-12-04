@@ -307,7 +307,6 @@ class _EdititemsState extends State<Edititems> {
                   actions: [
                     FlatButton(
                         onPressed: () {
-                         
                           _shorttextEditingController.text.isEmpty ||
                                   _descriptiontextEditingController
                                       .text.isEmpty ||
@@ -315,15 +314,12 @@ class _EdititemsState extends State<Edititems> {
                                       .text.isEmpty ||
                                   _pricetextEditingController.text.isEmpty ||
                                   _titletextEditingController.text.isEmpty
-                              ? 
-                             Fluttertoast.showToast( 
-              msg: "Fill ALL the Details Again", 
-              // backgroundColor: Colors.grey,
-              // fontSize: 25,
-              // gravity: ToastGravity.TOP,  
-              textColor: Colors.black 
-              )
-    
+                              ? Fluttertoast.showToast(
+                                  msg: "Fill ALL the Details Again",
+                                  // backgroundColor: Colors.grey,
+                                  // fontSize: 25,
+                                  // gravity: ToastGravity.TOP,
+                                  textColor: Colors.black)
                               : setState(() {
                                   update(
                                       _shorttextEditingController,
@@ -599,11 +595,14 @@ class _EdititemsState extends State<Edititems> {
                                         await EcommerceApp.firestore
                                             .collection("items")
                                             .document(pid)
-                                            .delete();
+                                            .delete()
+                                            .then((value) =>         Navigator.pop(context)
+);
                                         await EcommerceApp.firestore
                                             .collection(model.catname)
                                             .document(pid)
-                                            .delete();
+                                            .delete().then((value) =>         Navigator.pop(context)
+);
                                         // deleteFireBaseStorageItem(model.thumbnailUrl);
                                         setState(() {});
                                       }),
