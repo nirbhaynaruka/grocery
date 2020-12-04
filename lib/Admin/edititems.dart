@@ -253,14 +253,14 @@ class _EdititemsState extends State<Edititems> {
               // Firestore.instance.collection("items");
               // itemsRef.document( EcommerceApp.userCartList)
               .updateData({
-        "shortInfo": short.text.trim(),
-        "longDescription": long.text.trim(),
-        "originalPrice": int.parse(original.text),
-        "price": int.parse(price.text),
+        "shortInfo": short,
+        "longDescription": long,
+        "originalPrice": int.parse(original),
+        "price": int.parse(price),
         "publishedDate": DateTime.now(),
         "status": "available",
-        "title": title.text.trim(),
-        "searchArray": setSearchParam(short.text.trim().toLowerCase()),
+        "title": title,
+        "searchArray": setSearchParam(short.toLowerCase()),
         // "catname": catname.trim(),
       });
       final itemsRef1 =
@@ -268,14 +268,14 @@ class _EdititemsState extends State<Edititems> {
               // Firestore.instance.collection("$_selectedcategory");
               // itemsRef.document(EcommerceApp.userCartList)
               .updateData({
-        "shortInfo": short.text.trim(),
-        "longDescription": long.text.trim(),
-        "originalPrice": int.parse(original.text),
-        "price": int.parse(price.text),
+        "shortInfo": short,
+        "longDescription": long,
+        "originalPrice": int.parse(original),
+        "price": int.parse(price),
         "publishedDate": DateTime.now(),
         "status": "available",
-        "title": title.text.trim(),
-        "searchArray": setSearchParam(short.text.trim().toLowerCase()),
+        "title": title,
+        "searchArray": setSearchParam(short.toLowerCase()),
         // "catname": catname.trim(),
       });
       setState(() {
