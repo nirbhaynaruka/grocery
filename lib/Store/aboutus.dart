@@ -120,7 +120,7 @@ class _AboutusState extends State<Aboutus> {
                         child: WideButton(
                           message: "Call - Developer",
                           onPressed: () =>
-                              UrlLauncher.launch("tel://9799120841"),
+                              UrlLauncher.launch("tel://9694052505"),
                         ),
                       ),
                       WideButton(
