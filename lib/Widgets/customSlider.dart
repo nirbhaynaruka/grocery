@@ -24,15 +24,23 @@ class _CarouselPageState extends State<CarouselPage> {
             builder: (context, AsyncSnapshot snapshot) {
               List<CachedNetworkImage> list = new List<CachedNetworkImage>();
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return new CircularProgressIndicator();
+                return new CachedNetworkImage(
+                  imageUrl:
+                      "https://firebasestorage.googleapis.com/v0/b/groceryapp-e9d3f.appspot.com/o/Banner%2F1605540123438.jpg?alt=media&token=70f5e704-66c9-4fb8-bcb8-c816b514423c",
+                  // placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  height: 200.0,
+                  width: MediaQuery.of(context).size.width - 10,
+                );
               } else {
                 if (snapshot.hasError) {
                   return new Text("fetch error");
                 } else {
                   //Create for loop and store the urls in the list
                   for (int i = 0; i < snapshot.data.length; i++) {
-                    debugPrint(snapshot.data.length.toString());
+                    // debugPrint(snapshot.data.length.toString());
                     // var url = snapshot.data[idx].data["bannerthumbnail"];
+                    // print(url);
                     list.add(
                       CachedNetworkImage(
                         imageUrl: snapshot.data[idx].data["bannerthumbnail"],

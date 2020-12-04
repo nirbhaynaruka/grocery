@@ -37,7 +37,7 @@ class _StoreHomeState extends State<StoreHome> {
   @override
   void initState() {
     checklogin();
-   
+
     setState(() {});
     super.initState();
   }
@@ -194,43 +194,40 @@ class _StoreHomeState extends State<StoreHome> {
           ],
         ),
         body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: CarouselPage(),
-              ),
-              SizedBox(height: 35),
-              Container(
-                alignment: Alignment.center,
-                child: Text(
-                  "SHOP BY CATEGORY",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Arial Bold",
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CarouselPage(),
+                SizedBox(height: 35),
+                Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "SHOP BY CATEGORY",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Arial Bold",
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: Container(
-                  height: MediaQuery.of(context).size.height + MediaQuery.of(context).size.height*0.5,
+                Container(
+                  // height: MediaQuery.of(context).size.height * 1.5,
                   child: GridView.count(
                     physics: NeverScrollableScrollPhysics(),
-                    // shrinkWrap: true,
+                    shrinkWrap: true,
                     // scrollDirection: Axis.vertical,
                     crossAxisCount: 2,
-                    padding: EdgeInsets.all(10.0),
+                    padding: EdgeInsets.all(5.0),
                     childAspectRatio: 0.9,
                     children: model.map((model) {
                       return categoryinfo(model, context);
                     }).toList(),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         drawer: MyDrawer(),
