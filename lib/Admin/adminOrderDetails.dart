@@ -272,31 +272,31 @@ class AdminShippingDetails extends StatelessWidget {
         Center(
           child: Column(
             children: [
-              Container(
-                width: MediaQuery.of(context).size.width * 0.5,
-                height: 50.0,
-                child: Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: InkWell(
-                    onTap: () {
-                      outofstock(context, getOrderId);
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Color(0xff94b941),
-                          borderRadius: BorderRadius.all(Radius.circular(2.0))),
-                      width: MediaQuery.of(context).size.width - 40.0,
-                      child: Center(
-                        child: Text(
-                          "OUT OF STOCK",
-                          style: TextStyle(color: Colors.white, fontSize: 15.0),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              // Container(
+              //   width: MediaQuery.of(context).size.width * 0.5,
+              //   height: 50.0,
+              //   child: Padding(
+              //     padding: EdgeInsets.all(10.0),
+              //     child: InkWell(
+              //       onTap: () {
+              //         outofstock(context, getOrderId);
+              //         Navigator.pop(context);
+              //       },
+              //       child: Container(
+              //         decoration: BoxDecoration(
+              //             color: Color(0xff94b941),
+              //             borderRadius: BorderRadius.all(Radius.circular(2.0))),
+              //         width: MediaQuery.of(context).size.width - 40.0,
+              //         child: Center(
+              //           child: Text(
+              //             "OUT OF STOCK",
+              //             style: TextStyle(color: Colors.white, fontSize: 15.0),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.5,
                 height: 50.0,
@@ -354,21 +354,21 @@ class AdminShippingDetails extends StatelessWidget {
     );
   }
 
-  outofstock(BuildContext context, String mOrderId) {
-    EcommerceApp.firestore
-        .collection(EcommerceApp.collectionOrders)
-        .document(mOrderId)
-        .updateData({"orderDetails": "Out of Stock"});
-    EcommerceApp.firestore
-        .collection(EcommerceApp.collectionUser)
-        .document(orderBy)
-        .collection(EcommerceApp.collectionOrders)
-        .document(mOrderId)
-        .updateData({
-      "orderDetails": "Out of Stock",
-    });
-    getOrderId = "";
-  }
+  // outofstock(BuildContext context, String mOrderId) {
+  //   EcommerceApp.firestore
+  //       .collection(EcommerceApp.collectionOrders)
+  //       .document(mOrderId)
+  //       .updateData({"orderDetails": "Out of Stock"});
+  //   EcommerceApp.firestore
+  //       .collection(EcommerceApp.collectionUser)
+  //       .document(orderBy)
+  //       .collection(EcommerceApp.collectionOrders)
+  //       .document(mOrderId)
+  //       .updateData({
+  //     "orderDetails": "Out of Stock",
+  //   });
+  //   getOrderId = "";
+  // }
 
   confirmedparceldelivered(BuildContext context, String mOrderId) {
     EcommerceApp.firestore

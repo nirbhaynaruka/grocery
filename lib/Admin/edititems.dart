@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery/Authentication/authenication.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:grocery/Counters/cartitemcounter.dart';
@@ -31,6 +32,8 @@ class _EdititemsState extends State<Edititems> {
   Future<QuerySnapshot> docList;
   @override
   bool logincheck = false;
+
+  SnackBar get snackBar => null;
   @override
   void initState() {
     checklogin();
@@ -240,10 +243,10 @@ class _EdititemsState extends State<Edititems> {
       }
       return caseSearchList;
     }
-    
+
     Future<void> update(short, long, original, price, title, catname) async {
       // setState(() {});
-      print(pid);
+      print(short);
       final itemsRef =
           await EcommerceApp.firestore.collection("items").document(pid)
               // .collection(EcommerceApp.subCollectionAddress)
@@ -288,7 +291,6 @@ class _EdititemsState extends State<Edititems> {
       });
     }
 
-
     Future<bool> showReview(
         price, originalPrice, shortInfo, title, longDescription, catname) {
       return showDialog(
@@ -305,16 +307,33 @@ class _EdititemsState extends State<Edititems> {
                   actions: [
                     FlatButton(
                         onPressed: () {
-                          setState(() {
-                            update(
-                                _shorttextEditingController,
-                                _descriptiontextEditingController,
-                                _originalpricetextEditingController,
-                                _pricetextEditingController,
-                                _titletextEditingController,
-                                catname);
-                            Navigator.of(context).pop();
-                          });
+                         
+                          _shorttextEditingController.text.isEmpty ||
+                                  _descriptiontextEditingController
+                                      .text.isEmpty ||
+                                  _originalpricetextEditingController
+                                      .text.isEmpty ||
+                                  _pricetextEditingController.text.isEmpty ||
+                                  _titletextEditingController.text.isEmpty
+                              ? 
+                             Fluttertoast.showToast( 
+              msg: "Fill ALL the Details Again", 
+              // backgroundColor: Colors.grey,
+              // fontSize: 25,
+              // gravity: ToastGravity.TOP,  
+              textColor: Colors.black 
+              )
+    
+                              : setState(() {
+                                  update(
+                                      _shorttextEditingController,
+                                      _descriptiontextEditingController,
+                                      _originalpricetextEditingController,
+                                      _pricetextEditingController,
+                                      _titletextEditingController,
+                                      catname);
+                                  Navigator.of(context).pop();
+                                });
                         },
                         // uploading ? null : () => uploadImageandSaveItemInfo(),
                         child: Text("Update",
@@ -451,6 +470,10 @@ class _EdititemsState extends State<Edititems> {
           });
     }
 
+    
+    error() {
+      Fluttertoast.showToast(msg: "Please fill all the Fields");
+    }
     ///[.]
     // heightm = MediaQuery.of(context).size.height;
     return InkWell(
