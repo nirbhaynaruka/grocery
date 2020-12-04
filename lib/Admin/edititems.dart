@@ -240,8 +240,8 @@ class _EdititemsState extends State<Edititems> {
       }
       return caseSearchList;
     }
-    
-    Future<void> update(short, long, original, price, title, catname) async {
+
+    Future<void> update(String short,String long,String original,String price,String title,String catname) async {
       // setState(() {});
       print(pid);
       final itemsRef =
@@ -250,14 +250,14 @@ class _EdititemsState extends State<Edititems> {
               // Firestore.instance.collection("items");
               // itemsRef.document( EcommerceApp.userCartList)
               .updateData({
-        "shortInfo": short.text.trim(),
-        "longDescription": long.text.trim(),
-        "originalPrice": int.parse(original.text),
-        "price": int.parse(price.text),
+        "shortInfo": short,
+        "longDescription": long,
+        "originalPrice": int.parse(original),
+        "price": int.parse(price),
         "publishedDate": DateTime.now(),
         "status": "available",
-        "title": title.text.trim(),
-        "searchArray": setSearchParam(short.text.trim().toLowerCase()),
+        "title": title,
+        "searchArray": setSearchParam(short.toLowerCase()),
         // "catname": catname.trim(),
       });
       final itemsRef1 =
@@ -265,14 +265,14 @@ class _EdititemsState extends State<Edititems> {
               // Firestore.instance.collection("$_selectedcategory");
               // itemsRef.document(EcommerceApp.userCartList)
               .updateData({
-        "shortInfo": short.text.trim(),
-        "longDescription": long.text.trim(),
-        "originalPrice": int.parse(original.text),
-        "price": int.parse(price.text),
+        "shortInfo": short,
+        "longDescription": long,
+        "originalPrice": int.parse(original),
+        "price": int.parse(price),
         "publishedDate": DateTime.now(),
         "status": "available",
-        "title": title.text.trim(),
-        "searchArray": setSearchParam(short.text.trim().toLowerCase()),
+        "title": title,
+        "searchArray": setSearchParam(short.toLowerCase()),
         // "catname": catname.trim(),
       });
       setState(() {
@@ -307,11 +307,11 @@ class _EdititemsState extends State<Edititems> {
                         onPressed: () {
                           setState(() {
                             update(
-                                _shorttextEditingController,
-                                _descriptiontextEditingController,
-                                _originalpricetextEditingController,
-                                _pricetextEditingController,
-                                _titletextEditingController,
+                                _shorttextEditingController.text.trim().isEmpty ? shortInfo: _shorttextEditingController.text.trim(),
+                                _descriptiontextEditingController.text.trim().isEmpty ? longDescription: _descriptiontextEditingController.text.trim(),
+                                _originalpricetextEditingController.text.trim().isEmpty ? originalPrice: _originalpricetextEditingController.text.trim(),
+                                _pricetextEditingController.text.trim().isEmpty ? price:_pricetextEditingController.text.trim(),
+                                _titletextEditingController.text.trim().isEmpty ? title:_titletextEditingController.text.trim(),
                                 catname);
                             Navigator.of(context).pop();
                           });
