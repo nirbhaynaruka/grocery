@@ -65,61 +65,61 @@ class _EdititemsState extends State<Edititems> {
             ),
           ),
           centerTitle: true,
-          actions: [
-            Stack(
-              children: [
-                IconButton(
-                    icon: Icon(Icons.shopping_basket, color: Colors.white),
-                    onPressed: () {
-                      // checklogin();
-                      if (logincheck) {
-                        Route route =
-                            MaterialPageRoute(builder: (c) => CartPage());
-                        Navigator.push(context, route);
-                      } else {
-                        Route route = MaterialPageRoute(
-                            builder: (_) => AuthenticScreen());
-                        Navigator.push(context, route);
-                      }
-                    }),
-                Positioned(
-                  child: Stack(
-                    children: [
-                      Icon(
-                        Icons.brightness_1,
-                        size: 20.0,
-                        color: Colors.white,
-                      ),
-                      Positioned(
-                        top: 3.0,
-                        bottom: 4.0,
-                        left: 6.0,
-                        child: Consumer<CartItemCounter>(
-                          builder: (context, counter, _) {
-                            return Text(
-                              logincheck
-                                  ? (EcommerceApp.sharedPreferences
-                                              .getStringList(
-                                                  EcommerceApp.userCartList)
-                                              .length -
-                                          1)
-                                      .toString()
-                                  : "0",
-                              style: TextStyle(
-                                color: Color(0xff94b941),
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            )
-          ],
+          // actions: [
+          //   Stack(
+          //     children: [
+          //       IconButton(
+          //           icon: Icon(Icons.shopping_basket, color: Colors.white),
+          //           onPressed: () {
+          //             // checklogin();
+          //             if (logincheck) {
+          //               Route route =
+          //                   MaterialPageRoute(builder: (c) => CartPage());
+          //               Navigator.push(context, route);
+          //             } else {
+          //               Route route = MaterialPageRoute(
+          //                   builder: (_) => AuthenticScreen());
+          //               Navigator.push(context, route);
+          //             }
+          //           }),
+          //       Positioned(
+          //         child: Stack(
+          //           children: [
+          //             Icon(
+          //               Icons.brightness_1,
+          //               size: 20.0,
+          //               color: Colors.white,
+          //             ),
+          //             Positioned(
+          //               top: 3.0,
+          //               bottom: 4.0,
+          //               left: 6.0,
+          //               child: Consumer<CartItemCounter>(
+          //                 builder: (context, counter, _) {
+          //                   return Text(
+          //                     logincheck
+          //                         ? (EcommerceApp.sharedPreferences
+          //                                     .getStringList(
+          //                                         EcommerceApp.userCartList)
+          //                                     .length -
+          //                                 1)
+          //                             .toString()
+          //                         : "0",
+          //                     style: TextStyle(
+          //                       color: Color(0xff94b941),
+          //                       fontSize: 12.0,
+          //                       fontWeight: FontWeight.w500,
+          //                     ),
+          //                   );
+          //                 },
+          //               ),
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //     ],
+          //   )
+          // ],
           bottom: PreferredSize(
             child: searchWidget(),
             preferredSize: Size(60.0, 60.0),
@@ -145,7 +145,8 @@ class _EdititemsState extends State<Edititems> {
                     itemBuilder: (context, index) {
                       ItemModel model =
                           ItemModel.fromJson(snap.data.documents[index].data);
-                      var pid = snap.data.documents[index].documentID;
+                      String pid = snap.data.documents[index].documentID;
+                      print(pid);
                       return sourceeditInfo(model, context, pid);
                     },
                   )
@@ -215,7 +216,7 @@ class _EdititemsState extends State<Edititems> {
     );
   }
 
-  Widget sourceeditInfo(ItemModel model, BuildContext context, var pid,
+  Widget sourceeditInfo(ItemModel model, BuildContext context, String pid,
       {Color background, removeCartFunction}) {
     Size size;
 
@@ -230,9 +231,19 @@ class _EdititemsState extends State<Edititems> {
     TextEditingController _shorttextEditingController = TextEditingController();
     String productId = DateTime.now().millisecondsSinceEpoch.toString();
 
+    setSearchParam(String caseNumber) {
+      List<String> caseSearchList = List();
+      String temp = "";
+      for (int i = 0; i < caseNumber.length; i++) {
+        temp = temp + caseNumber[i];
+        caseSearchList.add(temp);
+      }
+      return caseSearchList;
+    }
+    
     Future<void> update(short, long, original, price, title, catname) async {
       // setState(() {});
-
+      print(pid);
       final itemsRef =
           await EcommerceApp.firestore.collection("items").document(pid)
               // .collection(EcommerceApp.subCollectionAddress)
@@ -246,6 +257,7 @@ class _EdititemsState extends State<Edititems> {
         "publishedDate": DateTime.now(),
         "status": "available",
         "title": title.text.trim(),
+        "searchArray": setSearchParam(short.text.trim().toLowerCase()),
         // "catname": catname.trim(),
       });
       final itemsRef1 =
@@ -260,6 +272,7 @@ class _EdititemsState extends State<Edititems> {
         "publishedDate": DateTime.now(),
         "status": "available",
         "title": title.text.trim(),
+        "searchArray": setSearchParam(short.text.trim().toLowerCase()),
         // "catname": catname.trim(),
       });
       setState(() {
@@ -274,6 +287,7 @@ class _EdititemsState extends State<Edititems> {
         Navigator.pop(context);
       });
     }
+
 
     Future<bool> showReview(
         price, originalPrice, shortInfo, title, longDescription, catname) {
@@ -648,7 +662,7 @@ class _EdititemsState extends State<Edititems> {
 
   // static void deleteFireBaseStorageItem(fileUrl) {
   //   String filePath = fileUrl
-  //                 .replaceAll(new 
+  //                 .replaceAll(new
   //                 RegExp(r'https://firebasestorage.googleapis.com/v0/b/dial-in-2345.appspot.com/o/'), '');
   //   // filePath = filePath.replaceAll(new RegExp(r'%2F'), '/');
 
@@ -666,7 +680,7 @@ class _EdititemsState extends State<Edititems> {
   Future startSearching(String query) async {
     docList = Firestore.instance
         .collection("items")
-        .where("shortInfo", isGreaterThanOrEqualTo: query)
+        .where("searchArray", arrayContains: query)
         .getDocuments();
   }
 }

@@ -185,7 +185,7 @@ class StatusBanner extends StatelessWidget {
           Container(
             child: Center(
               child: Text(
-                "Order " + msg1,
+                "Order - " + msg1,
                 style: TextStyle(
                   fontFamily: "Arial Bold",
                   fontSize: 15,

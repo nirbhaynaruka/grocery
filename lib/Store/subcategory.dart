@@ -310,7 +310,7 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
                 imageUrl: model.subcatthumbnail,
                 // placeholder: (context, url) => CircularProgressIndicator(),
                 errorWidget: (context, url, error) => Icon(Icons.error),
-                width: MediaQuery.of(context).size.width * 0.40,
+                width: MediaQuery.of(context).size.width * 0.35,
               ),
               SizedBox(height: 10.0),
               Text(

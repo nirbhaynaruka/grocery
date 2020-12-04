@@ -167,13 +167,7 @@ class _CategoryState extends State<Category> {
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
-          // drawer: MyDrawer(),
-          body:
-              // Center(
-              //   child: Text(widget.catname),
-              // )
-
-              StreamBuilder<QuerySnapshot>(
+          body: StreamBuilder<QuerySnapshot>(
             stream: Firestore.instance
                 .collection(widget.catname)
                 .orderBy("publishedDate", descending: true)
@@ -264,22 +258,10 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                       child: CachedNetworkImage(
                         width: MediaQuery.of(context).size.width * 0.33,
                         imageUrl: model.thumbnailUrl,
-                        // placeholder: (context, url) =>
-                        //     CircularProgressIndicator(
-                        //       valueColor: s,
-                        //     ),
                         errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
-                      // Image.network(
-                      //   model.thumbnailUrl,
-                      //   width: MediaQuery.of(context).size.width * 0.33,
-                      //   // height: 140.0,
-                      // ),
                     ),
                   ),
-                  // SizedBox(
-                  //   width: 4.0
-                  // ),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
@@ -357,7 +339,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                       child: Center(
                                         child: InkWell(
                                           onTap: () {
-                                            print(model.productId.toString());
+                                            // print(model.productId.toString());
                                             // if (logincheck) {
                                             checkItemInCart(
                                                 model.productId,
@@ -408,79 +390,90 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                   //     onPressed: () {
                                   //       checkItemInCart(model.shortInfo, context);
                                   //     })
-                                  : Container(
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            alignment: Alignment.topLeft,
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 5.0, vertical: 0.0),
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: 0.0, vertical: 5.0),
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  offset: Offset(0, 4),
-                                                  blurRadius: 15,
-                                                  color: Color(0xFFB7B7B7)
-                                                      .withOpacity(.5),
-                                                ),
-                                              ],
-                                            ),
-                                            child: Row(
-                                              children: [
-                                                Text(
-                                                  "Qty: ",
-                                                  style: TextStyle(
-                                                    fontFamily: "Arial Bold",
-                                                    fontSize: 16,
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                DropdownButton(
-                                                  underline: Container(),
-                                                  isExpanded: false,
-                                                  // value: _selectedcategory,
-                                                  items: _quantity.map((val) {
-                                                    return DropdownMenuItem(
-                                                      child:
-                                                          Text(val.toString()),
-                                                      value: val,
-                                                    );
-                                                  }).toList(),
-                                                  hint: Text(
-                                                    "$_quantityCounter",
-                                                    style: TextStyle(
-                                                      fontFamily: "Arial Bold",
-                                                      fontSize: 16,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ), // Not necessary for Option 1
-                                                  // onChanged: (val) {
-                                                  //   // setState(() {
-                                                  //   _selectedPinCode = val;
-                                                  //   _user = _selectedPinCodecat
-                                                  //       .indexOf(val);
-                                                  //   cCity.text =
-                                                  //       _selectedCitycat[_user]
-                                                  //           .single;
-                                                  //   // });
-                                                  //   this.setState(() {});
-                                                  // },
-                                                  onChanged: (val) {
-                                                    _quantityCounter = val;
-                                                    print(model.title);
-                                                    print(val);
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          IconButton(
+                                  // : Container(
+                                  //     child: Row(
+                                  //       children: [
+                                  //         Container(
+                                  //           alignment: Alignment.topLeft,
+                                  //           padding: EdgeInsets.symmetric(
+                                  //               horizontal: 5.0, vertical: 0.0),
+                                  //           margin: EdgeInsets.symmetric(
+                                  //               horizontal: 0.0, vertical: 5.0),
+                                  //           decoration: BoxDecoration(
+                                  //             color: Colors.white,
+                                  //             borderRadius: BorderRadius.all(
+                                  //                 Radius.circular(5.0)),
+                                  //             boxShadow: [
+                                  //               BoxShadow(
+                                  //                 offset: Offset(0, 4),
+                                  //                 blurRadius: 15,
+                                  //                 color: Color(0xFFB7B7B7)
+                                  //                     .withOpacity(.5),
+                                  //               ),
+                                  //             ],
+                                  //           ),
+                                  //           child: Row(
+                                  //             children: [
+                                  //               Text(
+                                  //                 "Qty: ",
+                                  //                 style: TextStyle(
+                                  //                   fontFamily: "Arial Bold",
+                                  //                   fontSize: 16,
+                                  //                   color: Colors.black,
+                                  //                   fontWeight: FontWeight.bold,
+                                  //                 ),
+                                  //               ),
+                                  //               DropdownButton(
+                                  //                 underline: Container(),
+                                  //                 isExpanded: false,
+                                  //                 // value: _selectedcategory,
+                                  //                 items: _quantity.map((val) {
+                                  //                   return DropdownMenuItem(
+                                  //                     child:
+                                  //                         Text(val.toString()),
+                                  //                     value: val,
+                                  //                   );
+                                  //                 }).toList(),
+                                  //                 hint: Text(
+                                  //                   "$_quantityCounter",
+                                  //                   style: TextStyle(
+                                  //                     fontFamily: "Arial Bold",
+                                  //                     fontSize: 16,
+                                  //                     color: Colors.black,
+                                  //                   ),
+                                  //                 ), // Not necessary for Option 1
+                                  //                 // onChanged: (val) {
+                                  //                 //   // setState(() {
+                                  //                 //   _selectedPinCode = val;
+                                  //                 //   _user = _selectedPinCodecat
+                                  //                 //       .indexOf(val);
+                                  //                 //   cCity.text =
+                                  //                 //       _selectedCitycat[_user]
+                                  //                 //           .single;
+                                  //                 //   // });
+                                  //                 //   this.setState(() {});
+                                  //                 // },
+                                  //                 onChanged: (val) {
+                                  //                   _quantityCounter = val;
+                                  //                   print(model.title);
+                                  //                   print(val);
+                                  //                 },
+                                  //               ),
+                                  //             ],
+                                  //           ),
+                                  //         ),
+                                  //         IconButton(
+                                  //             icon: Icon(
+                                  //               Icons.delete,
+                                  //               color: Color(0xff94b941),
+                                  //             ),
+                                  //             onPressed: () {
+                                  //               removeCartFunction();
+                                  //             }),
+                                  //       ],
+                                  //     ),
+                                  //   ),
+                                  : IconButton(
                                               icon: Icon(
                                                 Icons.delete,
                                                 color: Color(0xff94b941),
@@ -488,9 +481,6 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                               onPressed: () {
                                                 removeCartFunction();
                                               }),
-                                        ],
-                                      ),
-                                    ),
                             ],
                           ),
                           // Divider(height: 5.0, color: Colors.black),
