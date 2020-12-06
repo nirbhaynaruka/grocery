@@ -35,17 +35,18 @@ class _AddAddressState extends State<AddAddress> {
   final cState = TextEditingController();
 
   final cPinCode = TextEditingController();
-  // String _selectedPinCode = "Please select your pincode";
+  String _selectedPinCode = "Please select your pincode";
   // String _selectedCity = "City";
   // int _user = 0;
-  // var _selectedPinCodecat = <String>[
-  //   "243234",
-  //   "524555",
-  //   "752",
-  //   "2754",
-  //   "2754",
-  //   "7542",
-  // ];
+  var _selectedPinCodecat = <String>[
+    "333042",
+    "333705",
+    "333702",
+    "333304",
+    "332306",
+    "333031",
+    "332316"
+  ];
   // static List<List<String>> _selectedCitycat = [
   //   ["Sriganganagar"],
   //   ["ef"],
@@ -200,47 +201,49 @@ class _AddAddressState extends State<AddAddress> {
                       controller: cName,
                     ),
                     Padding(
-      padding: EdgeInsets.all(0.0),
-      child: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(5.0)),
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(0, 4),
-              blurRadius: 15,
-              color: Color(0xFFB7B7B7).withOpacity(.5),
-            ),
-          ],
-        ),
-        padding: EdgeInsets.all(5.0),
-        margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-        child: TextFormField(
-          keyboardType: TextInputType.number,
-          textInputAction: TextInputAction.next,
-          enableSuggestions: true,
-          style: TextStyle(
-            fontFamily: "Arial Bold",
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-          cursorColor: Color(0xff535c3f),
-          controller: cPhoneNumber,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            prefixIcon: Icon(
-              Icons.edit,
-              color: Color(0xff535c3f),
-              size: 20,
-            ),
-            focusColor: Color(0xff535c3f),
-            hintText: "Phone Number",
-          ),
-          validator: (val) => val.isEmpty ? "Field can not be empty." : null,
-        ),
-      ),
-    ),
+                      padding: EdgeInsets.all(0.0),
+                      child: Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(0, 4),
+                              blurRadius: 15,
+                              color: Color(0xFFB7B7B7).withOpacity(.5),
+                            ),
+                          ],
+                        ),
+                        padding: EdgeInsets.all(5.0),
+                        margin: EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 8.0),
+                        child: TextFormField(
+                          keyboardType: TextInputType.number,
+                          textInputAction: TextInputAction.next,
+                          enableSuggestions: true,
+                          style: TextStyle(
+                            fontFamily: "Arial Bold",
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          cursorColor: Color(0xff535c3f),
+                          controller: cPhoneNumber,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            prefixIcon: Icon(
+                              Icons.edit,
+                              color: Color(0xff535c3f),
+                              size: 20,
+                            ),
+                            focusColor: Color(0xff535c3f),
+                            hintText: "Phone Number",
+                          ),
+                          validator: (val) =>
+                              val.isEmpty ? "Field can not be empty." : null,
+                        ),
+                      ),
+                    ),
                     // MyTextField(
                     //   data: Icons.edit,
                     //   hint: "Phone Number",
@@ -251,117 +254,118 @@ class _AddAddressState extends State<AddAddress> {
                       hint: "Flat Number / Street Number / House Number",
                       controller: cFlatHomeNumber,
                     ),
-                    Padding(
-      padding: EdgeInsets.all(0.0),
-      child: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(5.0)),
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(0, 4),
-              blurRadius: 15,
-              color: Color(0xFFB7B7B7).withOpacity(.5),
-            ),
-          ],
-        ),
-        padding: EdgeInsets.all(5.0),
-        margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-        child: TextFormField(
-          keyboardType: TextInputType.number,
-          textInputAction: TextInputAction.next,
-          enableSuggestions: true,
-          maxLength: 6,
-          style: TextStyle(
-            fontFamily: "Arial Bold",
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-          cursorColor: Color(0xff535c3f),
-          controller: cPinCode,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            prefixIcon: Icon(
-              Icons.edit,
-              color: Color(0xff535c3f),
-              size: 20,
-            ),
-            focusColor: Color(0xff535c3f),
-            hintText: "PinCode",
-          ),
-          validator: (val) => val.isEmpty ? "Field can not be empty." : null,
-        ),
-      ),
-    ),
-                    // Container(
-                    //   alignment: Alignment.topLeft,
-                    //   padding:
-                    //       EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-                    //   margin:
-                    //       EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-                    //   decoration: BoxDecoration(
-                    //     color: Colors.white,
-                    //     borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                    //     boxShadow: [
-                    //       BoxShadow(
-                    //         offset: Offset(0, 4),
-                    //         blurRadius: 15,
-                    //         color: Color(0xFFB7B7B7).withOpacity(.5),
+                    // Padding(
+                    //   padding: EdgeInsets.all(0.0),
+                    //   child: Container(
+                    //     alignment: Alignment.center,
+                    //     decoration: BoxDecoration(
+                    //       color: Colors.white,
+                    //       borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                    //       boxShadow: [
+                    //         BoxShadow(
+                    //           offset: Offset(0, 4),
+                    //           blurRadius: 15,
+                    //           color: Color(0xFFB7B7B7).withOpacity(.5),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //     padding: EdgeInsets.all(5.0),
+                    //     margin: EdgeInsets.symmetric(
+                    //         horizontal: 10.0, vertical: 8.0),
+                    //     child: TextFormField(
+                    //       keyboardType: TextInputType.number,
+                    //       textInputAction: TextInputAction.next,
+                    //       enableSuggestions: true,
+                    //       maxLength: 6,
+                    //       style: TextStyle(
+                    //         fontFamily: "Arial Bold",
+                    //         fontSize: 16,
+                    //         fontWeight: FontWeight.bold,
                     //       ),
-                    //     ],
-                    //   ),
-                    //   child: Row(
-                    //     children: [
-                    //       Icon(
-                    //         Icons.edit,
-                    //         color: Color(0xff535c3f),
-                    //         size: 20,
+                    //       cursorColor: Color(0xff535c3f),
+                    //       controller: cPinCode,
+                    //       decoration: InputDecoration(
+                    //         border: InputBorder.none,
+                    //         prefixIcon: Icon(
+                    //           Icons.edit,
+                    //           color: Color(0xff535c3f),
+                    //           size: 20,
+                    //         ),
+                    //         focusColor: Color(0xff535c3f),
+                    //         hintText: "PinCode",
                     //       ),
-                    //       SizedBox(
-                    //         width: 10.0,
-                    //       ),
-                    //       DropdownButton(
-                    //         underline: Container(),
-                    //         isExpanded: false,
-                    //         // value: _selectedcategory,
-                    //         items: _selectedPinCodecat.map((val) {
-                    //           return DropdownMenuItem(
-                    //             child: Row(
-                    //               children: [
-                    //                 Icon(
-                    //                   Icons.edit,
-                    //                   color: Color(0xff535c3f),
-                    //                   size: 20,
-                    //                 ),
-                    //                 SizedBox(width: 10),
-                    //                 Text(val),
-                    //               ],
-                    //             ),
-                    //             value: val,
-                    //           );
-                    //         }).toList(),
-                    //         hint: Text(
-                    //           "$_selectedPinCode",
-                    //           style: TextStyle(
-                    //             fontFamily: "Arial Bold",
-                    //             fontSize: 16,
-                    //             color: Colors.black,
-                    //             fontWeight: FontWeight.bold,
-                    //           ),
-                    //         ), // Not necessary for Option 1
-                    //         onChanged: (val) {
-                    //           // setState(() {
-                    //           _selectedPinCode = val;
-                    //           _user = _selectedPinCodecat.indexOf(val);
-                    //           cCity.text = _selectedCitycat[_user].single;
-                    //           // });
-                    //           this.setState(() {});
-                    //         },
-                    //       ),
-                    //     ],
+                    //       validator: (val) =>
+                    //           val.isEmpty ? "Field can not be empty." : null,
+                    //     ),
                     //   ),
                     // ),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(0, 4),
+                            blurRadius: 15,
+                            color: Color(0xFFB7B7B7).withOpacity(.5),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.edit,
+                            color: Color(0xff535c3f),
+                            size: 20,
+                          ),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          DropdownButton(
+                            underline: Container(),
+                            isExpanded: false,
+                            // value: _selectedcategory,
+                            items: _selectedPinCodecat.map((val) {
+                              return DropdownMenuItem(
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.edit,
+                                      color: Color(0xff535c3f),
+                                      size: 20,
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(val),
+                                  ],
+                                ),
+                                value: val,
+                              );
+                            }).toList(),
+                            hint: Text(
+                              "$_selectedPinCode",
+                              style: TextStyle(
+                                fontFamily: "Arial Bold",
+                                fontSize: 16,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ), // Not necessary for Option 1
+                            onChanged: (val) {
+                              setState(() {
+                              _selectedPinCode = val;
+                              cPinCode.text = _selectedPinCode;
+                              });
+                              this.setState(() {});
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                     // Text(_selectedCitycat[_user].single),
                     // Padding(
                     //   padding: EdgeInsets.all(0.0),
@@ -431,8 +435,7 @@ class _AddAddressState extends State<AddAddress> {
                         padding: EdgeInsets.all(5.0),
                         margin: EdgeInsets.symmetric(
                             horizontal: 10.0, vertical: 8.0),
-                        child: 
-                        TextFormField(
+                        child: TextFormField(
                           // readOnly: true,
                           // initialValue: _selectedCitycat[_user].single,
                           enableSuggestions: true,
@@ -554,7 +557,6 @@ class MyTextField extends StatelessWidget {
           textInputAction: TextInputAction.next,
           enableSuggestions: true,
           style: TextStyle(
-            
             fontFamily: "Arial Bold",
             fontSize: 16,
             fontWeight: FontWeight.bold,
