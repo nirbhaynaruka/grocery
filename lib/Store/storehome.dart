@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grocery/Authentication/authenication.dart';
@@ -170,9 +172,9 @@ class _StoreHomeState extends State<StoreHome> {
                           builder: (context, counter, _) {
                             return Text(
                               logincheck
-                                  ? (EcommerceApp.sharedPreferences
-                                              .getStringList(
-                                                  EcommerceApp.userCartList)
+                                  ? (json.decode(EcommerceApp.sharedPreferences
+                                              .getString(
+                                                  EcommerceApp.userCartList))
                                               .length -
                                           1)
                                       .toString()

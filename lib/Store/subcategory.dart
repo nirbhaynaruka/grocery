@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -145,9 +147,9 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
                           builder: (context, counter, _) {
                             return Text(
                               logincheck
-                                  ? (EcommerceApp.sharedPreferences
-                                              .getStringList(
-                                                  EcommerceApp.userCartList)
+                                  ? (json.decode(EcommerceApp.sharedPreferences
+                                              .getString(
+                                                  EcommerceApp.userCartList))
                                               .length -
                                           1)
                                       .toString()

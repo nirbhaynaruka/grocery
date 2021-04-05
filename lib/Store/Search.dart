@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grocery/Authentication/authenication.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:grocery/Models/item.dart';
 import 'package:grocery/Store/cart.dart';
+import 'package:grocery/Widgets/sourceInfo.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Store/category.dart';
@@ -112,9 +115,9 @@ class _SearchProductState extends State<SearchProduct> {
                           builder: (context, counter, _) {
                             return Text(
                               logincheck
-                                  ? (EcommerceApp.sharedPreferences
-                                              .getStringList(
-                                                  EcommerceApp.userCartList)
+                                  ? (json.decode(EcommerceApp.sharedPreferences
+                                              .getString(
+                                                  EcommerceApp.userCartList))
                                               .length -
                                           1)
                                       .toString()
@@ -159,7 +162,7 @@ class _SearchProductState extends State<SearchProduct> {
                     itemBuilder: (context, index) {
                       ItemModel model =
                           ItemModel.fromJson(snap.data.documents[index].data);
-                      return sourceInfo(model, context);
+                      return SourceInfo(model: model);
                     },
                   )
                 : Center(child: Text("Search Your Product"));

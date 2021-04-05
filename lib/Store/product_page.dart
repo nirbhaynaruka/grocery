@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grocery/Authentication/authenication.dart';
@@ -118,9 +120,11 @@ class _ProductPageState extends State<ProductPage> {
                           builder: (context, counter, _) {
                             return Text(
                               logincheck
-                                  ? (EcommerceApp.sharedPreferences
-                                              .getStringList(
-                                                  EcommerceApp.userCartList)
+                                  ? (json
+                                              .decode(EcommerceApp
+                                                  .sharedPreferences
+                                                  .getString(EcommerceApp
+                                                      .userCartList))
                                               .length -
                                           1)
                                       .toString()
@@ -230,7 +234,8 @@ class _ProductPageState extends State<ProductPage> {
                     child: InkWell(
                       onTap: () {
                         if (logincheck) {
-                          checkItemInCart(widget.itemModel.productId, widget.itemModel.quantity.toString(),  context);
+                          checkItemInCart(
+                              widget.itemModel.productId, 1, context);
                         } else {
                           Route route = MaterialPageRoute(
                               builder: (_) => AuthenticScreen());

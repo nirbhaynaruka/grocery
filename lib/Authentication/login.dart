@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:grocery/Admin/adminLogin.dart';
 import 'package:grocery/Authentication/forgotpass.dart';
@@ -34,7 +36,7 @@ class _LoginState extends State<Login> {
             Container(
               alignment: Alignment.bottomCenter,
               child: Image.asset(
-                 "assets/icons/transparent_new_logo_white.png",
+                "assets/icons/transparent_new_logo_white.png",
                 height: 220.0,
                 width: 220.0,
               ),
@@ -91,13 +93,16 @@ class _LoginState extends State<Login> {
             ),
             SizedBox(height: 15.0),
             GestureDetector(
-              
               onTap: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ForgotPass())),
-                child: Text("Forgot Password ?",style: TextStyle(color:  Color(0xff94b941),),
+              child: Text(
+                "Forgot Password ?",
+                style: TextStyle(
+                  color: Color(0xff94b941),
+                ),
               ),
             ),
-          
+
             SizedBox(height: 15.0),
             Container(
               height: 4.0,
@@ -160,12 +165,9 @@ class _LoginState extends State<Login> {
     if (firebaseUser != null) {
       readData(firebaseUser).then((s) {
         Navigator.pop(context);
-        Route route = MaterialPageRoute(
-            builder: (c) =>
-                // EcommerceApp.sharedPreferences
-                //               .getString(EcommerceApp.userName) == "Sudhanshu" ? UploadPage() :
-                StoreHome());
-        Navigator.pushAndRemoveUntil(context, route, (route) => false).then((value) => setState(() {}));
+        Route route = MaterialPageRoute(builder: (c) => StoreHome());
+        Navigator.pushAndRemoveUntil(context, route, (route) => false)
+            .then((value) => setState(() {}));
       });
     }
   }
@@ -183,10 +185,10 @@ class _LoginState extends State<Login> {
       await EcommerceApp.sharedPreferences
           .setString("name", dataSnapshot.data[EcommerceApp.userName]);
       // await EcommerceApp.sharedPreferences.setString("url", userImageUrl);
-      List<String> cartList =
-          dataSnapshot.data[EcommerceApp.userCartList].cast<String>();
+      Map<String, dynamic> cartList =
+          dataSnapshot.data[EcommerceApp.userCartList];
       await EcommerceApp.sharedPreferences
-          .setStringList(EcommerceApp.userCartList, cartList);
+          .setString(EcommerceApp.userCartList, json.encode(cartList));
     });
   }
 }

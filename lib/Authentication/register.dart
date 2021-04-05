@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:grocery/Widgets/customTextField.dart';
 import 'package:grocery/DialogBox/errorDialog.dart';
@@ -211,7 +213,8 @@ class _RegisterState extends State<Register> {
       saveUserInfoToFireStore(firebaseUser).then((value) {
         Navigator.pop(context);
         Route route = MaterialPageRoute(builder: (c) => StoreHome());
-        Navigator.pushAndRemoveUntil(context, route, (route) => false).then((value) => setState(() {}));
+        Navigator.pushAndRemoveUntil(context, route, (route) => false)
+            .then((value) => setState(() {}));
       });
     }
   }
@@ -223,7 +226,9 @@ class _RegisterState extends State<Register> {
       "name": _nameTextEditingController.text.trim(),
       "phone": "+91" + _phoneTextEditingController.text,
       // "url": userImageUrl,
-      EcommerceApp.userCartList: ["garbageValue"],
+      EcommerceApp.userCartList: {
+        "garbageValue":0
+      },
     });
 
     await EcommerceApp.sharedPreferences.setString("uid", fUser.uid);
@@ -233,7 +238,10 @@ class _RegisterState extends State<Register> {
     await EcommerceApp.sharedPreferences
         .setString("phone", "+91" + _phoneTextEditingController.text);
     // await EcommerceApp.sharedPreferences.setString("url", userImageUrl);
-    await EcommerceApp.sharedPreferences
-        .setStringList(EcommerceApp.userCartList, ["garbageValue"]);
+    await EcommerceApp.sharedPreferences.setString(
+        EcommerceApp.userCartList,
+        json.encode({
+          "garbageValue": 0
+        }));
   }
 }

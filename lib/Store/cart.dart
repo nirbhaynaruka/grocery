@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:grocery/Address/address.dart';
@@ -7,7 +8,7 @@ import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:grocery/Counters/totalMoney.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../Store/category.dart';
+import 'package:grocery/Widgets/sourceInfo.dart';
 import 'package:provider/provider.dart';
 
 class CartPage extends StatefulWidget {
@@ -27,11 +28,17 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> products = [];
+    json
+        .decode(
+            EcommerceApp.sharedPreferences.getString(EcommerceApp.userCartList))
+        .forEach((k, v) => products.add(k));
+    print(products);
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          if (EcommerceApp.sharedPreferences
-                  .getStringList(EcommerceApp.userCartList)
+          if ((json.decode(EcommerceApp.sharedPreferences
+                      .getString(EcommerceApp.userCartList)))
                   .length ==
               1) {
             Fluttertoast.showToast(msg: "Your Cart is Empty!!");
@@ -90,9 +97,10 @@ class _CartPageState extends State<CartPage> {
                       child: Consumer<CartItemCounter>(
                         builder: (context, counter, _) {
                           return Text(
-                            (EcommerceApp.sharedPreferences
-                                        .getStringList(
-                                            EcommerceApp.userCartList)
+                            (json
+                                        .decode(EcommerceApp.sharedPreferences
+                                            .getString(
+                                                EcommerceApp.userCartList))
                                         .length -
                                     1)
                                 .toString(),
@@ -140,9 +148,7 @@ class _CartPageState extends State<CartPage> {
           StreamBuilder<QuerySnapshot>(
             stream: EcommerceApp.firestore
                 .collection("items")
-                .where("productId",
-                    whereIn: EcommerceApp.sharedPreferences
-                        .getStringList(EcommerceApp.userCartList))
+                .where("productId", whereIn: products)
                 .snapshots(),
             builder: (context, snapshot) {
               return !snapshot.hasData
@@ -158,12 +164,16 @@ class _CartPageState extends State<CartPage> {
                             (context, index) {
                               ItemModel model = ItemModel.fromJson(
                                   snapshot.data.documents[index].data);
+                              int quan = json.decode(EcommerceApp
+                                      .sharedPreferences
+                                      .getString(EcommerceApp.userCartList))[
+                                  model.productId];
                               print(model.productId.toString());
                               if (index == 0) {
                                 totalAmmount = 0;
-                                totalAmmount = model.price + totalAmmount;
+                                totalAmmount = model.price * quan + totalAmmount;
                               } else {
-                                totalAmmount = model.price + totalAmmount;
+                                totalAmmount = model.price * quan + totalAmmount;
                               }
 
                               if (snapshot.data.documents.length - 1 == index) {
@@ -174,7 +184,12 @@ class _CartPageState extends State<CartPage> {
                                       .displayResult(totalAmmount);
                                 });
                               }
-                              return sourceInfo(model, context,
+                              return SourceInfo(
+                                  model: model,
+                                  quantity:  quan,
+                                  addQuantityFunction: () =>
+                                      addItemQuantityToCart(model.productId,
+                                          quan, model.newPrice),
                                   removeCartFunction: () =>
                                       removeItemFromUserCart(model.productId));
                             },
@@ -213,29 +228,55 @@ class _CartPageState extends State<CartPage> {
   }
 
   removeItemFromUserCart(String shortInfoAsID) {
-    List tempCartList =
-        EcommerceApp.sharedPreferences.getStringList(EcommerceApp.userCartList);
-    tempCartList.remove(shortInfoAsID);
+    String tempCartList =
+        EcommerceApp.sharedPreferences.getString(EcommerceApp.userCartList);
+    Map<String, dynamic> decodedMap = json.decode(tempCartList);
+    decodedMap.removeWhere((key, value) => key == shortInfoAsID);
 
     EcommerceApp.firestore
         .collection(EcommerceApp.collectionUser)
         .document(
             EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID))
         .updateData({
-      EcommerceApp.userCartList: tempCartList,
+      EcommerceApp.userCartList: decodedMap,
     }).then((v) {
       Navigator.pop(context);
       Fluttertoast.showToast(
           msg: "Item Removed Successfully. Continue Shopping");
 
       EcommerceApp.sharedPreferences
-          .setStringList(EcommerceApp.userCartList, tempCartList);
+          .setString(EcommerceApp.userCartList, json.encode(decodedMap));
       Provider.of<CartItemCounter>(context, listen: false).displayResult();
-      // setState(() {
       setState(() {
         totalAmmount = 0;
       });
-      // });
+    });
+  }
+
+  addItemQuantityToCart(String shortInfoAsID, int quantity, int price) {
+    String tempCartList =
+        EcommerceApp.sharedPreferences.getString(EcommerceApp.userCartList);
+    Map<String, dynamic> decodedMap = json.decode(tempCartList);
+
+    decodedMap.update(shortInfoAsID, (value) => quantity);
+
+    EcommerceApp.firestore
+        .collection(EcommerceApp.collectionUser)
+        .document(
+            EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID))
+        .updateData({
+      EcommerceApp.userCartList: decodedMap,
+    }).then((v) {
+      // Navigator.pop(context);
+      Fluttertoast.showToast(
+          msg: "Item Quantity Changed Successfull");
+
+      EcommerceApp.sharedPreferences
+          .setString(EcommerceApp.userCartList, json.encode(decodedMap));
+      Provider.of<CartItemCounter>(context, listen: false).displayResult();
+      setState(() {
+        totalAmmount = totalAmmount + (price * quantity);
+      });
     });
   }
 }

@@ -15,7 +15,7 @@ class ItemModel {
   String subcatname;
   String subcatthumbnail;
   String bannerthumbnail;
-  int quantity;
+  // int quantity;
   int newPrice;
 
   ItemModel({
@@ -31,7 +31,7 @@ class ItemModel {
     this.subcatname,
     this.subcatthumbnail,
     this.bannerthumbnail,
-    this.quantity,
+    // this.quantity,
     this.newPrice,
   });
 
@@ -50,7 +50,7 @@ class ItemModel {
     subcatthumbnail = json['subcatthumbnail'];
     bannerthumbnail = json['bannerthumbnail'];
     productId = json['productId'];
-    quantity = json['quantity'];
+    // quantity = json['quantity'];
     newPrice = json['newPrice'];
   }
 
@@ -69,7 +69,7 @@ class ItemModel {
     data['catname'] = this.catname;
     data['subcatthumbnail'] = this.subcatthumbnail;
     data['productId'] = this.productId;
-    data['quantity'] = this.quantity;
+    // data['quantity'] = this.quantity;
     data['newPrice'] = this.newPrice;
 
     return data;

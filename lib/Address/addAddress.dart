@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:grocery/Config/config.dart';
 import 'package:grocery/Counters/cartitemcounter.dart';
 import 'package:grocery/Models/address.dart';
@@ -113,12 +115,14 @@ class _AddAddressState extends State<AddAddress> {
                         child: Consumer<CartItemCounter>(
                           builder: (context, counter, _) {
                             return Text(
-                              (EcommerceApp.sharedPreferences
-                                          .getStringList(
-                                              EcommerceApp.userCartList)
-                                          .length -
-                                      1)
-                                  .toString(),
+                              (json
+                                                .decode(EcommerceApp
+                                                    .sharedPreferences
+                                                    .getString(EcommerceApp
+                                                        .userCartList))
+                                                .length -
+                                            1)
+                                        .toString(),
                               style: TextStyle(
                                 color: Color(0xff94b941),
                                 fontSize: 12.0,

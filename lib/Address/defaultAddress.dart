@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery/Config/config.dart';
@@ -60,12 +62,14 @@ class _DefultAddressState extends State<DefultAddress> {
                         child: Consumer<CartItemCounter>(
                           builder: (context, counter, _) {
                             return Text(
-                              (EcommerceApp.sharedPreferences
-                                          .getStringList(
-                                              EcommerceApp.userCartList)
-                                          .length -
-                                      1)
-                                  .toString(),
+                              (json
+                                                .decode(EcommerceApp
+                                                    .sharedPreferences
+                                                    .getString(EcommerceApp
+                                                        .userCartList))
+                                                .length -
+                                            1)
+                                        .toString(),
                               style: TextStyle(
                                 color: Color(0xff94b941),
                                 fontSize: 12.0,
