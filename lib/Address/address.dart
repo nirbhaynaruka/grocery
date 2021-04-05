@@ -66,13 +66,12 @@ class _AddressState extends State<Address> {
                           builder: (context, counter, _) {
                             return Text(
                               (json
-                                                .decode(EcommerceApp
-                                                    .sharedPreferences
-                                                    .getString(EcommerceApp
-                                                        .userCartList))
-                                                .length -
-                                            1)
-                                        .toString(),
+                                          .decode(EcommerceApp.sharedPreferences
+                                              .getString(
+                                                  EcommerceApp.userCartList))
+                                          .length -
+                                      1)
+                                  .toString(),
                               style: TextStyle(
                                 color: Color(0xff94b941),
                                 fontSize: 12.0,
@@ -149,10 +148,13 @@ class _AddressState extends State<Address> {
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             Route route = MaterialPageRoute(builder: (c) => AddAddress());
-            Navigator.push(context, PageRouteBuilder(
-    pageBuilder: (_, __, ___) => AddAddress(),
-    transitionDuration: Duration(seconds: 0),
-  ),);
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (_, __, ___) => AddAddress(),
+                transitionDuration: Duration(seconds: 0),
+              ),
+            );
           },
           label: Text("Add New Address"),
           backgroundColor: Color(0xff94b941),
@@ -290,13 +292,16 @@ class _AddressCardState extends State<AddressCard> {
                                 addressID: widget.addressID,
                                 totalAmount: widget.totalAmount,
                               ));
-                      Navigator.push(context, PageRouteBuilder(
-    pageBuilder: (_, __, ___) => PaymentPage(
-                                addressID: widget.addressID,
-                                totalAmount: widget.totalAmount,
-                              ),
-    transitionDuration: Duration(seconds: 0),
-  ),);
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (_, __, ___) => PaymentPage(
+                            addressID: widget.addressID,
+                            totalAmount: widget.totalAmount,
+                          ),
+                          transitionDuration: Duration(seconds: 0),
+                        ),
+                      );
                     },
                   )
                 : Container(),

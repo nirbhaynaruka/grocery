@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -196,9 +198,10 @@ class _PaymentPageState extends State<PaymentPage> {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text((EcommerceApp.sharedPreferences
-                                        .getStringList(
-                                            EcommerceApp.userCartList)
+                            child: Text((json
+                                        .decode(EcommerceApp.sharedPreferences
+                                            .getString(
+                                                EcommerceApp.userCartList))
                                         .length -
                                     1)
                                 .toString()),
@@ -225,8 +228,8 @@ class _PaymentPageState extends State<PaymentPage> {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text("*(Extra \u{20B9}${20} per km will be charged on the order price less then \u{20B9}${200})" 
-                            ),
+                            child: Text(
+                                "*(Extra \u{20B9}${20} per km will be charged on the order price less then \u{20B9}${200})"),
                           ),
                         ],
                       ),
@@ -300,8 +303,8 @@ class _PaymentPageState extends State<PaymentPage> {
       EcommerceApp.addressID: widget.addressID,
       EcommerceApp.totalAmount: widget.totalAmount,
       "orderBy": EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID),
-      EcommerceApp.productID: EcommerceApp.sharedPreferences
-          .getStringList(EcommerceApp.userCartList),
+      EcommerceApp.productID: json.decode(
+          EcommerceApp.sharedPreferences.getString(EcommerceApp.userCartList)),
       EcommerceApp.paymentDetails: "Cash On delivery",
       EcommerceApp.orderTime: xyz,
       EcommerceApp.isSuccess: true,
@@ -311,8 +314,8 @@ class _PaymentPageState extends State<PaymentPage> {
       EcommerceApp.addressID: widget.addressID,
       EcommerceApp.totalAmount: widget.totalAmount,
       "orderBy": EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID),
-      EcommerceApp.productID: EcommerceApp.sharedPreferences
-          .getStringList(EcommerceApp.userCartList),
+      EcommerceApp.productID: json.decode(
+          EcommerceApp.sharedPreferences.getString(EcommerceApp.userCartList)),
       EcommerceApp.paymentDetails: "Cash On delivery",
       EcommerceApp.orderTime: xyz,
       EcommerceApp.isSuccess: true,
@@ -322,19 +325,25 @@ class _PaymentPageState extends State<PaymentPage> {
   }
 
   emptyCartNow() {
-    EcommerceApp.sharedPreferences
-        .setStringList(EcommerceApp.userCartList, ["garbageValue"]);
-    List tempList =
-        EcommerceApp.sharedPreferences.getStringList(EcommerceApp.userCartList);
+    String tempCartList =
+        EcommerceApp.sharedPreferences.getString(EcommerceApp.userCartList);
+    Map<String, dynamic> decodedMap = json.decode(tempCartList);
+    decodedMap.clear();
+    decodedMap["garbageValue"] = 0;
+    // EcommerceApp.sharedPreferences
+    //     .setStringList(EcommerceApp.userCartList, ["garbageValue"]);
+    // List tempList =
+    //     EcommerceApp.sharedPreferences.getStringList(EcommerceApp.userCartList);
+    
     Firestore.instance
         .collection("users")
         .document(
             EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID))
         .updateData({
-      EcommerceApp.userCartList: tempList,
+      EcommerceApp.userCartList: decodedMap,
     }).then((value) {
       EcommerceApp.sharedPreferences
-          .setStringList(EcommerceApp.userCartList, tempList);
+          .setString(EcommerceApp.userCartList, json.encode(decodedMap));
       Provider.of<CartItemCounter>(context, listen: false).displayResult();
     });
     Fluttertoast.showToast(
