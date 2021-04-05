@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:grocery/Config/config.dart';
 import 'package:grocery/Counters/totalMoney.dart';
 import 'package:grocery/Models/item.dart';
 import 'package:grocery/Store/cart.dart';
@@ -33,6 +32,7 @@ class _SourceInfoState extends State<SourceInfo> {
   @override
   void initState() {
     _quantityCounter = widget.quantity;
+    totalAmount = Provider.of<TotalAmount>(context, listen: false).totalAmount;
     super.initState();
   }
 
@@ -284,30 +284,27 @@ class _SourceInfoState extends State<SourceInfo> {
                                                                     .price *
                                                                 _quantityCounter) +
                                                             totalAmount;
-
-                                                        WidgetsBinding.instance
-                                                            .addPostFrameCallback(
-                                                                (timeStamp) {
-                                                          Provider.of<TotalAmount>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .displayResult(
-                                                                  totalAmount);
-                                                        });
                                                       });
 
+                                                      Provider.of<TotalAmount>(
+                                                              context,
+                                                              listen: false)
+                                                          .displayResult(
+                                                              totalAmount);
+                                                      setState(() {
+                                                        Navigator.pushReplacement(
+                                                          context,
+                                                          PageRouteBuilder(
+                                                            pageBuilder:
+                                                                (_, __, ___) =>
+                                                                    CartPage(),
+                                                            transitionDuration:
+                                                                Duration(
+                                                                    seconds: 0),
+                                                          ),
+                                                        );
+                                                      });
                                                       // Navigator.pop(context);
-                                                      Route route =
-                                                          MaterialPageRoute(
-                                                              builder: (c) =>
-                                                                  CartPage());
-                                                      Navigator.pushReplacement(
-                                                              context, route)
-                                                          .then((value) =>
-                                                              setState(() {}));
-
-                                                      print(widget.model.title);
-                                                      print(val);
                                                     },
                                                   ),
                                                 ],

@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grocery/Authentication/authenication.dart';
+import 'package:grocery/Counters/totalMoney.dart';
 import 'package:grocery/Store/Search.dart';
 import 'package:grocery/Store/cart.dart';
 import 'package:grocery/Store/product_page.dart';
@@ -541,23 +542,24 @@ void checkItemInCart(String productID, int quantity, BuildContext context) {
       : addItemToCart(productID, quantity, context);
 }
 
-addItemToCart(String productID, int quantity, BuildContext context) {
+addItemToCart(String productID, int quantity, BuildContext context)  {
   String tempCartList =
       EcommerceApp.sharedPreferences.getString(EcommerceApp.userCartList);
   Map<String, dynamic> decodedMap = json.decode(tempCartList);
   decodedMap[productID] = quantity;
 
-  EcommerceApp.firestore
+   EcommerceApp.firestore
       .collection(EcommerceApp.collectionUser)
       .document(EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID))
       .updateData({
     EcommerceApp.userCartList: decodedMap,
-  }).then((v) async {
+  }).then((v) {
     quantity == 1
         ? Fluttertoast.showToast(msg: "Item Added to Cart Successfully.")
         : Fluttertoast.showToast(msg: "Item Quantity Changed.");
+
     EcommerceApp.sharedPreferences
         .setString(EcommerceApp.userCartList, json.encode(decodedMap));
-    await Provider.of<CartItemCounter>(context, listen: false).displayResult();
+    Provider.of<CartItemCounter>(context, listen: false).displayResult();
   });
 }
