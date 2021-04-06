@@ -20,8 +20,8 @@ class _CartPageState extends State<CartPage> {
   double totalAmmount;
   @override
   void initState() {
-    setState(() {});
     super.initState();
+    setState(() {});
     totalAmmount = 0;
     Provider.of<TotalAmount>(context, listen: false).displayResult(0);
   }
@@ -29,11 +29,12 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     List<String> products = [];
+
     json
         .decode(
             EcommerceApp.sharedPreferences.getString(EcommerceApp.userCartList))
         .forEach((k, v) => products.add(k));
-    // print(products);
+    print(products);
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -148,8 +149,8 @@ class _CartPageState extends State<CartPage> {
           StreamBuilder<QuerySnapshot>(
             stream: EcommerceApp.firestore
                 .collection("items")
-                .orderBy("productId")
                 .where("productId", whereIn: products)
+                // .orderBy("productId")
                 .snapshots(),
             builder: (context, snapshot) {
               return !snapshot.hasData
@@ -172,9 +173,11 @@ class _CartPageState extends State<CartPage> {
                               // print(model.productId.toString());
                               if (index == 0) {
                                 totalAmmount = 0;
-                                totalAmmount = model.price * quan + totalAmmount;
+                                totalAmmount =
+                                    model.price * quan + totalAmmount;
                               } else {
-                                totalAmmount = model.price * quan + totalAmmount;
+                                totalAmmount =
+                                    model.price * quan + totalAmmount;
                               }
 
                               if (snapshot.data.documents.length - 1 == index) {
@@ -187,7 +190,7 @@ class _CartPageState extends State<CartPage> {
                               }
                               return SourceInfo(
                                   model: model,
-                                  quantity:  quan,
+                                  quantity: quan,
                                   totalAmount: totalAmmount,
                                   addQuantityFunction: () =>
                                       addItemQuantityToCart(model.productId,
@@ -270,8 +273,7 @@ class _CartPageState extends State<CartPage> {
       EcommerceApp.userCartList: decodedMap,
     }).then((v) {
       // Navigator.pop(context);
-      Fluttertoast.showToast(
-          msg: "Item Quantity Changed Successfull");
+      Fluttertoast.showToast(msg: "Item Quantity Changed Successfull");
 
       EcommerceApp.sharedPreferences
           .setString(EcommerceApp.userCartList, json.encode(decodedMap));

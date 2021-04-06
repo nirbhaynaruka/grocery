@@ -561,5 +561,17 @@ addItemToCart(String productID, int quantity, BuildContext context)  {
     EcommerceApp.sharedPreferences
         .setString(EcommerceApp.userCartList, json.encode(decodedMap));
     Provider.of<CartItemCounter>(context, listen: false).displayResult();
+     Navigator
+                                                            .pushReplacement(
+                                                          context,
+                                                          PageRouteBuilder(
+                                                            pageBuilder:
+                                                                (_, __, ___) =>
+                                                                    CartPage(),
+                                                            transitionDuration:
+                                                                Duration(
+                                                                    seconds: 0),
+                                                          ),
+                                                        );
   });
 }

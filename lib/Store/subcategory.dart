@@ -115,7 +115,7 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
                               pageBuilder: (_, __, ___) => CartPage(),
                               transitionDuration: Duration(seconds: 0),
                             ),
-                          );
+                          ).then((value) => this.setState(() {}));
                         } else {
                           // Route route = MaterialPageRoute(
                           //     builder: (_) => AuthenticScreen());

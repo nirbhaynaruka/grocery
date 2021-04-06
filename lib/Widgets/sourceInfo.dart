@@ -266,10 +266,12 @@ class _SourceInfoState extends State<SourceInfo> {
                                                       });
 
                                                       addItemToCart(
-                                                          widget
-                                                              .model.productId,
-                                                          _quantityCounter,
-                                                          context);
+                                                              widget.model
+                                                                  .productId,
+                                                              _quantityCounter,
+                                                              context)
+                                                          .then((value) => this
+                                                              .setState(() {}));
 
                                                       this.setState(() {
                                                         totalAmount = (widget
