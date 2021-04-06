@@ -33,7 +33,7 @@ class _CartPageState extends State<CartPage> {
         .decode(
             EcommerceApp.sharedPreferences.getString(EcommerceApp.userCartList))
         .forEach((k, v) => products.add(k));
-    print(products);
+    // print(products);
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -168,7 +168,7 @@ class _CartPageState extends State<CartPage> {
                                       .sharedPreferences
                                       .getString(EcommerceApp.userCartList))[
                                   model.productId];
-                              print(model.productId.toString());
+                              // print(model.productId.toString());
                               if (index == 0) {
                                 totalAmmount = 0;
                                 totalAmmount = model.price * quan + totalAmmount;
@@ -187,6 +187,7 @@ class _CartPageState extends State<CartPage> {
                               return SourceInfo(
                                   model: model,
                                   quantity:  quan,
+                                  totalAmount: totalAmmount,
                                   addQuantityFunction: () =>
                                       addItemQuantityToCart(model.productId,
                                           quan, model.newPrice),

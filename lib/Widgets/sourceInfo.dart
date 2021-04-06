@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 class SourceInfo extends StatefulWidget {
   final ItemModel model;
   final int quantity;
+  final double totalAmount;
   final Function removeCartFunction;
   final Function addQuantityFunction;
   const SourceInfo(
@@ -17,7 +18,8 @@ class SourceInfo extends StatefulWidget {
       this.model,
       this.removeCartFunction,
       this.quantity,
-      this.addQuantityFunction})
+      this.addQuantityFunction,
+      this.totalAmount})
       : super(key: key);
 
   @override
@@ -32,7 +34,8 @@ class _SourceInfoState extends State<SourceInfo> {
   @override
   void initState() {
     _quantityCounter = widget.quantity;
-    totalAmount = Provider.of<TotalAmount>(context, listen: false).totalAmount;
+    totalAmount = widget.totalAmount;
+    // totalAmount = Provider.of<TotalAmount>(context, listen: false).totalAmount;
     super.initState();
   }
 
@@ -205,16 +208,6 @@ class _SourceInfoState extends State<SourceInfo> {
                                           ),
                                         ),
                                       )
-                                    // IconButton(
-                                    //     icon: Icon(
-                                    //       Icons.add_shopping_cart,
-                                    //       color: Colors.pinkAccent,
-                                    //     ),
-                                    //     onPressed: () {
-                                    //       checkItemInCart(model.shortInfo, context);
-                                    //     })
-                                    //
-
                                     : Container(
                                         child: Row(
                                           children: [
@@ -268,7 +261,7 @@ class _SourceInfoState extends State<SourceInfo> {
                                                       );
                                                     }).toList(),
                                                     onChanged: (val) async {
-                                                      setState(() {
+                                                      this.setState(() {
                                                         _quantityCounter = val;
                                                       });
 
@@ -278,21 +271,28 @@ class _SourceInfoState extends State<SourceInfo> {
                                                           _quantityCounter,
                                                           context);
 
-                                                      setState(() {
+                                                      this.setState(() {
                                                         totalAmount = (widget
                                                                     .model
                                                                     .price *
                                                                 _quantityCounter) +
                                                             totalAmount;
                                                       });
+                                                      print(totalAmount);
 
-                                                      Provider.of<TotalAmount>(
-                                                              context,
-                                                              listen: false)
-                                                          .displayResult(
-                                                              totalAmount);
+                                                      WidgetsBinding.instance
+                                                          .addPostFrameCallback(
+                                                              (_) {
+                                                        Provider.of<TotalAmount>(
+                                                                context,
+                                                                listen: false)
+                                                            .displayResult(
+                                                                totalAmount);
+                                                      });
+
                                                       setState(() {
-                                                        Navigator.pushReplacement(
+                                                        Navigator
+                                                            .pushReplacement(
                                                           context,
                                                           PageRouteBuilder(
                                                             pageBuilder:
@@ -304,7 +304,6 @@ class _SourceInfoState extends State<SourceInfo> {
                                                           ),
                                                         );
                                                       });
-                                                      // Navigator.pop(context);
                                                     },
                                                   ),
                                                 ],
