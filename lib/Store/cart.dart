@@ -148,6 +148,7 @@ class _CartPageState extends State<CartPage> {
           StreamBuilder<QuerySnapshot>(
             stream: EcommerceApp.firestore
                 .collection("items")
+                .orderBy("productId")
                 .where("productId", whereIn: products)
                 .snapshots(),
             builder: (context, snapshot) {
