@@ -38,9 +38,7 @@ class _OrderCardState extends State<OrderCard> {
       },
       child: Container(
         padding: EdgeInsets.all(5.0),
-        // margin: EdgeInsets.all(5.0),
         margin: EdgeInsets.all(5),
-        // padding: EdgeInsets.all(5),
         decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
@@ -50,7 +48,7 @@ class _OrderCardState extends State<OrderCard> {
                 color: Color(0xFFB7B7B7).withOpacity(.5),
               ),
             ],
-            border: Border.all(color: Colors.black, width: 2.0)),
+            border: Border.all(color: Color(0xff94b941), width: 2.0)),
         height: widget.itemCount * 140.0,
         child: ListView.builder(
           shrinkWrap: true,

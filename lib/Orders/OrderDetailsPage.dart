@@ -11,9 +11,9 @@ import 'package:intl/intl.dart';
 String getOrderId = "";
 
 class OrderDetails extends StatelessWidget {
-  @override
+ 
   final String orderId;
-  List<String> products = [];
+  final List<String> products = [];
 
   OrderDetails({
     Key key,

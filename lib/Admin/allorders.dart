@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:grocery/Admin/adminOrderCard.dart';
 import 'package:grocery/Config/config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../Widgets/loadingWidget.dart';
 
 class Allorders extends StatefulWidget {
@@ -11,6 +10,7 @@ class Allorders extends StatefulWidget {
 }
 
 class _MyOrdersState extends State<Allorders> {
+  List<String> products = [];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -39,31 +39,37 @@ class _MyOrdersState extends State<Allorders> {
         body: StreamBuilder<QuerySnapshot>(
           stream: Firestore.instance.collection("orders").snapshots(),
           builder: (c, snapshot) {
-            return
-             snapshot.hasData
+            return snapshot.hasData
                 ? ListView.builder(
                     itemCount: snapshot.data.documents.length,
                     itemBuilder: (c, index) {
+                      snapshot
+                          .data.documents[index].data[EcommerceApp.productID]
+                          .forEach((k, v) => products.add(k));
                       return FutureBuilder<QuerySnapshot>(
                         future: Firestore.instance
                             .collection("items")
-                            .where("productId",
-                                whereIn: snapshot.data.documents[index]
-                                    .data[EcommerceApp.productID])
+                            .where("productId", whereIn: products)
                             .getDocuments(),
                         builder: (c, snap) {
-                          return 
-                          snap.hasData
-                              ? snapshot.data.documents[index].data["orderDetails"] == "Delivered" ? AdminOrderCard(
-                                  itemCount: snap.data.documents.length,
-                                  data: snap.data.documents,
-                                  orderID:
-                                      snapshot.data.documents[index].documentID,
-                                  orderBy: snapshot.data.documents[index].data["orderBy"],
-                                  addressID: snapshot.data.documents[index].data["addressID"],
-                                ) : Container()
-                              : 
-                              Center(
+                          return snap.hasData
+                              ? snapshot.data.documents[index]
+                                          .data["orderDetails"] ==
+                                      "Delivered"
+                                  ? AdminOrderCard(
+                                      itemCount: snap.data.documents.length,
+                                      data: snap.data.documents,
+                                      orderID: snapshot
+                                          .data.documents[index].documentID,
+                                      orderBy: snapshot.data.documents[index]
+                                          .data["orderBy"],
+                                      order: snapshot.data.documents[index]
+                                          .data[EcommerceApp.productID],
+                                      addressID: snapshot.data.documents[index]
+                                          .data["addressID"],
+                                    )
+                                  : Container()
+                              : Center(
                                   child: circularProgress(),
                                 );
                         },

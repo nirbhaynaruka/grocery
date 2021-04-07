@@ -15,6 +15,7 @@ class AdminOrderDetails extends StatelessWidget {
   final String orderID;
   final String orderBy;
   final String addressID;
+  final List<String> products = [];
 
   AdminOrderDetails({
     Key key,
@@ -35,6 +36,8 @@ class AdminOrderDetails extends StatelessWidget {
               Map dataMap;
               if (snapshot.hasData) {
                 dataMap = snapshot.data.data;
+                 dataMap[EcommerceApp.productID]
+                    .forEach((k, v) => products.add(k));
               }
               return snapshot.hasData
                   ? Container(
@@ -82,6 +85,7 @@ class AdminOrderDetails extends StatelessWidget {
                                           dataSnapshot.data.documents.length,
                                       data: dataSnapshot.data.documents,
                                       orderId: orderID,
+                                      order: dataMap[EcommerceApp.productID],
                                     )
                                   : Center(
                                       child: circularProgress(),
@@ -90,7 +94,7 @@ class AdminOrderDetails extends StatelessWidget {
                             future: EcommerceApp.firestore
                                 .collection("items")
                                 .where("productId",
-                                    whereIn: dataMap[EcommerceApp.productID])
+                                    whereIn: products)
                                 .getDocuments(),
                           ),
                           Divider(
