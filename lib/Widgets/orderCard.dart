@@ -8,6 +8,7 @@ import '../Store/storehome.dart';
 class OrderCard extends StatefulWidget {
   final int itemCount;
   final List<DocumentSnapshot> data;
+  final Map<String, dynamic> order;
   final String orderId;
 
   OrderCard({
@@ -15,6 +16,7 @@ class OrderCard extends StatefulWidget {
     this.itemCount,
     this.data,
     this.orderId,
+    this.order,
   }) : super(key: key);
 
   @override
@@ -30,23 +32,32 @@ class _OrderCardState extends State<OrderCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Route
-            // route;
-            // if (counter == 0) {
-            //   counter = counter + 1;
-            route = MaterialPageRoute(
-                builder: (c) => OrderDetails(orderId: widget.orderId));
-        // }
+        Route route = MaterialPageRoute(
+            builder: (c) => OrderDetails(orderId: widget.orderId));
         Navigator.push(context, route);
       },
       child: Container(
         padding: EdgeInsets.all(5.0),
-        margin: EdgeInsets.all(5.0),
+        // margin: EdgeInsets.all(5.0),
+        margin: EdgeInsets.all(5),
+        // padding: EdgeInsets.all(5),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, 4),
+                blurRadius: 15,
+                color: Color(0xFFB7B7B7).withOpacity(.5),
+              ),
+            ],
+            border: Border.all(color: Colors.black, width: 2.0)),
         height: widget.itemCount * 140.0,
         child: ListView.builder(
+          shrinkWrap: true,
           itemBuilder: (c, index) {
             ItemModel model = ItemModel.fromJson(widget.data[index].data);
-            return sourceorderInfo(model, context);
+            int quantity = widget.order[model.productId];
+            return sourceorderInfo(model, context, quantity: quantity);
           },
           itemCount: widget.itemCount,
           physics: NeverScrollableScrollPhysics(),
@@ -57,7 +68,7 @@ class _OrderCardState extends State<OrderCard> {
 }
 
 Widget sourceorderInfo(ItemModel model, BuildContext context,
-    {Color background}) {
+    {Color background, int quantity}) {
   width = MediaQuery.of(context).size.width;
 
   return Column(
@@ -66,7 +77,7 @@ Widget sourceorderInfo(ItemModel model, BuildContext context,
     children: [
       Container(
         decoration: BoxDecoration(
-          color:  Color(0xff94b941).withOpacity(0.7),
+          color: Color(0xff94b941).withOpacity(0.7),
           borderRadius: BorderRadius.all(Radius.circular(5.0)),
           boxShadow: [
             BoxShadow(
@@ -97,12 +108,11 @@ Widget sourceorderInfo(ItemModel model, BuildContext context,
                     ]),
                 height: MediaQuery.of(context).size.height / 7,
                 child: CachedNetworkImage(
-                imageUrl: model.thumbnailUrl,
-                // placeholder: (context, url) => CircularProgressIndicator(),
-                errorWidget: (context, url, error) => Icon(Icons.error),
-                width: MediaQuery.of(context).size.width * 0.33,
-              ),
-                
+                  imageUrl: model.thumbnailUrl,
+                  // placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  width: MediaQuery.of(context).size.width * 0.33,
+                ),
               ),
             ),
             SizedBox(width: 10.0),
@@ -150,6 +160,7 @@ Widget sourceorderInfo(ItemModel model, BuildContext context,
                   ),
                   SizedBox(height: 20.0),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,7 +170,7 @@ Widget sourceorderInfo(ItemModel model, BuildContext context,
                             child: Row(
                               children: [
                                 Text(
-                                  '\u{20B9}${model.price}',
+                                  '\u{20B9}${model.price * quantity}',
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
@@ -169,7 +180,7 @@ Widget sourceorderInfo(ItemModel model, BuildContext context,
                                 ),
                                 SizedBox(width: 5.0),
                                 Text(
-                                  '\u{20B9}${model.originalPrice}',
+                                  '\u{20B9}${model.originalPrice * quantity}',
                                   style: TextStyle(
                                     fontSize: 15.0,
                                     fontFamily: "Arial Bold",
@@ -181,6 +192,18 @@ Widget sourceorderInfo(ItemModel model, BuildContext context,
                             ),
                           ),
                         ],
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(right: 20),
+                        child: Text(
+                          'Qty - $quantity',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "Arial Bold",
+                            color: Colors.black,
+                          ),
+                        ),
                       ),
                     ],
                   ),

@@ -13,6 +13,8 @@ String getOrderId = "";
 class OrderDetails extends StatelessWidget {
   @override
   final String orderId;
+  List<String> products = [];
+
   OrderDetails({
     Key key,
     this.orderId,
@@ -28,6 +30,10 @@ class OrderDetails extends StatelessWidget {
               Map dataMap;
               if (snapshot.hasData) {
                 dataMap = snapshot.data.data;
+                
+
+                dataMap[EcommerceApp.productID]
+                    .forEach((k, v) => products.add(k));
               }
               return snapshot.hasData
                   ? Container(
@@ -65,23 +71,23 @@ class OrderDetails extends StatelessWidget {
                           ),
                           Divider(height: 2.0),
                           FutureBuilder<QuerySnapshot>(
+                            future: EcommerceApp.firestore
+                                .collection("items")
+                                .where("productId", whereIn: products)
+                                .getDocuments(),
                             builder: (c, dataSnapshot) {
                               return dataSnapshot.hasData
                                   ? OrderCard(
                                       itemCount:
                                           dataSnapshot.data.documents.length,
                                       data: dataSnapshot.data.documents,
+                                      order: dataMap[EcommerceApp.productID],
                                       orderId: orderId,
                                     )
                                   : Center(
                                       child: circularProgress(),
                                     );
                             },
-                            future: EcommerceApp.firestore
-                                .collection("items")
-                                .where("productId",
-                                    whereIn: dataMap[EcommerceApp.productID])
-                                .getDocuments(),
                           ),
                           Divider(
                             height: 2.0,
@@ -276,7 +282,8 @@ class ShippingDetails extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(5.0),
-                    child: KeyText(msg: "Flat Number/ Street Number/ House Number"),
+                    child: KeyText(
+                        msg: "Flat Number/ Street Number/ House Number"),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(5.0),

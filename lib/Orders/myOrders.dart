@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery/Config/config.dart';
-import 'package:grocery/Counters/cartitemcounter.dart';
-import 'package:provider/provider.dart';
 import '../Widgets/loadingWidget.dart';
 import '../Widgets/orderCard.dart';
 
@@ -21,7 +17,6 @@ class _MyOrdersState extends State<MyOrders> {
   }
 
   Widget build(BuildContext context) {
-    var snapshot;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -45,37 +40,38 @@ class _MyOrdersState extends State<MyOrders> {
               .orderBy(EcommerceApp.orderTime, descending: true)
               .snapshots(),
           builder: (c, snapshot) {
-            
-            // List<String> products = [];
-
-            // json
-            //     .decode()
-            //     .forEach((k, v) => products.add(k));
             return snapshot.hasData
                 ? ListView.builder(
-                    itemCount: snapshot.data.documents.length,
-                    itemBuilder: (c, index) {
-                      return FutureBuilder<QuerySnapshot>(
-                        future: Firestore.instance
-                            .collection("items")
-                            .where("productId",
-                                whereIn: snapshot.data.documents[index]
-                                    .data[EcommerceApp.productID])
-                            .getDocuments(),
-                        builder: (c, snap) {
-                          return snap.hasData
-                              ? OrderCard(
-                                  itemCount: snap.data.documents.length,
-                                  data: snap.data.documents,
-                                  orderId:
-                                      snapshot.data.documents[index].documentID,
-                                )
-                              : Center(
-                                  child: circularProgress(),
-                                );
-                        },
-                      );
-                    },
+                      itemCount: snapshot.data.documents.length,
+                      itemBuilder: (c, index) {
+                        List<String> products = [];
+
+                        snapshot
+                            .data.documents[index].data[EcommerceApp.productID]
+                            .forEach((k, v) => products.add(k));
+                       
+                        return FutureBuilder<QuerySnapshot>(
+                          future: Firestore.instance
+                              .collection("items")
+                              .where("productId", whereIn: products)
+                              .getDocuments(),
+                          builder: (c, snap) {
+                            return snap.hasData
+                                ? OrderCard(
+                                    itemCount: snap.data.documents.length,
+                                    data: snap.data.documents,
+                                    order: snapshot.data.documents[index]
+                                        .data[EcommerceApp.productID],
+                                    orderId: snapshot
+                                        .data.documents[index].documentID,
+                                  )
+                                : Center(
+                                    child: circularProgress(),
+                                  );
+                          },
+                        );
+                      },
+                   
                   )
                 : Center(
                     child: circularProgress(),
