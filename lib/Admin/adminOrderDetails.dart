@@ -90,7 +90,7 @@ class AdminOrderDetails extends StatelessWidget {
                                   : Center(
                                       child: circularProgress(),
                                     );
-                            },
+                            },     
                             future: EcommerceApp.firestore
                                 .collection("items")
                                 .where("productId",
