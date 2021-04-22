@@ -1,7 +1,7 @@
 name: grocery
 description: Flutter eCommerce App using Firebase Firestore from Coding Cafe
 
-version: 1.0.0+1
+version: 3.0.0+3
 
 environment:
   sdk: ">=2.2.2 <3.0.0"
