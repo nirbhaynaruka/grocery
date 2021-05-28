@@ -29,10 +29,17 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget button = Container();
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+  int orderCount;
 
   @override
   void initState() {
     super.initState();
+    orderCount = (json
+            .decode(EcommerceApp.sharedPreferences
+                .getString(EcommerceApp.userCartList))
+            .length -
+        1);
+
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
 // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
@@ -109,28 +116,34 @@ class _PaymentPageState extends State<PaymentPage> {
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () async {
-            const AndroidNotificationDetails androidPlatformChannelSpecifics =
-                AndroidNotificationDetails('your channel id',
-                    'your channel name', 'your channel description',
-                    importance: Importance.max,
-                    priority: Priority.high,
-                    showWhen: false);
-            const NotificationDetails platformChannelSpecifics =
-                NotificationDetails(android: androidPlatformChannelSpecifics);
-            await flutterLocalNotificationsPlugin.show(
-                0,
-                "Your Order has been Placed!",
-                "Order Address ID : " + widget.addressID,
-                platformChannelSpecifics,
-                payload: 'item x');
-            Route route = MaterialPageRoute(builder: (c) => addOrderDetails());
-            Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (_, __, ___) => addOrderDetails(),
-                transitionDuration: Duration(seconds: 0),
-              ),
-            );
+            if (orderCount > 10) {
+              Fluttertoast.showToast(
+                  msg: "Minimum Item Count should be less than 10!!!");
+            } else {
+              const AndroidNotificationDetails androidPlatformChannelSpecifics =
+                  AndroidNotificationDetails('your channel id',
+                      'your channel name', 'your channel description',
+                      importance: Importance.max,
+                      priority: Priority.high,
+                      showWhen: false);
+              const NotificationDetails platformChannelSpecifics =
+                  NotificationDetails(android: androidPlatformChannelSpecifics);
+              await flutterLocalNotificationsPlugin.show(
+                  0,
+                  "Your Order has been Placed!",
+                  "Order Address ID : " + widget.addressID,
+                  platformChannelSpecifics,
+                  payload: 'item x');
+              Route route =
+                  MaterialPageRoute(builder: (c) => addOrderDetails());
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (_, __, ___) => addOrderDetails(),
+                  transitionDuration: Duration(seconds: 0),
+                ),
+              );
+            }
           },
           label: Padding(
             padding: const EdgeInsets.all(1.0),
@@ -143,7 +156,8 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
             ),
           ),
-          backgroundColor: Color(0xff94b941),
+          backgroundColor:
+              (orderCount > 10) ? Colors.grey[400] : Color(0xff94b941),
           icon: Icon(
             Icons.done_all,
           ),
@@ -334,7 +348,7 @@ class _PaymentPageState extends State<PaymentPage> {
     //     .setStringList(EcommerceApp.userCartList, ["garbageValue"]);
     // List tempList =
     //     EcommerceApp.sharedPreferences.getStringList(EcommerceApp.userCartList);
-    
+
     Firestore.instance
         .collection("users")
         .document(
