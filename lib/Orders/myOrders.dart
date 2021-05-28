@@ -45,7 +45,6 @@ class _MyOrdersState extends State<MyOrders> {
                       itemCount: snapshot.data.documents.length,
                       itemBuilder: (c, index) {
                         List<String> products = [];
-
                         snapshot
                             .data.documents[index].data[EcommerceApp.productID]
                             .forEach((k, v) => products.add(k));

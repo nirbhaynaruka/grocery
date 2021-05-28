@@ -43,6 +43,7 @@ class _MyOrdersState extends State<AdminShiftOrders> {
                 ? ListView.builder(
                     itemCount: snapshot.data.documents.length,
                     itemBuilder: (c, index) {
+                      products.clear();
                       snapshot
                           .data.documents[index].data[EcommerceApp.productID]
                           .forEach((k, v) => products.add(k));

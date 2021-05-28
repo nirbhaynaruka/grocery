@@ -11,7 +11,6 @@ import 'package:intl/intl.dart';
 String getOrderId = "";
 
 class OrderDetails extends StatelessWidget {
- 
   final String orderId;
   final List<String> products = [];
 
@@ -30,8 +29,7 @@ class OrderDetails extends StatelessWidget {
               Map dataMap;
               if (snapshot.hasData) {
                 dataMap = snapshot.data.data;
-                
-
+                products.clear();
                 dataMap[EcommerceApp.productID]
                     .forEach((k, v) => products.add(k));
               }
